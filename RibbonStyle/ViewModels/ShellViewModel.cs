@@ -11,6 +11,8 @@ namespace RibbonStyle.ViewModels
 {
     public partial class ShellViewModel : ObservableObject
     {
+        [ObservableProperty]
+        bool isBackStageOpen=false;
         public List<GridItemStyle> GridItemStyles { get; set; } = new()
         {
             new(){Name="常规"},

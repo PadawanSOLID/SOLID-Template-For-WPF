@@ -23,7 +23,12 @@ namespace RibbonStyle.Views
         public ShellWindow()
         {
             InitializeComponent();
-           
+        }
+
+        private void TabItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            backStage.IsOpen = true;
+            e.Handled = true;
         }
     }
 }
