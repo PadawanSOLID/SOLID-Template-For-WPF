@@ -74,7 +74,6 @@
             ItemContainerStyle="{StaticResource Ribbon.TabItem}"
             SelectedIndex="1"
             Style="{StaticResource MahApps.Styles.TabControl.Animated}">
-
             <TabControl.Resources>
                 <Style
                     x:Key="baseFluentButton"

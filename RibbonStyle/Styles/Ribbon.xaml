@@ -1,0 +1,396 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Fluent="urn:fluent-ribbon"
+    xmlns:converters="clr-namespace:RibbonStyle.Converters"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
+    <ControlTemplate x:Key="ribbonTabControlTemplate" TargetType="{x:Type Fluent:RibbonTabControl}">
+        <ControlTemplate.Resources>
+            <Style TargetType="{x:Type ScrollViewer}">
+                <Setter Property="CanContentScroll" Value="True" />
+                <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
+                <Setter Property="PanningMode" Value="HorizontalOnly" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                            <Grid
+                                x:Name="Grid"
+                                Background="{TemplateBinding Background}"
+                                IsHitTestVisible="True">
+                                <ScrollContentPresenter
+                                    x:Name="PART_ScrollContentPresenter"
+                                    Margin="{TemplateBinding Padding}"
+                                    CanContentScroll="{TemplateBinding CanContentScroll}"
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    IsHitTestVisible="True" />
+                                <RepeatButton
+                                    Width="13"
+                                    Height="Auto"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Stretch"
+                                    Command="{x:Static ScrollBar.LineLeftCommand}"
+                                    CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                                    Focusable="false"
+                                    Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}">
+                                    <RepeatButton.Visibility>
+                                        <MultiBinding
+                                            Converter="{StaticResource Fluent.Ribbon.Converters.MenuScrollingVisibilityConverter}"
+                                            ConverterParameter="0"
+                                            FallbackValue="Visibility.Collapsed">
+                                            <Binding Path="ComputedHorizontalScrollBarVisibility" RelativeSource="{RelativeSource TemplatedParent}" />
+                                            <Binding Path="HorizontalOffset" RelativeSource="{RelativeSource TemplatedParent}" />
+                                            <Binding Path="ExtentWidth" RelativeSource="{RelativeSource TemplatedParent}" />
+                                            <Binding Path="ViewportWidth" RelativeSource="{RelativeSource TemplatedParent}" />
+                                        </MultiBinding>
+                                    </RepeatButton.Visibility>
+                                    <Path
+                                        Width="3"
+                                        Height="5"
+                                        Margin="0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Data="M0,0L1,1 1,-1z"
+                                        Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
+                                        Stretch="Fill"
+                                        Stroke="{x:Null}"
+                                        StrokeThickness="0" />
+                                </RepeatButton>
+                                <RepeatButton
+                                    Width="13"
+                                    Height="Auto"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Stretch"
+                                    Command="{x:Static ScrollBar.LineRightCommand}"
+                                    CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                                    Focusable="false"
+                                    Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}">
+                                    <RepeatButton.Visibility>
+                                        <MultiBinding
+                                            Converter="{StaticResource Fluent.Ribbon.Converters.MenuScrollingVisibilityConverter}"
+                                            ConverterParameter="100"
+                                            FallbackValue="Visibility.Collapsed">
+                                            <Binding Path="ComputedHorizontalScrollBarVisibility" RelativeSource="{RelativeSource TemplatedParent}" />
+                                            <Binding Path="HorizontalOffset" RelativeSource="{RelativeSource TemplatedParent}" />
+                                            <Binding Path="ExtentWidth" RelativeSource="{RelativeSource TemplatedParent}" />
+                                            <Binding Path="ViewportWidth" RelativeSource="{RelativeSource TemplatedParent}" />
+                                        </MultiBinding>
+                                    </RepeatButton.Visibility>
+                                    <Path
+                                        Width="3"
+                                        Height="5"
+                                        Margin="0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Data="M1,0L0,1 0,-1z"
+                                        Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
+                                        Stretch="Fill"
+                                        Stroke="{x:Null}"
+                                        StrokeThickness="0" />
+                                </RepeatButton>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="VerticalScrollBarVisibility" Value="Disabled" />
+            </Style>
+        </ControlTemplate.Resources>
+        <Grid
+            x:Name="ContentGrid"
+            Height="Auto"
+            VerticalAlignment="Top"
+            KeyboardNavigation.TabNavigation="Local">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition
+                    x:Name="rowDefinition"
+                    MinHeight="{TemplateBinding ContentHeight}"
+                    MaxHeight="{TemplateBinding ContentHeight}" />
+                <RowDefinition
+                    x:Name="rowDefinition1"
+                    MinHeight="{TemplateBinding ContentGapHeight}"
+                    MaxHeight="{TemplateBinding ContentGapHeight}" />
+            </Grid.RowDefinitions>
+            <!--<Border
+                x:Name="border"
+                Grid.Row="1"
+                Width="Auto"
+                ClipToBounds="True"
+                Margin="0,-1,0,0"
+                HorizontalAlignment="Stretch"
+                BorderBrush="{Binding Path=SelectedTabItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}, FallbackValue=Transparent}"
+                BorderThickness="0,1"
+                CornerRadius="{Binding Path=(mah:ControlsHelper.CornerRadius), RelativeSource={RelativeSource AncestorType=Fluent:Ribbon}}" />-->
+
+            <Border
+                Grid.Row="1"
+                HorizontalAlignment="Stretch"
+                Background="White"
+                BorderThickness="0"
+                ClipToBounds="True"
+                CornerRadius="{Binding Path=(mah:ControlsHelper.CornerRadius), RelativeSource={RelativeSource AncestorType=Fluent:Ribbon}}"
+                KeyboardNavigation.DirectionalNavigation="Contained"
+                KeyboardNavigation.TabIndex="2"
+                KeyboardNavigation.TabNavigation="Local"
+                TextElement.Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground}">
+                <ContentControl
+                    x:Name="mainContentControl"
+                    Margin="5"
+                    Focusable="False">
+                    <ContentPresenter
+                        x:Name="PART_SelectedContentPresenter"
+                        Margin="0"
+                        HorizontalAlignment="Stretch"
+                        ContentSource="SelectedContent" />
+                </ContentControl>
+            </Border>
+            <Border
+                Grid.Row="2"
+                Margin="0"
+                VerticalAlignment="Stretch"
+                Background="{Binding Path=SelectedTabItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}, FallbackValue=Transparent}" />
+            <Grid
+                x:Name="TabsGrid"
+                Grid.Row="0"
+                Width="Auto"
+                Margin="0"
+                HorizontalAlignment="Stretch"
+                Background="#f0f0f0"
+                KeyboardNavigation.TabIndex="1"
+                TextElement.Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.TabsGrid.Foreground}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Fluent:WindowSteeringHelperControl Grid.ColumnSpan="4" />
+
+                <ContentPresenter
+                    Grid.Column="0"
+                    Margin="0,0,0,1"
+                    VerticalAlignment="Stretch"
+                    ContentSource="Menu" />
+
+                <Fluent:RibbonScrollViewer
+                    Grid.Column="1"
+                    Width="Auto"
+                    Margin="0"
+                    HorizontalAlignment="Left"
+                    HorizontalScrollBarVisibility="Auto"
+                    IsHitTestVisible="True"
+                    IsTabStop="False"
+                    Style="{DynamicResource Fluent.Ribbon.Styles.RibbonTabScrollViewer}"
+                    VerticalScrollBarVisibility="Disabled"
+                    Visibility="{Binding AreTabHeadersVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
+                    <Fluent:RibbonTabsContainer
+                        x:Name="PART_TabsContainer"
+                        Height="Auto"
+                        Margin="0"
+                        HorizontalAlignment="Stretch"
+                        IsItemsHost="True"
+                        KeyboardNavigation.TabIndex="1" />
+                </Fluent:RibbonScrollViewer>
+
+                <StackPanel
+                    Grid.Column="3"
+                    Margin="0,0,0,1"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <StackPanel
+                        x:Name="PART_ToolbarPanel"
+                        Orientation="Horizontal"
+                        Visibility="{Binding IsToolBarVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
+
+                    <Fluent:DropDownButton
+                        x:Name="PART_DisplayOptionsButton"
+                        Width="22"
+                        Height="22"
+                        Margin="0"
+                        Icon="{DynamicResource Fluent.Ribbon.Images.RibbonDisplayOptions}"
+                        Size="Small"
+                        Style="{DynamicResource Fluent.Ribbon.Styles.RibbonTabControl.DisplayOptionsButton}"
+                        ToolTip="{DynamicResource Fluent.Ribbon.ScreenTips.Resources.RibbonTabControl.DisplayOptionsScreenTip}"
+                        Visibility="{Binding IsDisplayOptionsButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
+                        <Fluent:MenuItem
+                            FontWeight="Bold"
+                            Foreground="{DynamicResource Fluent.Ribbon.Brushes.Black}"
+                            Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ShowRibbon, Mode=OneWay}"
+                            IsEnabled="False"
+                            Opacity="1"
+                            Template="{DynamicResource Fluent.Ribbon.Templates.MenuItem.HeaderOnly}"
+                            Visibility="{Binding CanMinimize, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
+                        <Fluent:MenuItem
+                            Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ExpandRibbon, Mode=OneWay}"
+                            IsCheckable="True"
+                            IsChecked="{Binding IsMinimized, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static converters:InverseBoolConverter.Instance}}"
+                            Visibility="{Binding CanMinimize, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
+                        <Fluent:MenuItem
+                            Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MinimizeRibbon, Mode=OneWay}"
+                            IsCheckable="True"
+                            IsChecked="{Binding IsMinimized, RelativeSource={RelativeSource TemplatedParent}}"
+                            Visibility="{Binding CanMinimize, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
+                        <Separator
+                            x:Name="DisplayOptionsButtonMenuSeparator"
+                            Style="{x:Null}"
+                            Visibility="Collapsed" />
+                        <Fluent:MenuItem
+                            FontWeight="Bold"
+                            Foreground="{DynamicResource Fluent.Ribbon.Brushes.Black}"
+                            Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.RibbonLayout, Mode=OneWay}"
+                            IsEnabled="False"
+                            Opacity="1"
+                            Template="{DynamicResource Fluent.Ribbon.Templates.MenuItem.HeaderOnly}"
+                            Visibility="{Binding CanUseSimplified, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
+                        <Fluent:MenuItem
+                            Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.UseClassicRibbon, Mode=OneWay}"
+                            IsCheckable="True"
+                            IsChecked="{Binding IsSimplified, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static converters:InverseBoolConverter.Instance}}"
+                            Visibility="{Binding CanUseSimplified, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
+                        <Fluent:MenuItem
+                            Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.UseSimplifiedRibbon, Mode=OneWay}"
+                            IsCheckable="True"
+                            IsChecked="{Binding IsSimplified, RelativeSource={RelativeSource TemplatedParent}}"
+                            Visibility="{Binding CanUseSimplified, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
+                    </Fluent:DropDownButton>
+                </StackPanel>
+            </Grid>
+
+
+
+            <Popup
+                x:Name="PART_Popup"
+                AllowsTransparency="True"
+                IsOpen="{TemplateBinding IsDropDownOpen}"
+                Placement="Custom"
+                PlacementTarget="{Binding Path=SelectedTabItem, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="{x:Static Fluent:RibbonTabControl.AdditionalPopupSpaceForKeyTipsGridLength}" />
+
+
+                        <RowDefinition MinHeight="{TemplateBinding ContentHeight}" MaxHeight="{TemplateBinding ContentHeight}" />
+                        <RowDefinition Height="{x:Static Fluent:RibbonTabControl.AdditionalPopupSpaceForKeyTipsGridLength}" />
+
+
+                    </Grid.RowDefinitions>
+                    <Border
+                        Grid.Row="1"
+                        Margin="1,0"
+                        Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}"
+                        BorderBrush="{Binding Path=SelectedTabItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}, FallbackValue=Transparent}"
+                        BorderThickness="0,0,0,1"
+                        KeyboardNavigation.DirectionalNavigation="Contained"
+                        KeyboardNavigation.TabNavigation="Local"
+                        TextElement.Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground}">
+                        <ContentControl
+                            x:Name="popupContentControl"
+                            Margin="0"
+                            Focusable="False" />
+                    </Border>
+                </Grid>
+            </Popup>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMinimized" Value="True">
+                <Setter TargetName="mainContentControl" Property="Content" Value="{x:Null}" />
+                <Setter TargetName="popupContentControl" Property="Content" Value="{Binding ElementName=PART_SelectedContentPresenter, Mode=OneWay}" />
+                <Setter TargetName="rowDefinition" Property="MinHeight" Value="0" />
+                <Setter TargetName="rowDefinition1" Property="MinHeight" Value="0" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="CanMinimize" Value="False" />
+                    <Condition Property="CanUseSimplified" Value="False" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="PART_DisplayOptionsButton" Property="Visibility" Value="Collapsed" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="CanMinimize" Value="True" />
+                    <Condition Property="CanUseSimplified" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="DisplayOptionsButtonMenuSeparator" Property="Visibility" Value="Visible" />
+            </MultiTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style
+        x:Key="ribbonTabControlStyle"
+        BasedOn="{StaticResource Fluent.Ribbon.Styles.RibbonTabControl}"
+        TargetType="Fluent:RibbonTabControl">
+        <Setter Property="Template" Value="{StaticResource ribbonTabControlTemplate}" />
+    </Style>
+    <ControlTemplate x:Key="ribbonTemplate" TargetType="{x:Type Fluent:Ribbon}">
+        <ControlTemplate.Resources>
+            <Style BasedOn="{StaticResource Fluent.Ribbon.Styles.MenuSeparator}" TargetType="{x:Type Separator}" />
+        </ControlTemplate.Resources>
+        <Border
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="{TemplateBinding BorderThickness}">
+            <Grid
+                Name="PART_LayoutRoot"
+                Width="Auto"
+                Height="Auto">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Fluent:RibbonTabControl
+                    Name="PART_RibbonTabControl"
+                    AreTabHeadersVisible="{TemplateBinding AreTabHeadersVisible}"
+                    ContentHeight="{TemplateBinding ContentHeight}"
+                    ContextMenu="{Binding ContextMenu, ElementName=PART_LayoutRoot}"
+                    IsDisplayOptionsButtonVisible="{TemplateBinding IsDisplayOptionsButtonVisible}"
+                    IsMouseWheelScrollingEnabled="{TemplateBinding IsMouseWheelScrollingEnabled}"
+                    IsMouseWheelScrollingEnabledEverywhere="{TemplateBinding IsMouseWheelScrollingEnabledEverywhere}"
+                    IsToolBarVisible="{TemplateBinding IsToolBarVisible}"
+                    Menu="{TemplateBinding Menu}"
+                    Style="{StaticResource ribbonTabControlStyle}" />
+                <ContentControl
+                    Name="quickAccessToolBarHolder"
+                    Grid.Row="1"
+                    Height="{TemplateBinding QuickAccessToolBarHeight}"
+                    HorizontalAlignment="Left">
+                    <Fluent:QuickAccessToolBar
+                        Name="PART_QuickAccessToolBar"
+                        HorizontalAlignment="Left"
+                        Focusable="False"
+                        IsMenuDropDownVisible="{TemplateBinding IsQuickAccessToolBarMenuDropDownVisible}"
+                        ShowAboveRibbon="{Binding ShowQuickAccessToolBarAboveRibbon, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
+                </ContentControl>
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="Fluent:Ribbon.IsQuickAccessToolBarVisible" Value="False">
+                <Setter TargetName="PART_QuickAccessToolBar" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="quickAccessToolBarHolder" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="Fluent:Ribbon.IsCollapsed" Value="True">
+                <Setter TargetName="PART_RibbonTabControl" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="quickAccessToolBarHolder" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="Fluent:Ribbon.QuickAccessToolBar" Value="{x:Null}">
+                <Setter TargetName="quickAccessToolBarHolder" Property="Content" Value="{x:Null}" />
+                <Setter TargetName="quickAccessToolBarHolder" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="Fluent:Ribbon.ShowQuickAccessToolBarAboveRibbon" Value="True">
+                <Setter TargetName="quickAccessToolBarHolder" Property="Content" Value="{x:Null}" />
+                <Setter TargetName="quickAccessToolBarHolder" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="Fluent:Ribbon.IsSimplified" Value="True">
+                <Setter TargetName="PART_RibbonTabControl" Property="Fluent:RibbonTabControl.ContentHeight" Value="42" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+
+    </ControlTemplate>
+    <Style
+        x:Key="ribbonStyle"
+        BasedOn="{StaticResource Fluent.Ribbon.Styles.Ribbon}"
+        TargetType="Fluent:Ribbon">
+        <Setter Property="Template" Value="{StaticResource ribbonTemplate}" />
+    </Style>
+
+</ResourceDictionary>
