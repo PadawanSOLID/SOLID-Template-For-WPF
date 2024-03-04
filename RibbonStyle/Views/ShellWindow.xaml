@@ -19,7 +19,7 @@
     TitleCharacterCasing="Normal"
     WindowStartupLocation="CenterScreen"
     WindowState="Maximized"
-    WindowTitleBrush="#FFE9EFF2"
+    WindowTitleBrush="{StaticResource ActiveThemeBackground}"
     mc:Ignorable="d">
     <mah:MetroWindow.TitleTemplate>
         <DataTemplate>

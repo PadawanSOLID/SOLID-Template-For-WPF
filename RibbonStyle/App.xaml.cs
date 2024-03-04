@@ -22,6 +22,7 @@ namespace RibbonStyle
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<ShellWindow, ShellViewModel>();
+            containerRegistry.RegisterForNavigation<RibbonView, RibbonViewModel>();
         }
     }
 

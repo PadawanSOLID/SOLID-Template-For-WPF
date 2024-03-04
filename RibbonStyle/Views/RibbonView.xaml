@@ -8,8 +8,13 @@
     xmlns:local="clr-namespace:RibbonStyle.Views"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:vm="clr-namespace:RibbonStyle.ViewModels"
+    d:DataContext="{d:DesignInstance Type=vm:RibbonViewModel,
+                                     IsDesignTimeCreatable=True}"
     d:DesignHeight="1080"
     d:DesignWidth="1920"
+    prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
     <Fluent:Ribbon
         Margin="10"
@@ -65,10 +70,50 @@
         </Fluent:Ribbon.Resources>
         <Fluent:Ribbon.Menu>
             <Fluent:Backstage>
-                <Fluent:BackstageTabControl>
+                <Fluent:BackstageTabControl ItemsPanelMinWidth="150" Template="{StaticResource backStageTemplate}">
                     <Fluent:BackstageTabItem Header="开始" Icon="{iconPacks:Codicons Kind=Home}">
                         <ScrollViewer>
-                            <StackPanel />
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource tabContentHeader}" Text="晚上好" />
+                                <Expander
+                                    Margin="10"
+                                    mah:HeaderedControlHelper.HeaderBackground="Transparent"
+                                    BorderThickness="0"
+                                    mah:HeaderedControlHelper.HeaderFontSize="16"
+                                    mah:HeaderedControlHelper.HeaderFontWeight="Bold"
+                                    mah:HeaderedControlHelper.HeaderForeground="{StaticResource MahApps.Brushes.ThemeForeground}"
+                                    mah:HeaderedControlHelper.HeaderMargin="10,5"
+                                    BorderBrush="{StaticResource ActiveThemeBackground}"
+                                    Header="新建">
+
+                                    <ListBox ItemsSource="{Binding TableTemplates}">
+                                        <ListBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Horizontal" />
+                                            </ItemsPanelTemplate>
+                                        </ListBox.ItemsPanel>
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border Margin="15">
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition />
+                                                            <RowDefinition Height="auto" />
+                                                        </Grid.RowDefinitions>
+                                                        <Image Source="{Binding Path}" Width="120" Height="90" Stretch="Fill"/>
+                                                        <TextBlock
+                                                            Grid.Row="1"
+                                                            Margin="10"
+                                                            FontWeight="Bold"
+                                                            Text="{Binding Name}"  TextAlignment="Center"/>
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </Expander>
+                                <Separator Style="{x:Null}" Margin="10" Opacity="0.3"/>
+                            </StackPanel>
                         </ScrollViewer>
                     </Fluent:BackstageTabItem>
                     <Fluent:BackstageTabItem Header="新建" Icon="{iconPacks:Codicons Kind=File}" />
@@ -76,7 +121,11 @@
 
                     <Fluent:SeparatorTabItem />
 
-                    <Fluent:BackstageTabItem Header="获取加载项" />
+                    <Fluent:BackstageTabItem Header="获取加载项">
+                        <Fluent:BackstageTabItem.Icon>
+                            <iconPacks:PackIconFeatherIcons BorderThickness="1" Kind="Grid" />
+                        </Fluent:BackstageTabItem.Icon>
+                    </Fluent:BackstageTabItem>
                     <Fluent:BackstageTabItem Header="信息" />
                     <Fluent:BackstageTabItem Header="保存" />
                     <Fluent:BackstageTabItem Header="另存为" />
@@ -87,15 +136,11 @@
                     <Fluent:BackstageTabItem Header="发布" />
                     <Fluent:BackstageTabItem Header="关闭" />
 
-
+                    <Fluent:SeparatorTabItem DockPanel.Dock="Bottom" Opacity="0" />
                     <Fluent:BackstageTabItem
                         VerticalAlignment="Bottom"
                         DockPanel.Dock="Bottom"
                         Header="选项" />
-                    <Fluent:BackstageTabItem
-                        VerticalAlignment="Bottom"
-                        DockPanel.Dock="Bottom"
-                        Header="反馈" />
                     <Fluent:BackstageTabItem
                         VerticalAlignment="Bottom"
                         DockPanel.Dock="Bottom"
