@@ -117,10 +117,96 @@
 
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    <Style TargetType="Fluent:RibbonTabItem">
+    <Style x:Key="ribbonTabItemStyle" TargetType="Fluent:RibbonTabItem">
         <Setter Property="Foreground" Value="Black" />
         <Setter Property="Padding" Value="10,1" />
         <!--<Setter Property="Background" Value="#f0f0f0" />-->
         <Setter Property="Template" Value="{StaticResource excelStyleRibbonTabItem}" />
+    </Style>
+
+    <ControlTemplate x:Key="win10RibbonTabItem" TargetType="{x:Type Fluent:RibbonTabItem}">
+        <Grid
+            x:Name="grid"
+            Height="Auto"
+            Background="{TemplateBinding Background}">
+            <Border
+                x:Name="selectedBorder"
+                VerticalAlignment="Stretch"
+                Background="{TemplateBinding ActiveTabBackground}"
+                BorderBrush="Transparent"
+                BorderThickness="1,1,1,0"
+                Visibility="Collapsed" />
+            <Border
+                x:Name="mouseOverBorder"
+                Background="{TemplateBinding Background}"
+                BorderThickness="0" />
+            <Border
+                x:Name="PART_ContentContainer"
+                Margin="{TemplateBinding Padding}"
+                Padding="{TemplateBinding HeaderPadding}"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+                <ContentControl
+                    x:Name="PART_HeaderContentHost"
+                    Content="{TemplateBinding Header}"
+                    ContentTemplate="{TemplateBinding HeaderTemplate}"
+                    ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                    Focusable="False" />
+            </Border>
+            <Grid
+                x:Name="separatorGrid"
+                Width="1"
+                Margin="0"
+                HorizontalAlignment="Right"
+                Visibility="Collapsed">
+                <Rectangle
+                    x:Name="separatorRectangle1"
+                    Width="1"
+                    Margin="0"
+                    Fill="{TemplateBinding BorderBrush}"
+                    Stroke="{TemplateBinding BorderBrush}" />
+            </Grid>
+        </Grid>
+
+        <ControlTemplate.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Selector.IsSelected" Value="True" />
+                    <Condition Property="IsMouseOver" Value="False" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="selectedBorder" Property="Visibility" Value="Visible" />
+                <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.AccentBase}" />
+
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Selector.IsSelected" Value="False" />
+                    <Condition Property="IsMouseOver" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Background" Value="{Binding Path=(Fluent:RibbonProperties.MouseOverBackground), RelativeSource={RelativeSource Self}}" />
+
+
+            </MultiTrigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="PART_ContentContainer" Property="Opacity" Value="0.5" />
+            </Trigger>
+            <Trigger Property="IsSeparatorVisible" Value="True">
+                <Setter TargetName="selectedBorder" Property="Margin" Value="0,0,1,0" />
+                <Setter TargetName="separatorGrid" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="Selector.IsSelected" Value="True">
+                <Setter TargetName="selectedBorder" Property="Visibility" Value="Visible" />
+                <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.AccentBase}" />
+            </Trigger>
+
+
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="win10ribbonTabItemStyle" TargetType="Fluent:RibbonTabItem">
+        <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.ThemeBackground}" />
+        <Setter Property="Padding" Value="5,3" />
+        <Setter Property="Template" Value="{StaticResource win10RibbonTabItem}" />
+        <Setter Property="Fluent:RibbonProperties.MouseOverBackground" Value="#FF0E5C2F" />
     </Style>
 </ResourceDictionary>

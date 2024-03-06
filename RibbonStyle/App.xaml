@@ -15,13 +15,16 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Emerald.xaml" />
                 <ResourceDictionary Source="/Styles/Brushes.xaml" />
+                <ResourceDictionary Source="/Styles/TextBlock.xaml" />
+
                 <ResourceDictionary Source="/Styles/Button.xaml" />
                 <ResourceDictionary Source="/Styles/TabControl.xaml" />
                 <ResourceDictionary Source="/Styles/BackStageTabControl.xaml" />
                 <ResourceDictionary Source="/Styles/BackStageTabControlItem.xaml" />
                 <ResourceDictionary Source="/Styles/RibbonTabItem.xaml" />
+                <ResourceDictionary Source="/Styles/RibbonTabControl.xaml" />
                 <ResourceDictionary Source="/Styles/Ribbon.xaml" />
-                <ResourceDictionary Source="/Styles/TextBlock.xaml" />
+
 
 
             </ResourceDictionary.MergedDictionaries>

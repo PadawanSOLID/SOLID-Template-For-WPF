@@ -1,5 +1,5 @@
 ﻿<mah:MetroWindow
-    x:Class="RibbonStyle.Views.ShellWindow"
+    x:Class="RibbonStyle.Views.Win11ShellWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cz="urn:controlzex"

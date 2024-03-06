@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,19 +11,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace RibbonStyle.Views
 {
     /// <summary>
-    /// RibbonView.xaml 的交互逻辑
+    /// ShellWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class RibbonView : UserControl
+    public partial class Win11ShellWindow : MetroWindow
     {
-        public RibbonView()
+        public Win11ShellWindow()
         {
             InitializeComponent();
+        }
+
+        private void TabItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            backStage.IsOpen = true;
+            e.Handled = true;
         }
     }
 }

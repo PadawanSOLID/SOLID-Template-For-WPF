@@ -1,0 +1,40 @@
+﻿<mah:MetroWindow
+    x:Class="RibbonStyle.Views.Win10ShellWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Fluent="urn:fluent-ribbon"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:local="clr-namespace:RibbonStyle.Views"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:view="clr-namespace:RibbonStyle.Views"
+    Title="ShellRibbonWindow"
+    Width="1600"
+    Height="900" TitleAlignment="Center"
+    Background="{StaticResource Fluent.Ribbon.Brushes.Gray8}"
+    NonActiveWindowTitleBrush="{StaticResource MahApps.Brushes.AccentBase}"
+    TitleBarHeight="33"
+    TitleCharacterCasing="Normal"
+    WindowTitleBrush="{StaticResource MahApps.Brushes.AccentBase}"
+    mc:Ignorable="d">
+    <mah:MetroWindow.LeftWindowCommands>
+        <mah:WindowCommands ShowSeparators="False" >
+            <Button>
+                <iconPacks:PackIconMaterialDesign Kind="Save" />
+            </Button>
+            <mah:SplitButton  Foreground="White">
+                <mah:SplitButton.Icon>
+                    <iconPacks:PackIconMaterial Kind="ArrowULeftTop" />
+                </mah:SplitButton.Icon>
+            </mah:SplitButton>
+            <mah:SplitButton  Foreground="White">
+                <mah:SplitButton.Icon>
+                    <iconPacks:PackIconMaterial Kind="ArrowURightTop" />
+                </mah:SplitButton.Icon>
+            </mah:SplitButton>
+            <Fluent:QuickAccessToolBar/>
+        </mah:WindowCommands>
+    </mah:MetroWindow.LeftWindowCommands>
+    <view:Win10RibbonView />
+</mah:MetroWindow>

@@ -262,5 +262,6 @@
         <Setter Property="ItemContainerStyleSelector" Value="{x:Static styles:BackstageTabControlItemContainerStyleSelector.Instance}" />
         <Setter Property="ItemsPanelBackground" Value="{StaticResource ActiveThemeBackground}" />
     </Style>
-
+    <Style BasedOn="{StaticResource Fluent.Ribbon.Styles.BackstageTabControl}" TargetType="fluent:BackstageTabControl" x:Key="win10BackStageTabControlStyle">
+    </Style>
 </ResourceDictionary>

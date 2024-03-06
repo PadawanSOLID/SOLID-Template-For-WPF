@@ -16,13 +16,14 @@ namespace RibbonStyle
         protected override Window CreateShell()
         {
             //return     Container.Resolve<ShellWindow>();
-            return Container.Resolve<ShellRibbonWindow>();
+            return Container.Resolve<Win10ShellWindow>();
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterForNavigation<ShellWindow, ShellViewModel>();
-            containerRegistry.RegisterForNavigation<RibbonView, RibbonViewModel>();
+            containerRegistry.RegisterForNavigation<Win11ShellWindow, ShellViewModel>();
+            containerRegistry.RegisterForNavigation<Win10RibbonView, RibbonViewModel>();
+            containerRegistry.RegisterForNavigation<Win11RibbonView, RibbonViewModel>();
         }
     }
 
