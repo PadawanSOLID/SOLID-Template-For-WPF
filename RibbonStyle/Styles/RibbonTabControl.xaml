@@ -132,7 +132,7 @@
                     RestartTransitionOnContentChange="True"
                     Transition="{TemplateBinding mah:TabControlHelper.Transition}"
                     UseLayoutRounding="True">
-                    <ContentPresenter
+                    <ContentPresenter 
                         x:Name="PART_SelectedContentPresenter"
                         Margin="{TemplateBinding Padding}"
                         ContentSource="SelectedContent"
@@ -170,7 +170,7 @@
                     Width="Auto"
                     Margin="0"
                     HorizontalAlignment="Left"
-                    HorizontalScrollBarVisibility="Auto"
+                    HorizontalScrollBarVisibility="Hidden"
                     IsHitTestVisible="True"
                     IsTabStop="False"
                     Style="{DynamicResource Fluent.Ribbon.Styles.RibbonTabScrollViewer}"
@@ -178,14 +178,13 @@
                     Visibility="{Binding AreTabHeadersVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
                     <DockPanel>
                         <TextBox
-                            BorderBrush="Transparent"
-                            Style="{StaticResource operationSearchTextBoxStyle}"
+                            Width="320"
                             Margin="1"
                             mah:TextBoxHelper.AutoWatermark="True"
-                            Width="320"
                             mah:TextBoxHelper.Watermark="操作说明搜索"
+                            BorderBrush="Transparent"
                             DockPanel.Dock="Right"
-/>
+                            Style="{StaticResource operationSearchTextBoxStyle}" />
                         <Fluent:RibbonTabsContainer
                             x:Name="PART_TabsContainer"
                             Height="Auto"

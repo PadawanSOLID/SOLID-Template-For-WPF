@@ -106,7 +106,6 @@
                 </MultiDataTrigger.Conditions>
                 <Setter TargetName="Underline" Property="LineThickness" Value="2" />
             </MultiDataTrigger>
-
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition SourceName="Border" Property="IsMouseOver" Value="True" />
@@ -114,7 +113,6 @@
                 </MultiTrigger.Conditions>
                 <Setter TargetName="Underline" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mah:TabControlHelper.UnderlineMouseOverSelectedBrush), Mode=OneWay}" />
             </MultiTrigger>
-
         </ControlTemplate.Triggers>
     </ControlTemplate>
     <Style x:Key="ribbonTabItemStyle" TargetType="Fluent:RibbonTabItem">
