@@ -14,7 +14,8 @@
         <Border
             Background="{TemplateBinding Background}"
             BorderBrush="{TemplateBinding BorderBrush}"
-            BorderThickness="{TemplateBinding BorderThickness}">
+            BorderThickness="{TemplateBinding BorderThickness}"
+            CornerRadius="{TemplateBinding mah:ControlsHelper.CornerRadius}">
             <Grid
                 Name="PART_LayoutRoot"
                 Width="Auto"
@@ -77,6 +78,9 @@
         BasedOn="{StaticResource Fluent.Ribbon.Styles.Ribbon}"
         TargetType="Fluent:Ribbon">
         <Setter Property="Template" Value="{StaticResource ribbonTemplate}" />
+        <Setter Property="ap:RibbonTabControlHelper.Style" Value="{StaticResource ribbonTabControlStyle}" />
+        <Setter Property="ap:RibbonTabControlHelper.TabBackground" Value="{StaticResource ActiveThemeBackground}" />
+        <Setter Property="ap:RibbonTabControlHelper.ContentBackground" Value="{StaticResource MahApps.Brushes.ThemeBackground}" />
     </Style>
 
     <Style

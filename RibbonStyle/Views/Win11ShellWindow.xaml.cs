@@ -25,10 +25,5 @@ namespace RibbonStyle.Views
             InitializeComponent();
         }
 
-        private void TabItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            backStage.IsOpen = true;
-            e.Handled = true;
-        }
     }
 }
