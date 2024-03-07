@@ -1,0 +1,55 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Fluent="urn:fluent-ribbon">
+    <ControlTemplate x:Key="win11BackstageToggleButton" TargetType="{x:Type Fluent:Backstage}">
+        <Border
+            x:Name="border2"
+            Height="Auto"
+            Margin="0,0,0,0"
+            Background="Transparent"
+            TextElement.FontSize="14"
+            TextElement.Foreground="Black"
+            ToolTip="{TemplateBinding ToolTip}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <ContentPresenter
+                    x:Name="contentPresenter"
+                    Margin="10,2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    ContentSource="Header" />
+                <Border
+                    Name="udl"
+                    Grid.Row="1"
+                    Margin="10,0"
+                    BorderBrush="Black"
+                    BorderThickness="1"
+                    Opacity="0" />
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="udl" Property="Opacity" Value="0.5" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="border2" Property="Opacity" Value="0.5" />
+                <Setter TargetName="contentPresenter" Property="Effect">
+                    <Setter.Value>
+                        <Fluent:GrayscaleEffect />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style
+        x:Key="win11BackStageStyle"
+        BasedOn="{StaticResource Fluent.Ribbon.Styles.RibbonBackstage}"
+        TargetType="Fluent:Backstage">
+        <Setter Property="Template" Value="{StaticResource win11BackstageToggleButton}" />
+    </Style>
+</ResourceDictionary>

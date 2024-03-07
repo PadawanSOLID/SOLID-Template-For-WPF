@@ -23,6 +23,7 @@
                 <ResourceDictionary Source="/Styles/TabControl.xaml" />
                 <ResourceDictionary Source="/Styles/BackStageTabControl.xaml" />
                 <ResourceDictionary Source="/Styles/BackStageTabControlItem.xaml" />
+                <ResourceDictionary Source="/Styles/BackStage.xaml" />
                 <ResourceDictionary Source="/Styles/RibbonTabItem.xaml" />
                 <ResourceDictionary Source="/Styles/RibbonTabControl.xaml" />
                 <ResourceDictionary Source="/Styles/Ribbon.xaml" />

@@ -15,6 +15,7 @@
             Background="{TemplateBinding Background}"
             BorderBrush="{TemplateBinding BorderBrush}"
             BorderThickness="{TemplateBinding BorderThickness}"
+            ClipToBounds="True"
             CornerRadius="{TemplateBinding mah:ControlsHelper.CornerRadius}">
             <Grid
                 Name="PART_LayoutRoot"
@@ -74,15 +75,26 @@
     </ControlTemplate>
 
     <Style
-        x:Key="ribbonStyle"
+        x:Key="win11RibbonStyle"
         BasedOn="{StaticResource Fluent.Ribbon.Styles.Ribbon}"
         TargetType="Fluent:Ribbon">
         <Setter Property="Template" Value="{StaticResource ribbonTemplate}" />
-        <Setter Property="ap:RibbonTabControlHelper.Style" Value="{StaticResource ribbonTabControlStyle}" />
+        <Setter Property="ap:RibbonTabControlHelper.Style" Value="{StaticResource win11ibbonTabControlStyle}" />
         <Setter Property="ap:RibbonTabControlHelper.TabBackground" Value="{StaticResource ActiveThemeBackground}" />
         <Setter Property="ap:RibbonTabControlHelper.ContentBackground" Value="{StaticResource MahApps.Brushes.ThemeBackground}" />
+        <Setter Property="Margin" Value="10,3" />
+        <Setter Property="mah:ControlsHelper.CornerRadius" Value="10" />
+        <Setter Property="mah:HeaderedControlHelper.HeaderFontSize" Value="14" />
+        <Setter Property="mah:TabControlHelper.UnderlineBrush" Value="{DynamicResource MahApps.Brushes.Gray}" />
+        <Setter Property="mah:TabControlHelper.UnderlineMouseOverBrush" Value="{DynamicResource MahApps.Brushes.Gray.MouseOver}" />
+        <Setter Property="mah:TabControlHelper.UnderlineMouseOverSelectedBrush" Value="{DynamicResource MahApps.Brushes.Highlight}" />
+        <Setter Property="mah:TabControlHelper.UnderlineSelectedBrush" Value="{DynamicResource MahApps.Brushes.Accent}" />
+        <Setter Property="mah:TabControlHelper.Underlined" Value="SelectedTabItem" />
+        <Setter Property="Background" Value="{DynamicResource ActiveThemeBackground}" />
+        <Setter Property="ContentHeight" Value="100" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="SelectedTabIndex" Value="0" />
     </Style>
-
     <Style
         x:Key="win10RibbonStyle"
         BasedOn="{StaticResource Fluent.Ribbon.Styles.Ribbon}"

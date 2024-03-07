@@ -26,13 +26,14 @@
         <DataTemplate>
             <Button
                 MinWidth="100"
-                Padding="5"
+                Padding="20,5"
                 HorizontalAlignment="Left"
                 VerticalContentAlignment="Center"
                 Background="Transparent"
                 BorderThickness="0"
                 Content="{TemplateBinding Content}"
-                Style="{StaticResource MahApps.Styles.Button.Flat.Accent}" />
+                FontSize="13"
+                Style="{StaticResource windowCommandButtonStyle}" />
         </DataTemplate>
     </mah:MetroWindow.TitleTemplate>
     <mah:MetroWindow.Icon>
@@ -50,13 +51,43 @@
     </mah:MetroWindow.WindowButtonCommands>
     <mah:MetroWindow.LeftWindowCommands>
         <mah:WindowCommands ShowSeparators="False">
+            <mah:WindowCommands.Resources>
+                <Style BasedOn="{StaticResource MahApps.Styles.SplitButton.WindowCommands}" TargetType="mah:SplitButton" />
+            </mah:WindowCommands.Resources>
             <mah:ToggleSwitch Content="自动保存" />
-            <Button Content="{iconPacks:Unicons Kind=Save}" Foreground="Purple" />
-            <mah:DropDownButton Content="{iconPacks:JamIcons Kind=Undo}" Foreground="Black" />
-            <mah:DropDownButton Content="{iconPacks:JamIcons Kind=Redo}" Foreground="Black" />
+            <Button
+                Content="{iconPacks:Unicons Kind=Save}"
+                Foreground="Purple"
+                Style="{StaticResource windowCommandButtonStyle}" 
+                />
+            <mah:SplitButton Icon="{iconPacks:JamIcons Kind=Undo}" />
+            <mah:SplitButton Icon="{iconPacks:JamIcons Kind=Redo}" />
             <fluent:QuickAccessToolBar />
         </mah:WindowCommands>
     </mah:MetroWindow.LeftWindowCommands>
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands Padding="0">
+
+            <Button
+                MinWidth="156"
+                Margin="3,0"
+                Padding="10"
+                HorizontalContentAlignment="Stretch"
+                Style="{StaticResource windowCommandButtonStyle}">
+                <DockPanel>
+                    <iconPacks:PackIconCodicons
+                        Width="20"
+                        Height="20"
+                        DockPanel.Dock="Right"
+                        Kind="Account" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Text="User"
+                        TextAlignment="Center" />
+                </DockPanel>
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
