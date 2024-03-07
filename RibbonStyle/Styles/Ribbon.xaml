@@ -29,8 +29,8 @@
                     ContentHeight="{TemplateBinding ContentHeight}"
                     ContextMenu="{Binding ContextMenu, ElementName=PART_LayoutRoot}"
                     IsDisplayOptionsButtonVisible="{TemplateBinding IsDisplayOptionsButtonVisible}"
-                    IsMouseWheelScrollingEnabled="{TemplateBinding IsMouseWheelScrollingEnabled}"
-                    IsMouseWheelScrollingEnabledEverywhere="{TemplateBinding IsMouseWheelScrollingEnabledEverywhere}"
+                    IsMouseWheelScrollingEnabled="False"
+                    IsMouseWheelScrollingEnabledEverywhere="False"
                     IsToolBarVisible="{TemplateBinding IsToolBarVisible}"
                     Menu="{TemplateBinding Menu}"
                     Style="{TemplateBinding ap:RibbonTabControlHelper.Style}" />
@@ -83,9 +83,9 @@
         x:Key="win10RibbonStyle"
         BasedOn="{StaticResource Fluent.Ribbon.Styles.Ribbon}"
         TargetType="Fluent:Ribbon">
-        <Setter Property="ap:RibbonTabControlHelper.Style" Value="{StaticResource ribbonTabControlStyle}" />
 
         <Setter Property="Template" Value="{StaticResource ribbonTemplate}" />
+        <Setter Property="ap:RibbonTabControlHelper.Style" Value="{StaticResource win10RibbonTabControlStyle}" />
         <Setter Property="ap:RibbonTabControlHelper.TabBackground" Value="{StaticResource MahApps.Brushes.AccentBase}" />
         <Setter Property="ap:RibbonTabControlHelper.ContentBackground" Value="{StaticResource RibbonTabControlContentBackground}" />
 

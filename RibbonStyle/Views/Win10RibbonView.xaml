@@ -14,13 +14,13 @@
     d:DataContext="{d:DesignInstance Type=vm:RibbonViewModel,
                                      IsDesignTimeCreatable=True}"
     d:DesignHeight="1080"
-    d:DesignWidth="1920"
+    d:DesignWidth="1620"
     mc:Ignorable="d">
     <Fluent:Ribbon
         ContentHeight="110"
         FontSize="12"
         SelectedTabIndex="0"
-        Style="{StaticResource win10RibbonStyle}">
+        Style="{StaticResource win10RibbonStyle}" >
 
         <Fluent:Ribbon.Resources>
             <Style BasedOn="{StaticResource win10ribbonTabItemStyle}" TargetType="Fluent:RibbonTabItem" />
@@ -58,7 +58,6 @@
             <Style BasedOn="{StaticResource baseFluentDropDownButton}" TargetType="Fluent:DropDownButton" />
             <Style BasedOn="{StaticResource baseFluentSplitButton}" TargetType="Fluent:SplitButton" />
             <Style BasedOn="{StaticResource baseFluentComboBox}" TargetType="Fluent:ComboBox" />
-
         </Fluent:Ribbon.Resources>
         <Fluent:Ribbon.Menu>
             <Fluent:Backstage>

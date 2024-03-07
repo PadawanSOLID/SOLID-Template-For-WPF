@@ -11,29 +11,30 @@
     xmlns:view="clr-namespace:RibbonStyle.Views"
     Title="ShellRibbonWindow"
     Width="1600"
-    Height="900" TitleAlignment="Center"
+    Height="900"
     Background="{StaticResource Fluent.Ribbon.Brushes.Gray8}"
     NonActiveWindowTitleBrush="{StaticResource MahApps.Brushes.AccentBase}"
+    TitleAlignment="Center"
     TitleBarHeight="33"
     TitleCharacterCasing="Normal"
     WindowTitleBrush="{StaticResource MahApps.Brushes.AccentBase}"
     mc:Ignorable="d">
     <mah:MetroWindow.LeftWindowCommands>
-        <mah:WindowCommands ShowSeparators="False" >
+        <mah:WindowCommands ShowSeparators="False">
             <Button>
                 <iconPacks:PackIconMaterialDesign Kind="Save" />
             </Button>
-            <mah:SplitButton  Foreground="White">
+            <mah:SplitButton Foreground="White">
                 <mah:SplitButton.Icon>
                     <iconPacks:PackIconMaterial Kind="ArrowULeftTop" />
                 </mah:SplitButton.Icon>
             </mah:SplitButton>
-            <mah:SplitButton  Foreground="White">
+            <mah:SplitButton Foreground="White">
                 <mah:SplitButton.Icon>
                     <iconPacks:PackIconMaterial Kind="ArrowURightTop" />
                 </mah:SplitButton.Icon>
             </mah:SplitButton>
-            <Fluent:QuickAccessToolBar/>
+            <Fluent:QuickAccessToolBar />
         </mah:WindowCommands>
     </mah:MetroWindow.LeftWindowCommands>
     <view:Win10RibbonView />

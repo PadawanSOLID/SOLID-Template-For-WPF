@@ -7,11 +7,11 @@
     xmlns:converters="clr-namespace:RibbonStyle.Converters"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
     <ControlTemplate x:Key="ribbonTabControlTemplate" TargetType="{x:Type Fluent:RibbonTabControl}">
-        <ControlTemplate.Resources>
+        <!--<ControlTemplate.Resources>
             <Style TargetType="{x:Type ScrollViewer}">
-                <Setter Property="CanContentScroll" Value="True" />
-                <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
-                <Setter Property="PanningMode" Value="HorizontalOnly" />
+                <Setter Property="CanContentScroll" Value="False" />
+                <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
+                <Setter Property="PanningMode" Value="None" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ScrollViewer}">
@@ -34,8 +34,9 @@
                                     Command="{x:Static ScrollBar.LineLeftCommand}"
                                     CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                                     Focusable="false"
-                                    Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}">
-                                    <RepeatButton.Visibility>
+                                    Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}"
+                                    Visibility="Collapsed">
+                                    --><!--<RepeatButton.Visibility>
                                         <MultiBinding
                                             Converter="{StaticResource Fluent.Ribbon.Converters.MenuScrollingVisibilityConverter}"
                                             ConverterParameter="0"
@@ -45,7 +46,7 @@
                                             <Binding Path="ExtentWidth" RelativeSource="{RelativeSource TemplatedParent}" />
                                             <Binding Path="ViewportWidth" RelativeSource="{RelativeSource TemplatedParent}" />
                                         </MultiBinding>
-                                    </RepeatButton.Visibility>
+                                    </RepeatButton.Visibility>--><!--
                                     <Path
                                         Width="3"
                                         Height="5"
@@ -66,8 +67,9 @@
                                     Command="{x:Static ScrollBar.LineRightCommand}"
                                     CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                                     Focusable="false"
-                                    Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}">
-                                    <RepeatButton.Visibility>
+                                    Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}"
+                                    Visibility="Collapsed">
+                                    --><!--<RepeatButton.Visibility>
                                         <MultiBinding
                                             Converter="{StaticResource Fluent.Ribbon.Converters.MenuScrollingVisibilityConverter}"
                                             ConverterParameter="100"
@@ -77,7 +79,7 @@
                                             <Binding Path="ExtentWidth" RelativeSource="{RelativeSource TemplatedParent}" />
                                             <Binding Path="ViewportWidth" RelativeSource="{RelativeSource TemplatedParent}" />
                                         </MultiBinding>
-                                    </RepeatButton.Visibility>
+                                    </RepeatButton.Visibility>--><!--
                                     <Path
                                         Width="3"
                                         Height="5"
@@ -96,7 +98,7 @@
                 </Setter>
                 <Setter Property="VerticalScrollBarVisibility" Value="Disabled" />
             </Style>
-        </ControlTemplate.Resources>
+        </ControlTemplate.Resources>-->
         <Grid
             x:Name="ContentGrid"
             Height="Auto"
@@ -178,14 +180,13 @@
                     Visibility="{Binding AreTabHeadersVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
                     <DockPanel>
                         <TextBox
-                            BorderBrush="Transparent"
-                            Style="{StaticResource operationSearchTextBoxStyle}"
+                            Width="320"
                             Margin="1"
                             mah:TextBoxHelper.AutoWatermark="True"
-                            Width="320"
                             mah:TextBoxHelper.Watermark="操作说明搜索"
+                            BorderBrush="Transparent"
                             DockPanel.Dock="Right"
-/>
+                            Style="{StaticResource operationSearchTextBoxStyle}" />
                         <Fluent:RibbonTabsContainer
                             x:Name="PART_TabsContainer"
                             Height="Auto"
