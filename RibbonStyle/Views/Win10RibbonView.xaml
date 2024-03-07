@@ -20,7 +20,7 @@
         ContentHeight="110"
         FontSize="12"
         SelectedTabIndex="0"
-        Style="{StaticResource win10RibbonStyle}" >
+        Style="{StaticResource win10RibbonStyle}">
 
         <Fluent:Ribbon.Resources>
             <Style BasedOn="{StaticResource win10ribbonTabItemStyle}" TargetType="Fluent:RibbonTabItem" />

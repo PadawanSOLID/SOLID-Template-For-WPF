@@ -28,7 +28,7 @@
         Background="#f0f0f0"
         ContentHeight="110"
         FontSize="12"
-        SelectedTabIndex="0"
+        SelectedTabIndex="5"
         Style="{StaticResource ribbonStyle}">
 
         <Fluent:Ribbon.Resources>
@@ -548,8 +548,289 @@
         <Fluent:RibbonTabItem Header="页面布局" />
         <Fluent:RibbonTabItem Header="公式" />
         <Fluent:RibbonTabItem Header="数据" />
-        <Fluent:RibbonTabItem Header="审阅" />
-        <Fluent:RibbonTabItem Header="视图" />
-        <Fluent:RibbonTabItem Header="帮助" />
+        <Fluent:RibbonTabItem Header="审阅">
+            <Fluent:RibbonGroupBox Header="校对">
+                <Fluent:Button
+                    Header="拼写检查"
+                    Icon="{iconPacks:ForkAwesome Kind=SpellCheck,
+                                                 Width=30,
+                                                 Height=25}"
+                    SizeDefinition="Max,Small" />
+                <Fluent:Button
+                    Header="同义词库"
+                    Icon="{iconPacks:Modern Kind=BookHardcoverOpenWriting,
+                                            Width=30,
+                                            Height=25}"
+                    SizeDefinition="Max,Small" />
+                <Fluent:Button
+                    Header="工作溥 统计信息"
+                    Icon="{iconPacks:Material Kind=NoteMultipleOutline,
+                                              Width=30,
+                                              Height=25}"
+                    SizeDefinition="Max,Small" />
+            </Fluent:RibbonGroupBox>
+            <Fluent:RibbonGroupBox Header="中文简繁转换">
+                <Fluent:Button
+                    Header="繁转简"
+                    Icon="{iconPacks:Octicons Kind=Browser}"
+                    SizeDefinition="Middle" />
+                <Fluent:Button
+                    Header="简转繁"
+                    Icon="{iconPacks:Octicons Kind=Browser}"
+                    SizeDefinition="Middle" />
+                <Fluent:Button
+                    Header="简繁转换"
+                    Icon="{iconPacks:Octicons Kind=Browser}"
+                    SizeDefinition="Middle" />
+            </Fluent:RibbonGroupBox>
+            <Fluent:RibbonGroupBox Header="辅助功能">
+                <Fluent:SplitButton Header="检查 辅助功能">
+                    <Fluent:SplitButton.Icon>
+                        <iconPacks:PackIconZondicons
+                            Width="30"
+                            Height="30"
+                            HorizontalAlignment="Center"
+                            Kind="Paste" />
+                    </Fluent:SplitButton.Icon>
+                </Fluent:SplitButton>
+            </Fluent:RibbonGroupBox>
+            <Fluent:RibbonGroupBox Header="见解">
+                <Fluent:Button
+                    Header="智能查找"
+                    Icon="{iconPacks:FontAwesome Kind=SearchLocationSolid,
+                                                 Width=30,
+                                                 Height=25}"
+                    SizeDefinition="Max,Small" />
+            </Fluent:RibbonGroupBox>
+            <Fluent:RibbonGroupBox Header="语言">
+                <Fluent:Button
+                    Header="翻译"
+                    Icon="{iconPacks:Unicons Kind=EnglishToChinese,
+                                             Width=30,
+                                             Height=25}"
+                    SizeDefinition="Max,Small" />
+            </Fluent:RibbonGroupBox>
+            <Fluent:RibbonGroupBox Header="批准">
+                <Fluent:Button
+                    Header="新建 批注"
+                    Icon="{iconPacks:RemixIcon Kind=ChatNewLine,
+                                               Width=30,
+                                               Height=25}"
+                    SizeDefinition="Max,Small" />
+                <Fluent:Button
+                    Header="删除"
+                    Icon="{iconPacks:RemixIcon Kind=ChatDeleteLine,
+                                               Width=30,
+                                               Height=25}"
+                    SizeDefinition="Max,Small" />
+                <Fluent:Button
+                    Header="上一条"
+                    Icon="{iconPacks:FontAwesome Kind=ArrowAltCircleLeftRegular,
+                                                 Width=30,
+                                                 Height=25}"
+                    SizeDefinition="Max,Small" />
+                <Fluent:Button
+                    Header="下一条"
+                    Icon="{iconPacks:ForkAwesome Kind=ArrowCircleOutlineRight,
+                                                 Width=30,
+                                                 Height=25}"
+                    SizeDefinition="Max,Small" />
+                <Fluent:Button
+                    Header="显示/隐藏批注"
+                    Icon="{iconPacks:Material Kind=MessageOffOutline}"
+                    Opacity="0.38"
+                    SizeDefinition="Middle" />
+                <Fluent:Button
+                    Header="显示所有批注"
+                    Icon="{iconPacks:Material Kind=MessageOutline}"
+                    SizeDefinition="Middle" />
+
+            </Fluent:RibbonGroupBox>
+            <Fluent:RibbonGroupBox Header="保护">
+                <Fluent:Button
+                    Header="保护工作表"
+                    Icon="{iconPacks:Unicons Kind=FileLockAlt,
+                                             Width=30,
+                                             Height=25}"
+                    SizeDefinition="Max,Small" />
+                <Fluent:Button
+                    Header="保护工作溥"
+                    Icon="{iconPacks:Unicons Kind=FileLockAlt,
+                                             Width=30,
+                                             Height=25}"
+                    SizeDefinition="Max,Small" />
+                <Fluent:Button
+                    Header="允许编辑区域"
+                    Icon="{iconPacks:Material Kind=NoteMultipleOutline,
+                                              Width=30,
+                                              Height=25}"
+                    SizeDefinition="Max,Small" />
+                <Fluent:Button
+                    Header="取消编辑区域"
+                    Icon="{iconPacks:ForkAwesome Kind=SpellCheck,
+                                                 Width=30,
+                                                 Height=25}"
+                    Opacity="0.38"
+                    SizeDefinition="Max,Small" />
+            </Fluent:RibbonGroupBox>
+            <Fluent:RibbonGroupBox Header="墨迹">
+                <Fluent:Button
+                    Header="隐藏墨迹"
+                    Icon="{iconPacks:FontAwesome Kind=StickyNoteRegular,
+                                                 Width=30,
+                                                 Height=25}"
+                    SizeDefinition="Max,Small" />
+
+            </Fluent:RibbonGroupBox>
+        </Fluent:RibbonTabItem>
+        <Fluent:RibbonTabItem Header="视图">
+            <Fluent:RibbonGroupBox Header="工作簿">
+                <Fluent:Button
+                    Header="普通"
+                    Icon="{iconPacks:Modern Kind=DrawPixelGrid,
+                                            Width=30,
+                                            Height=25}"
+                    SizeDefinition="Max,Small" />
+                <Fluent:Button
+                    Header="分页 预览"
+                    Icon="{iconPacks:Modern Kind=DrawPixelGrid,
+                                            Width=30,
+                                            Height=25}"
+                    SizeDefinition="Max,Small" />
+                <Fluent:Button
+                    Header="页面布局"
+                    Icon="{iconPacks:Material Kind=NoteMultipleOutline,
+                                              Width=30,
+                                              Height=25}"
+                    SizeDefinition="Max,Small" />
+            </Fluent:RibbonGroupBox>
+            <Fluent:RibbonGroupBox Height="80" Header="显示">
+                <Fluent:CheckBox Header="直尺" />
+                <Fluent:CheckBox Header="网格线" />
+                <Fluent:CheckBox Header="编辑栏" />
+                <Fluent:CheckBox Header="标题" />
+            </Fluent:RibbonGroupBox>
+            <Fluent:RibbonGroupBox Header="缩放">
+                <Fluent:Button
+                    Header="缩放"
+                    Icon="{iconPacks:Microns Kind=Search,
+                                             Width=30,
+                                             Height=25}"
+                    SizeDefinition="Max,Small" />
+                <Fluent:Button
+                    Header="100%"
+                    Icon="{iconPacks:Unicons Kind=FileExport,
+                                             Width=30,
+                                             Height=25}"
+                    SizeDefinition="Max,Small" />
+                <Fluent:Button
+                    Header="缩放到 选定区域"
+                    Icon="{iconPacks:BoxIcons Kind=SolidFileFind,
+                                              Width=30,
+                                              Height=25}"
+                    SizeDefinition="Max,Small" />
+            </Fluent:RibbonGroupBox>
+            <Fluent:RibbonGroupBox Header="窗口">
+                <Fluent:Button
+                    Header="新建窗口"
+                    Icon="{iconPacks:Modern Kind=WindowRestore,
+                                            Width=30,
+                                            Height=25}"
+                    SizeDefinition="Max,Small" />
+                <Fluent:Button
+                    Header="全部重排"
+                    Icon="{iconPacks:Zondicons Kind=BrowserWindow,
+                                               Width=30,
+                                               Height=25}"
+                    SizeDefinition="Max,Small" />
+                <Fluent:SplitButton Header="冻结窗口" Opacity="0.38">
+                    <Fluent:SplitButton.Icon>
+                        <iconPacks:PackIconZondicons
+                            Width="30"
+                            Height="30"
+                            HorizontalAlignment="Center"
+                            Kind="Paste" />
+                    </Fluent:SplitButton.Icon>
+                </Fluent:SplitButton>
+                <Fluent:Button
+                    Header="拆分"
+                    Icon="{iconPacks:Octicons Kind=Browser}"
+                    SizeDefinition="Middle" />
+                <Fluent:Button
+                    Header="隐藏"
+                    Icon="{iconPacks:Zondicons Kind=BrowserWindow}"
+                    SizeDefinition="Middle" />
+                <Fluent:Button
+                    Header="取消隐藏"
+                    Icon="{iconPacks:Zondicons Kind=BrowserWindow}"
+                    Opacity="0.38"
+                    SizeDefinition="Middle" />
+            </Fluent:RibbonGroupBox>
+            <Fluent:RibbonGroupBox>
+                <Fluent:Button
+                    Header="并排查看"
+                    Icon="{iconPacks:Octicons Kind=Browser}"
+                    Opacity="0.38"
+                    SizeDefinition="Middle" />
+                <Fluent:Button
+                    Header="同步滚动"
+                    Icon="{iconPacks:Octicons Kind=Browser}"
+                    Opacity="0.38"
+                    SizeDefinition="Middle" />
+                <Fluent:Button
+                    Header="重设窗口位置"
+                    Icon="{iconPacks:Octicons Kind=Browser}"
+                    Opacity="0.38"
+                    SizeDefinition="Middle" />
+            </Fluent:RibbonGroupBox>
+            <Fluent:RibbonGroupBox>
+                <Fluent:SplitButton Header="切换窗口">
+                    <Fluent:SplitButton.Icon>
+                        <iconPacks:PackIconFontAwesome
+                            Width="40"
+                            Height="30"
+                            HorizontalAlignment="Center"
+                            Kind="WindowRestoreRegular" />
+
+                    </Fluent:SplitButton.Icon>
+                </Fluent:SplitButton>
+            </Fluent:RibbonGroupBox>
+            <Fluent:RibbonGroupBox Header="宏">
+                <Fluent:SplitButton Header="宏">
+                    <Fluent:SplitButton.Icon>
+
+                        <iconPacks:PackIconFontAwesome
+                            Width="40"
+                            Height="30"
+                            HorizontalAlignment="Center"
+                            Kind="MouseSolid" />
+                    </Fluent:SplitButton.Icon>
+                </Fluent:SplitButton>
+
+
+            </Fluent:RibbonGroupBox>
+        </Fluent:RibbonTabItem>
+        <Fluent:RibbonTabItem Header="帮助">
+            <Fluent:RibbonGroupBox Header="剪贴板">
+                <Fluent:Button
+                    Header="帮 助"
+                    Icon="{iconPacks:Material Kind=HelpCircle,
+                                              Width=30,
+                                              Height=28}"
+                    SizeDefinition="Max,Small" />
+                <Fluent:Button
+                    Header="反 馈"
+                    Icon="{iconPacks:Codicons Kind=Feedback,
+                                              Width=30,
+                                              Height=28}"
+                    SizeDefinition="Max,Small" />
+                <Fluent:Button
+                    Header="显示 培训内容"
+                    Icon="{iconPacks:VaadinIcons Kind=AcademyCap,
+                                                 Width=30,
+                                                 Height=28}"
+                    SizeDefinition="Max,Small" />
+            </Fluent:RibbonGroupBox>
+        </Fluent:RibbonTabItem>
     </Fluent:Ribbon>
 </UserControl>
