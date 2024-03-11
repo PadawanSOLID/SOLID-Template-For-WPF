@@ -2,18 +2,20 @@
     x:Class="RibbonStyle.Views.Win11ShellWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Fluent="urn:fluent-ribbon"
     xmlns:cz="urn:controlzex"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:fluent="urn:fluent-ribbon"
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:local="clr-namespace:RibbonStyle.Views"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
     xmlns:view="clr-namespace:RibbonStyle.Views"
     Title="Ribbon Style Window"
     Width="1920"
     Height="1000"
-    Background="#F0F0F0"
+    Background="{StaticResource ActiveThemeBackground}"
+    FontFamily="Microsoft YaHei UI"
     NonActiveWindowTitleBrush="#FFF0F0F0"
     ShowTitleBar="True"
     TitleBarHeight="46"
@@ -33,7 +35,7 @@
                 BorderThickness="0"
                 Content="{TemplateBinding Content}"
                 FontSize="13"
-                Style="{StaticResource windowCommandButtonStyle}" />
+                Style="{StaticResource win11.Button.WindowCommands}" />
         </DataTemplate>
     </mah:MetroWindow.TitleTemplate>
     <mah:MetroWindow.Icon>
@@ -54,30 +56,337 @@
             <mah:WindowCommands.Resources>
                 <Style BasedOn="{StaticResource MahApps.Styles.SplitButton.WindowCommands}" TargetType="mah:SplitButton" />
             </mah:WindowCommands.Resources>
-            <mah:ToggleSwitch Content="自动保存" />
+            <mah:ToggleSwitch Margin="1,0,3,0" Content="自动保存">
+                <mah:ToggleSwitch.Style>
+                    <Style BasedOn="{StaticResource MahApps.Styles.ToggleSwitch}" TargetType="{x:Type mah:ToggleSwitch}">
+                        <Setter Property="SnapsToDevicePixels" Value="True" />
+                        <Setter Property="MinWidth" Value="0" />
+                        <Setter Property="ContentPadding" Value="0,0,8,0" />
+                        <Setter Property="FontSize" Value="12" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type mah:ToggleSwitch}">
+                                    <Border
+                                        Padding="{TemplateBinding Padding}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="{TemplateBinding mah:ControlsHelper.CornerRadius}"
+                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                                        <Grid x:Name="SwitchContentGrid">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <ContentPresenter
+                                                x:Name="ContentPresenter"
+                                                Margin="{TemplateBinding ContentPadding}"
+                                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                Content="{TemplateBinding Content}"
+                                                ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                TextElement.FontFamily="{TemplateBinding FontFamily}"
+                                                TextElement.FontSize="{TemplateBinding FontSize}"
+                                                TextElement.Foreground="{TemplateBinding Foreground}" />
+                                            <Grid Grid.Column="1">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="{DynamicResource ToggleSwitchContentSpaceMargin}" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid
+                                                    x:Name="SwitchAreaGrid"
+                                                    Grid.ColumnSpan="3"
+                                                    Margin="0,5"
+                                                    Background="{DynamicResource MahApps.Brushes.ToggleSwitch.ContainerBackground}" />
+                                                <Grid
+                                                    x:Name="Switch"
+                                                    Grid.ColumnSpan="3"
+                                                    Width="45"
+                                                    Height="20"
+                                                    ClipToBounds="True">
+                                                    <Rectangle
+                                                        x:Name="OuterBorder"
+                                                        Fill="{DynamicResource Fluent.Ribbon.Brushes.Gray10}"
+                                                        RadiusX="10"
+                                                        RadiusY="10"
+                                                        Stroke="{DynamicResource MahApps.Brushes.ToggleSwitch.StrokeOff}"
+                                                        StrokeThickness="0.5" />
+                                                    <Rectangle
+                                                        x:Name="SwitchKnobBounds"
+                                                        Fill="{DynamicResource MahApps.Brushes.ToggleSwitch.FillOn}"
+                                                        Opacity="0"
+                                                        RadiusX="10"
+                                                        RadiusY="10"
+                                                        Stroke="{DynamicResource MahApps.Brushes.ToggleSwitch.StrokeOn}"
+                                                        StrokeThickness="{DynamicResource ToggleSwitchOnStrokeThickness}" />
+                                                    <Grid x:Name="SwitchKnob" HorizontalAlignment="Center">
+                                                        <Ellipse
+                                                            x:Name="SwitchKnobOn"
+                                                            Width="14"
+                                                            Height="14"
+                                                            Fill="{DynamicResource MahApps.Brushes.ToggleSwitch.KnobFillOn}"
+                                                            Opacity="0" />
+                                                        <Ellipse
+                                                            x:Name="SwitchKnobOff"
+                                                            Width="14"
+                                                            Height="14"
+                                                            Fill="{DynamicResource MahApps.Brushes.ToggleSwitch.KnobFillOff}" />
+                                                        <TextBlock
+                                                            x:Name="OnContentPresenter"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                            FontFamily="Microsoft YaHei"
+                                                            FontSize="13"
+                                                            Foreground="White"
+                                                            IsHitTestVisible="False"
+                                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                            Text="开">
+                                                            <TextBlock.RenderTransform>
+                                                                <TranslateTransform X="-20" />
+                                                            </TextBlock.RenderTransform>
+                                                        </TextBlock>
+                                                        <TextBlock
+                                                            x:Name="OffContentPresenter"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                            FontFamily="Microsoft YaHei "
+                                                            FontSize="13"
+                                                            IsHitTestVisible="False"
+                                                            Opacity="1"
+                                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                            Text="关">
+                                                            <TextBlock.RenderTransform>
+                                                                <TranslateTransform X="20" />
+                                                            </TextBlock.RenderTransform>
+                                                        </TextBlock>
+                                                        <Grid.RenderTransform>
+                                                            <TranslateTransform x:Name="KnobTranslateTransform" X="-12" />
+                                                        </Grid.RenderTransform>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                            <Thumb x:Name="SwitchThumb" Grid.ColumnSpan="2">
+                                                <Thumb.Template>
+                                                    <ControlTemplate TargetType="Thumb">
+                                                        <Rectangle Fill="Transparent" />
+                                                    </ControlTemplate>
+                                                </Thumb.Template>
+                                            </Thumb>
+                                        </Grid>
+                                        <VisualStateManager.VisualStateGroups>
+                                            <VisualStateGroup x:Name="ToggleStates">
+                                                <VisualStateGroup.Transitions>
+                                                    <VisualTransition
+                                                        x:Name="DraggingToOnTransition"
+                                                        GeneratedDuration="0"
+                                                        From="Dragging"
+                                                        To="On">
+                                                        <Storyboard>
+                                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="KnobTranslateTransform" Storyboard.TargetProperty="X">
+                                                                <EasingDoubleKeyFrame KeyTime="{StaticResource ToggleSwitchTranslateDuration}" Value="12">
+                                                                    <EasingDoubleKeyFrame.EasingFunction>
+                                                                        <ExponentialEase Exponent="9" />
+                                                                    </EasingDoubleKeyFrame.EasingFunction>
+                                                                </EasingDoubleKeyFrame>
+                                                            </DoubleAnimationUsingKeyFrames>
+                                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SwitchKnobBounds" Storyboard.TargetProperty="Opacity">
+                                                                <DiscreteDoubleKeyFrame KeyTime="0" Value="1" />
+                                                            </DoubleAnimationUsingKeyFrames>
+                                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="OuterBorder" Storyboard.TargetProperty="Opacity">
+                                                                <DiscreteDoubleKeyFrame KeyTime="0" Value="0" />
+                                                            </DoubleAnimationUsingKeyFrames>
+                                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SwitchKnobOn" Storyboard.TargetProperty="Opacity">
+                                                                <DiscreteDoubleKeyFrame KeyTime="0" Value="1" />
+                                                            </DoubleAnimationUsingKeyFrames>
+                                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SwitchKnobOff" Storyboard.TargetProperty="Opacity">
+                                                                <DiscreteDoubleKeyFrame KeyTime="0" Value="0" />
+                                                            </DoubleAnimationUsingKeyFrames>
+                                                        </Storyboard>
+                                                    </VisualTransition>
+                                                    <VisualTransition
+                                                        x:Name="DraggingToOffTransition"
+                                                        GeneratedDuration="0"
+                                                        From="Dragging"
+                                                        To="Off">
+                                                        <Storyboard>
+                                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="KnobTranslateTransform" Storyboard.TargetProperty="X">
+                                                                <EasingDoubleKeyFrame KeyTime="{StaticResource ToggleSwitchTranslateDuration}" Value="-12">
+                                                                    <EasingDoubleKeyFrame.EasingFunction>
+                                                                        <ExponentialEase Exponent="9" />
+                                                                    </EasingDoubleKeyFrame.EasingFunction>
+                                                                </EasingDoubleKeyFrame>
+                                                            </DoubleAnimationUsingKeyFrames>
+                                                        </Storyboard>
+                                                    </VisualTransition>
+                                                    <VisualTransition
+                                                        x:Name="OnToOffTransition"
+                                                        GeneratedDuration="0"
+                                                        From="On"
+                                                        To="Off">
+                                                        <Storyboard>
+                                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="KnobTranslateTransform" Storyboard.TargetProperty="X">
+                                                                <EasingDoubleKeyFrame KeyTime="{StaticResource ToggleSwitchTranslateDuration}" Value="0">
+                                                                    <EasingDoubleKeyFrame.EasingFunction>
+                                                                        <ExponentialEase Exponent="9" />
+                                                                    </EasingDoubleKeyFrame.EasingFunction>
+                                                                </EasingDoubleKeyFrame>
+                                                            </DoubleAnimationUsingKeyFrames>
+                                                        </Storyboard>
+                                                    </VisualTransition>
+                                                    <VisualTransition
+                                                        x:Name="OffToOnTransition"
+                                                        GeneratedDuration="0"
+                                                        From="Off"
+                                                        To="On">
+                                                        <Storyboard>
+                                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="KnobTranslateTransform" Storyboard.TargetProperty="X">
+                                                                <EasingDoubleKeyFrame KeyTime="{StaticResource ToggleSwitchTranslateDuration}" Value="24">
+                                                                    <EasingDoubleKeyFrame.EasingFunction>
+                                                                        <ExponentialEase Exponent="9" />
+                                                                    </EasingDoubleKeyFrame.EasingFunction>
+                                                                </EasingDoubleKeyFrame>
+                                                            </DoubleAnimationUsingKeyFrames>
+                                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SwitchKnobBounds" Storyboard.TargetProperty="Opacity">
+                                                                <DiscreteDoubleKeyFrame KeyTime="0" Value="1" />
+                                                            </DoubleAnimationUsingKeyFrames>
+                                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="OuterBorder" Storyboard.TargetProperty="Opacity">
+                                                                <DiscreteDoubleKeyFrame KeyTime="0" Value="0" />
+                                                            </DoubleAnimationUsingKeyFrames>
+                                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SwitchKnobOn" Storyboard.TargetProperty="Opacity">
+                                                                <DiscreteDoubleKeyFrame KeyTime="0" Value="1" />
+                                                            </DoubleAnimationUsingKeyFrames>
+                                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SwitchKnobOff" Storyboard.TargetProperty="Opacity">
+                                                                <DiscreteDoubleKeyFrame KeyTime="0" Value="0" />
+                                                            </DoubleAnimationUsingKeyFrames>
+                                                        </Storyboard>
+                                                    </VisualTransition>
+                                                </VisualStateGroup.Transitions>
+                                                <VisualState x:Name="Dragging" />
+                                                <VisualState x:Name="Off">
+                                                    <Storyboard>
+                                                        <DoubleAnimation
+                                                            Storyboard.TargetName="KnobTranslateTransform"
+                                                            Storyboard.TargetProperty="X"
+                                                            To="-12"
+                                                            Duration="0" />
+                                                    </Storyboard>
+                                                </VisualState>
+                                                <VisualState x:Name="On">
+                                                    <Storyboard>
+                                                        <DoubleAnimation
+                                                            Storyboard.TargetName="KnobTranslateTransform"
+                                                            Storyboard.TargetProperty="X"
+                                                            To="12"
+                                                            Duration="0" />
+                                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SwitchKnobBounds" Storyboard.TargetProperty="Opacity">
+                                                            <DiscreteDoubleKeyFrame KeyTime="0" Value="1" />
+                                                        </DoubleAnimationUsingKeyFrames>
+                                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="OuterBorder" Storyboard.TargetProperty="Opacity">
+                                                            <DiscreteDoubleKeyFrame KeyTime="0" Value="0" />
+                                                        </DoubleAnimationUsingKeyFrames>
+                                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SwitchKnobOn" Storyboard.TargetProperty="Opacity">
+                                                            <DiscreteDoubleKeyFrame KeyTime="0" Value="1" />
+                                                        </DoubleAnimationUsingKeyFrames>
+                                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SwitchKnobOff" Storyboard.TargetProperty="Opacity">
+                                                            <DiscreteDoubleKeyFrame KeyTime="0" Value="0" />
+                                                        </DoubleAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </VisualState>
+                                            </VisualStateGroup>
+                                        </VisualStateManager.VisualStateGroups>
+                                    </Border>
+
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsOn" Value="True">
+                                            <Setter TargetName="OffContentPresenter" Property="Opacity" Value="0" />
+                                        </Trigger>
+                                        <Trigger Property="IsOn" Value="False">
+                                            <Setter TargetName="OnContentPresenter" Property="Opacity" Value="0" />
+                                        </Trigger>
+                                        <!--  MouseOver  -->
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="OuterBorder" Property="Fill" Value="{DynamicResource MahApps.Brushes.ToggleSwitch.FillOffPointerOver}" />
+                                            <Setter TargetName="OuterBorder" Property="Stroke" Value="{DynamicResource MahApps.Brushes.ToggleSwitch.StrokeOffPointerOver}" />
+                                            <Setter TargetName="SwitchAreaGrid" Property="Background" Value="{DynamicResource MahApps.Brushes.ToggleSwitch.ContainerBackgroundPointerOver}" />
+                                            <Setter TargetName="SwitchKnobBounds" Property="Fill" Value="{DynamicResource MahApps.Brushes.ToggleSwitch.FillOnPointerOver}" />
+                                            <Setter TargetName="SwitchKnobBounds" Property="Stroke" Value="{DynamicResource MahApps.Brushes.ToggleSwitch.StrokeOnPointerOver}" />
+                                            <Setter TargetName="SwitchKnobOff" Property="Fill" Value="{DynamicResource MahApps.Brushes.ToggleSwitch.KnobFillOffPointerOver}" />
+                                            <Setter TargetName="SwitchKnobOn" Property="Fill" Value="{DynamicResource MahApps.Brushes.ToggleSwitch.KnobFillOnPointerOver}" />
+                                        </Trigger>
+
+                                        <!--  Pressed  -->
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter TargetName="OuterBorder" Property="Fill" Value="{DynamicResource MahApps.Brushes.ToggleSwitch.FillOffPressed}" />
+                                            <Setter TargetName="OuterBorder" Property="Stroke" Value="{DynamicResource MahApps.Brushes.ToggleSwitch.StrokeOffPressed}" />
+                                            <Setter TargetName="OuterBorder" Property="StrokeThickness" Value="0" />
+                                            <Setter TargetName="SwitchAreaGrid" Property="Background" Value="{DynamicResource MahApps.Brushes.ToggleSwitch.ContainerBackgroundPressed}" />
+                                            <Setter TargetName="SwitchKnobBounds" Property="Fill" Value="{DynamicResource MahApps.Brushes.ToggleSwitch.FillOnPressed}" />
+                                            <Setter TargetName="SwitchKnobBounds" Property="Stroke" Value="{DynamicResource MahApps.Brushes.ToggleSwitch.StrokeOnPressed}" />
+                                            <Setter TargetName="SwitchKnobOff" Property="Fill" Value="{DynamicResource MahApps.Brushes.ToggleSwitch.KnobFillOffPressed}" />
+                                            <Setter TargetName="SwitchKnobOn" Property="Fill" Value="{DynamicResource MahApps.Brushes.ToggleSwitch.KnobFillOnPressed}" />
+                                        </Trigger>
+
+                                        <!--  Disabled  -->
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter TargetName="ContentPresenter" Property="TextElement.Foreground" Value="{DynamicResource MahApps.Brushes.ToggleSwitch.ContentForegroundDisabled}" />
+                                            <Setter TargetName="OffContentPresenter" Property="TextElement.Foreground" Value="{DynamicResource MahApps.Brushes.ToggleSwitch.ContentForegroundDisabled}" />
+                                            <Setter TargetName="OnContentPresenter" Property="TextElement.Foreground" Value="{DynamicResource MahApps.Brushes.ToggleSwitch.ContentForegroundDisabled}" />
+                                            <Setter TargetName="OuterBorder" Property="Fill" Value="{DynamicResource MahApps.Brushes.ToggleSwitch.FillOffDisabled}" />
+                                            <Setter TargetName="OuterBorder" Property="Stroke" Value="{DynamicResource MahApps.Brushes.ToggleSwitch.StrokeOffDisabled}" />
+                                            <Setter TargetName="SwitchAreaGrid" Property="Background" Value="{DynamicResource MahApps.Brushes.ToggleSwitch.ContainerBackgroundDisabled}" />
+                                            <Setter TargetName="SwitchKnobBounds" Property="Fill" Value="{DynamicResource MahApps.Brushes.ToggleSwitch.FillOnDisabled}" />
+                                            <Setter TargetName="SwitchKnobBounds" Property="Stroke" Value="{DynamicResource MahApps.Brushes.ToggleSwitch.StrokeOnDisabled}" />
+                                            <Setter TargetName="SwitchKnobOff" Property="Fill" Value="{DynamicResource MahApps.Brushes.ToggleSwitch.KnobFillOffDisabled}" />
+                                            <Setter TargetName="SwitchKnobOn" Property="Fill" Value="{DynamicResource MahApps.Brushes.ToggleSwitch.KnobFillOnDisabled}" />
+                                        </Trigger>
+
+
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                    </Style>
+
+                </mah:ToggleSwitch.Style>
+            </mah:ToggleSwitch>
             <Button
-                Content="{iconPacks:Unicons Kind=Save}"
+                VerticalAlignment="Center"
+                Content="{iconPacks:Fontisto Kind=Save,
+                                             RotationAngle=180}"
                 Foreground="Purple"
-                Style="{StaticResource windowCommandButtonStyle}" 
-                />
-            <mah:SplitButton Icon="{iconPacks:JamIcons Kind=Undo}" />
-            <mah:SplitButton Icon="{iconPacks:JamIcons Kind=Redo}" />
-            <fluent:QuickAccessToolBar />
+                Style="{StaticResource win11.Button.WindowCommands}" />
+            <mah:SplitButton
+                ArrowBrush="Black"
+                Foreground="Black"
+                Icon="{iconPacks:JamIcons Kind=Undo}" />
+            <mah:SplitButton
+                ArrowBrush="Black"
+                Foreground="Black"
+                Icon="{iconPacks:JamIcons Kind=Redo}" />
+            <Fluent:QuickAccessToolBar />
         </mah:WindowCommands>
     </mah:MetroWindow.LeftWindowCommands>
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands Padding="0">
-
             <Button
                 MinWidth="156"
                 Margin="3,0"
                 Padding="10"
-                HorizontalContentAlignment="Stretch"
+                HorizontalContentAlignment="Center"
+                Fluent:RibbonProperties.MouseOverBackground="{StaticResource MahApps.Brushes.ThemeBackground}"
+                Fluent:RibbonProperties.MouseOverForeground="{StaticResource MahApps.Brushes.ThemeForeground}"
                 Style="{StaticResource windowCommandButtonStyle}">
                 <DockPanel>
                     <iconPacks:PackIconCodicons
                         Width="20"
                         Height="20"
+                        Margin="10,0"
                         DockPanel.Dock="Right"
                         Kind="Account" />
                     <TextBlock
@@ -110,41 +419,41 @@
                 <Style
                     x:Key="baseFluentButton"
                     BasedOn="{StaticResource Fluent.Ribbon.Styles.Button}"
-                    TargetType="fluent:Button">
+                    TargetType="Fluent:Button">
                     <Setter Property="Margin" Value="2" />
                     <Setter Property="SimplifiedSizeDefinition" Value="Small" />
                 </Style>
                 <Style
                     x:Key="baseFluentComboBox"
                     BasedOn="{StaticResource MahApps.Styles.ComboBox}"
-                    TargetType="fluent:ComboBox">
+                    TargetType="Fluent:ComboBox">
                     <Setter Property="Margin" Value="2" />
                 </Style>
                 <Style
                     x:Key="baseFluentSplitButton"
                     BasedOn="{StaticResource Fluent.Ribbon.Styles.RibbonSplitButton}"
-                    TargetType="fluent:SplitButton">
+                    TargetType="Fluent:SplitButton">
                     <Setter Property="Margin" Value="2" />
                 </Style>
                 <Style
                     x:Key="baseFluentDropDownButton"
                     BasedOn="{StaticResource Fluent.Ribbon.Styles.RibbonDropDownButton}"
-                    TargetType="fluent:DropDownButton">
+                    TargetType="Fluent:DropDownButton">
                     <Setter Property="Margin" Value="2" />
                 </Style>
-                <Style BasedOn="{StaticResource Fluent.Ribbon.Styles.RibbonGroupBox}" TargetType="fluent:RibbonGroupBox">
+                <Style BasedOn="{StaticResource Fluent.Ribbon.Styles.RibbonGroupBox}" TargetType="Fluent:RibbonGroupBox">
                     <Setter Property="Margin" Value="5" />
                     <Setter Property="IsLauncherVisible" Value="True" />
                     <Setter Property="Icon" Value="{iconPacks:Material Kind=Launch}" />
                 </Style>
-                <Style BasedOn="{StaticResource baseFluentButton}" TargetType="fluent:Button" />
-                <Style BasedOn="{StaticResource baseFluentDropDownButton}" TargetType="fluent:DropDownButton" />
-                <Style BasedOn="{StaticResource baseFluentSplitButton}" TargetType="fluent:SplitButton" />
-                <Style BasedOn="{StaticResource baseFluentComboBox}" TargetType="fluent:ComboBox" />
+                <Style BasedOn="{StaticResource baseFluentButton}" TargetType="Fluent:Button" />
+                <Style BasedOn="{StaticResource baseFluentDropDownButton}" TargetType="Fluent:DropDownButton" />
+                <Style BasedOn="{StaticResource baseFluentSplitButton}" TargetType="Fluent:SplitButton" />
+                <Style BasedOn="{StaticResource baseFluentComboBox}" TargetType="Fluent:ComboBox" />
             </TabControl.Resources>
             <TabItem PreviewMouseLeftButtonDown="TabItem_PreviewMouseLeftButtonDown">
                 <TabItem.Header>
-                    <fluent:Backstage
+                    <Fluent:Backstage
                         Name="backStage"
                         VerticalAlignment="Center"
                         Background="Transparent"
@@ -153,8 +462,8 @@
                         FontSize="15"
                         Foreground="Black"
                         IsOpen="{Binding IsBackStageOpen, Mode=TwoWay}">
-                        <fluent:Backstage.Template>
-                            <ControlTemplate TargetType="fluent:Backstage">
+                        <Fluent:Backstage.Template>
+                            <ControlTemplate TargetType="Fluent:Backstage">
                                 <Border
                                     x:Name="border2"
                                     Background="{TemplateBinding Background}"
@@ -176,280 +485,280 @@
                                     </Grid>
                                 </Border>
                             </ControlTemplate>
-                        </fluent:Backstage.Template>
-                        <fluent:BackstageTabControl Template="{StaticResource backStageTemplate}">
-                            <fluent:BackstageTabItem Header="开始" Icon="{iconPacks:Codicons Kind=Home}" />
-                        </fluent:BackstageTabControl>
-                    </fluent:Backstage>
+                        </Fluent:Backstage.Template>
+                        <Fluent:BackstageTabControl Template="{StaticResource backStageTemplate}">
+                            <Fluent:BackstageTabItem Header="开始" Icon="{iconPacks:Codicons Kind=Home}" />
+                        </Fluent:BackstageTabControl>
+                    </Fluent:Backstage>
                 </TabItem.Header>
             </TabItem>
 
             <TabItem Header="开始">
                 <StackPanel Orientation="Horizontal">
-                    <fluent:RibbonGroupBox Header="剪贴板">
-                        <fluent:SplitButton Header="粘贴">
-                            <fluent:SplitButton.Icon>
+                    <Fluent:RibbonGroupBox Header="剪贴板">
+                        <Fluent:SplitButton Header="粘贴">
+                            <Fluent:SplitButton.Icon>
                                 <iconPacks:PackIconZondicons
                                     Width="30"
                                     Height="30"
                                     HorizontalAlignment="Center"
                                     Kind="Paste" />
-                            </fluent:SplitButton.Icon>
-                        </fluent:SplitButton>
+                            </Fluent:SplitButton.Icon>
+                        </Fluent:SplitButton>
 
-                        <fluent:Button
+                        <Fluent:Button
                             Header="剪切"
                             Icon="{iconPacks:ForkAwesome Kind=Scissors,
                                                          RotationAngle=270}"
                             SizeDefinition="Middle,Small" />
-                        <fluent:SplitButton
+                        <Fluent:SplitButton
                             HorizontalAlignment="Left"
                             Header="复制"
                             Icon="{iconPacks:Unicons Kind=FileCopyAlt}"
                             SizeDefinition="Middle,Small" />
-                        <fluent:Button
+                        <Fluent:Button
                             Header="格式刷"
                             Icon="{iconPacks:Modern Kind=DrawBrush}"
                             SizeDefinition="Middle,Small" />
-                    </fluent:RibbonGroupBox>
+                    </Fluent:RibbonGroupBox>
 
-                    <fluent:RibbonGroupBox Header="字体">
-                        <fluent:RibbonToolBar>
-                            <fluent:RibbonToolBar.LayoutDefinitions>
-                                <fluent:RibbonToolBarLayoutDefinition>
-                                    <fluent:RibbonToolBarRow>
-                                        <fluent:RibbonToolBarControlDefinition Width="120" Target="cbFontName" />
-                                        <fluent:RibbonToolBarControlDefinition Width="72" Target="cbFontSize" />
-                                        <fluent:RibbonToolBarControlDefinition Target="btGrowFont" />
-                                        <fluent:RibbonToolBarControlDefinition Target="btShrinkFont" />
-                                    </fluent:RibbonToolBarRow>
+                    <Fluent:RibbonGroupBox Header="字体">
+                        <Fluent:RibbonToolBar>
+                            <Fluent:RibbonToolBar.LayoutDefinitions>
+                                <Fluent:RibbonToolBarLayoutDefinition>
+                                    <Fluent:RibbonToolBarRow>
+                                        <Fluent:RibbonToolBarControlDefinition Width="120" Target="cbFontName" />
+                                        <Fluent:RibbonToolBarControlDefinition Width="72" Target="cbFontSize" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="btGrowFont" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="btShrinkFont" />
+                                    </Fluent:RibbonToolBarRow>
 
-                                    <fluent:RibbonToolBarRow>
-                                        <fluent:RibbonToolBarControlGroupDefinition>
-                                            <fluent:RibbonToolBarControlDefinition Target="btBold" />
-                                            <fluent:RibbonToolBarControlDefinition Target="btItalic" />
-                                            <fluent:RibbonToolBarControlDefinition Target="btUnderline" />
-                                        </fluent:RibbonToolBarControlGroupDefinition>
+                                    <Fluent:RibbonToolBarRow>
+                                        <Fluent:RibbonToolBarControlGroupDefinition>
+                                            <Fluent:RibbonToolBarControlDefinition Target="btBold" />
+                                            <Fluent:RibbonToolBarControlDefinition Target="btItalic" />
+                                            <Fluent:RibbonToolBarControlDefinition Target="btUnderline" />
+                                        </Fluent:RibbonToolBarControlGroupDefinition>
 
-                                        <fluent:RibbonToolBarControlGroupDefinition>
-                                            <fluent:RibbonToolBarControlDefinition Target="btGridline" />
-                                        </fluent:RibbonToolBarControlGroupDefinition>
+                                        <Fluent:RibbonToolBarControlGroupDefinition>
+                                            <Fluent:RibbonToolBarControlDefinition Target="btGridline" />
+                                        </Fluent:RibbonToolBarControlGroupDefinition>
 
-                                        <fluent:RibbonToolBarControlGroupDefinition>
-                                            <fluent:RibbonToolBarControlDefinition Target="btBackground" />
-                                            <fluent:RibbonToolBarControlDefinition Target="btFontColor" />
-                                        </fluent:RibbonToolBarControlGroupDefinition>
+                                        <Fluent:RibbonToolBarControlGroupDefinition>
+                                            <Fluent:RibbonToolBarControlDefinition Target="btBackground" />
+                                            <Fluent:RibbonToolBarControlDefinition Target="btFontColor" />
+                                        </Fluent:RibbonToolBarControlGroupDefinition>
 
-                                        <fluent:RibbonToolBarControlGroupDefinition>
-                                            <fluent:RibbonToolBarControlDefinition Target="btPinyin" />
-                                        </fluent:RibbonToolBarControlGroupDefinition>
-                                    </fluent:RibbonToolBarRow>
-                                </fluent:RibbonToolBarLayoutDefinition>
-                            </fluent:RibbonToolBar.LayoutDefinitions>
-                            <fluent:ComboBox x:Name="cbFontName" SizeDefinition="Small" />
-                            <fluent:ComboBox x:Name="cbFontSize" SizeDefinition="Small" />
-                            <fluent:Button
+                                        <Fluent:RibbonToolBarControlGroupDefinition>
+                                            <Fluent:RibbonToolBarControlDefinition Target="btPinyin" />
+                                        </Fluent:RibbonToolBarControlGroupDefinition>
+                                    </Fluent:RibbonToolBarRow>
+                                </Fluent:RibbonToolBarLayoutDefinition>
+                            </Fluent:RibbonToolBar.LayoutDefinitions>
+                            <Fluent:ComboBox x:Name="cbFontName" SizeDefinition="Small" />
+                            <Fluent:ComboBox x:Name="cbFontSize" SizeDefinition="Small" />
+                            <Fluent:Button
                                 Name="btGrowFont"
                                 Icon="{iconPacks:Material Kind=FormatFontSizeIncrease}"
                                 SizeDefinition="Small" />
-                            <fluent:Button
+                            <Fluent:Button
                                 Name="btShrinkFont"
                                 Icon="{iconPacks:Material Kind=FormatFontSizeDecrease}"
                                 SizeDefinition="Small" />
-                            <fluent:DropDownButton
+                            <Fluent:DropDownButton
                                 Name="btChangeCase"
                                 Icon="{iconPacks:Material Kind=FormatLetterCase}"
                                 SizeDefinition="Small" />
-                            <fluent:Button
+                            <Fluent:Button
                                 x:Name="btClearFormatting"
                                 Icon="{iconPacks:Material Kind=FormatClear}"
                                 SizeDefinition="Small" />
-                            <fluent:Button
+                            <Fluent:Button
                                 x:Name="btBold"
                                 Icon="{iconPacks:Material Kind=FormatBold}"
                                 SizeDefinition="Small" />
-                            <fluent:Button
+                            <Fluent:Button
                                 x:Name="btItalic"
                                 Icon="{iconPacks:RadixIcons Kind=FontItalic}"
                                 SizeDefinition="Small" />
-                            <fluent:DropDownButton
+                            <Fluent:DropDownButton
                                 x:Name="btUnderline"
                                 Icon="{iconPacks:Material Kind=FormatUnderline}"
                                 SizeDefinition="Small" />
-                            <fluent:DropDownButton
+                            <Fluent:DropDownButton
                                 x:Name="btGridline"
                                 Icon="{iconPacks:Unicons Kind=Th}"
                                 SizeDefinition="Small" />
-                            <fluent:DropDownButton
+                            <Fluent:DropDownButton
                                 x:Name="btBackground"
                                 Icon="{iconPacks:Ionicons Kind=ColorFillMD}"
                                 SizeDefinition="Small" />
-                            <fluent:DropDownButton
+                            <Fluent:DropDownButton
                                 x:Name="btFontColor"
                                 Icon="{iconPacks:BoxIcons Kind=RegularFontColor}"
                                 SizeDefinition="Small" />
-                            <fluent:DropDownButton
+                            <Fluent:DropDownButton
                                 x:Name="btPinyin"
                                 Icon="{iconPacks:RemixIcon Kind=PinyinInput}"
                                 SizeDefinition="Small" />
-                        </fluent:RibbonToolBar>
+                        </Fluent:RibbonToolBar>
 
-                    </fluent:RibbonGroupBox>
+                    </Fluent:RibbonGroupBox>
 
-                    <fluent:RibbonGroupBox Header="对齐方式">
-                        <fluent:RibbonToolBar>
-                            <fluent:RibbonToolBar.LayoutDefinitions>
-                                <fluent:RibbonToolBarLayoutDefinition>
+                    <Fluent:RibbonGroupBox Header="对齐方式">
+                        <Fluent:RibbonToolBar>
+                            <Fluent:RibbonToolBar.LayoutDefinitions>
+                                <Fluent:RibbonToolBarLayoutDefinition>
 
-                                    <fluent:RibbonToolBarRow>
-                                        <fluent:RibbonToolBarControlGroupDefinition>
-                                            <fluent:RibbonToolBarControlDefinition Target="btAlignTop" />
-                                            <fluent:RibbonToolBarControlDefinition Target="btAlignVerticalCenter" />
-                                            <fluent:RibbonToolBarControlDefinition Target="btAlignBottom" />
-                                        </fluent:RibbonToolBarControlGroupDefinition>
-                                        <fluent:RibbonToolBarControlGroupDefinition>
-                                            <fluent:RibbonToolBarControlDefinition Width="120" Target="btDirection" />
-                                        </fluent:RibbonToolBarControlGroupDefinition>
-                                    </fluent:RibbonToolBarRow>
-                                    <fluent:RibbonToolBarRow>
-                                        <fluent:RibbonToolBarControlGroupDefinition>
-                                            <fluent:RibbonToolBarControlDefinition Target="btAlignLeft" />
-                                            <fluent:RibbonToolBarControlDefinition Target="btAlignHorizontalCenter" />
-                                            <fluent:RibbonToolBarControlDefinition Target="btAlignRight" />
-                                        </fluent:RibbonToolBarControlGroupDefinition>
-                                        <fluent:RibbonToolBarControlGroupDefinition>
-                                            <fluent:RibbonToolBarControlDefinition Target="btDeindent" />
-                                            <fluent:RibbonToolBarControlDefinition Target="btIndent" />
-                                        </fluent:RibbonToolBarControlGroupDefinition>
-                                    </fluent:RibbonToolBarRow>
-                                </fluent:RibbonToolBarLayoutDefinition>
-                            </fluent:RibbonToolBar.LayoutDefinitions>
-                            <fluent:Button
+                                    <Fluent:RibbonToolBarRow>
+                                        <Fluent:RibbonToolBarControlGroupDefinition>
+                                            <Fluent:RibbonToolBarControlDefinition Target="btAlignTop" />
+                                            <Fluent:RibbonToolBarControlDefinition Target="btAlignVerticalCenter" />
+                                            <Fluent:RibbonToolBarControlDefinition Target="btAlignBottom" />
+                                        </Fluent:RibbonToolBarControlGroupDefinition>
+                                        <Fluent:RibbonToolBarControlGroupDefinition>
+                                            <Fluent:RibbonToolBarControlDefinition Width="120" Target="btDirection" />
+                                        </Fluent:RibbonToolBarControlGroupDefinition>
+                                    </Fluent:RibbonToolBarRow>
+                                    <Fluent:RibbonToolBarRow>
+                                        <Fluent:RibbonToolBarControlGroupDefinition>
+                                            <Fluent:RibbonToolBarControlDefinition Target="btAlignLeft" />
+                                            <Fluent:RibbonToolBarControlDefinition Target="btAlignHorizontalCenter" />
+                                            <Fluent:RibbonToolBarControlDefinition Target="btAlignRight" />
+                                        </Fluent:RibbonToolBarControlGroupDefinition>
+                                        <Fluent:RibbonToolBarControlGroupDefinition>
+                                            <Fluent:RibbonToolBarControlDefinition Target="btDeindent" />
+                                            <Fluent:RibbonToolBarControlDefinition Target="btIndent" />
+                                        </Fluent:RibbonToolBarControlGroupDefinition>
+                                    </Fluent:RibbonToolBarRow>
+                                </Fluent:RibbonToolBarLayoutDefinition>
+                            </Fluent:RibbonToolBar.LayoutDefinitions>
+                            <Fluent:Button
                                 x:Name="btAlignTop"
                                 Icon="{iconPacks:MaterialLight Kind=FormatAlignTop}"
                                 SizeDefinition="small" />
-                            <fluent:Button
+                            <Fluent:Button
                                 x:Name="btAlignVerticalCenter"
                                 Icon="{iconPacks:MaterialLight Kind=FormatAlignMiddle}"
                                 SizeDefinition="small" />
-                            <fluent:Button
+                            <Fluent:Button
                                 x:Name="btAlignBottom"
                                 Icon="{iconPacks:MaterialLight Kind=FormatAlignBottom}"
                                 SizeDefinition="small" />
-                            <fluent:Button
+                            <Fluent:Button
                                 x:Name="btAlignLeft"
                                 Icon="{iconPacks:MaterialLight Kind=FormatAlignLeft}"
                                 SizeDefinition="small" />
-                            <fluent:Button
+                            <Fluent:Button
                                 x:Name="btAlignHorizontalCenter"
                                 Icon="{iconPacks:MaterialLight Kind=FormatAlignCenter}"
                                 SizeDefinition="small" />
-                            <fluent:Button
+                            <Fluent:Button
                                 x:Name="btAlignRight"
                                 Icon="{iconPacks:MaterialLight Kind=FormatAlignRight}"
                                 SizeDefinition="small" />
-                            <fluent:DropDownButton
+                            <Fluent:DropDownButton
                                 x:Name="btDirection"
                                 Icon="{iconPacks:RadixIcons Kind=ArrowBottomLeft,
                                                             RotationAngle=180}"
                                 SizeDefinition="Middle,Small" />
-                            <fluent:Button
+                            <Fluent:Button
                                 x:Name="btDeindent"
                                 Icon="{iconPacks:VaadinIcons Kind=Deindent}"
                                 SizeDefinition="Small" />
-                            <fluent:Button
+                            <Fluent:Button
                                 x:Name="btIndent"
                                 Icon="{iconPacks:VaadinIcons Kind=Indent}"
                                 SizeDefinition="Small" />
-                        </fluent:RibbonToolBar>
+                        </Fluent:RibbonToolBar>
                         <Separator />
-                        <fluent:Button
+                        <Fluent:Button
                             Margin="2,5"
                             Header="自动换行"
                             Icon="{iconPacks:Coolicons Kind=LineBreak}"
                             SizeDefinition="Middle,Small" />
-                        <fluent:SplitButton
+                        <Fluent:SplitButton
                             x:Name="btCombineCenter"
                             Margin="2,5"
                             Header="合并后居中"
                             Icon="{iconPacks:Unicons Kind=AlignCenterH}"
                             SizeDefinition="Middle,Small" />
-                    </fluent:RibbonGroupBox>
-                    <fluent:RibbonGroupBox Header="数字">
-                        <fluent:RibbonToolBar>
-                            <fluent:RibbonToolBar.LayoutDefinitions>
-                                <fluent:RibbonToolBarLayoutDefinition>
-                                    <fluent:RibbonToolBarRow>
-                                        <fluent:RibbonToolBarControlDefinition Width="140" Target="cbDataFormat" />
-                                    </fluent:RibbonToolBarRow>
-                                    <fluent:RibbonToolBarRow>
-                                        <fluent:RibbonToolBarControlGroupDefinition>
-                                            <fluent:RibbonToolBarControlDefinition Target="btAccounting" />
-                                            <fluent:RibbonToolBarControlDefinition Target="btPercent" />
-                                            <fluent:RibbonToolBarControlDefinition Target="btComma" />
-                                        </fluent:RibbonToolBarControlGroupDefinition>
-                                        <fluent:RibbonToolBarControlGroupDefinition>
-                                            <fluent:RibbonToolBarControlDefinition Target="btDecimalDecrease" />
-                                            <fluent:RibbonToolBarControlDefinition Target="btDecimalIncrease" />
-                                        </fluent:RibbonToolBarControlGroupDefinition>
-                                    </fluent:RibbonToolBarRow>
-                                </fluent:RibbonToolBarLayoutDefinition>
-                            </fluent:RibbonToolBar.LayoutDefinitions>
-                            <fluent:ComboBox Name="cbDataFormat" />
+                    </Fluent:RibbonGroupBox>
+                    <Fluent:RibbonGroupBox Header="数字">
+                        <Fluent:RibbonToolBar>
+                            <Fluent:RibbonToolBar.LayoutDefinitions>
+                                <Fluent:RibbonToolBarLayoutDefinition>
+                                    <Fluent:RibbonToolBarRow>
+                                        <Fluent:RibbonToolBarControlDefinition Width="140" Target="cbDataFormat" />
+                                    </Fluent:RibbonToolBarRow>
+                                    <Fluent:RibbonToolBarRow>
+                                        <Fluent:RibbonToolBarControlGroupDefinition>
+                                            <Fluent:RibbonToolBarControlDefinition Target="btAccounting" />
+                                            <Fluent:RibbonToolBarControlDefinition Target="btPercent" />
+                                            <Fluent:RibbonToolBarControlDefinition Target="btComma" />
+                                        </Fluent:RibbonToolBarControlGroupDefinition>
+                                        <Fluent:RibbonToolBarControlGroupDefinition>
+                                            <Fluent:RibbonToolBarControlDefinition Target="btDecimalDecrease" />
+                                            <Fluent:RibbonToolBarControlDefinition Target="btDecimalIncrease" />
+                                        </Fluent:RibbonToolBarControlGroupDefinition>
+                                    </Fluent:RibbonToolBarRow>
+                                </Fluent:RibbonToolBarLayoutDefinition>
+                            </Fluent:RibbonToolBar.LayoutDefinitions>
+                            <Fluent:ComboBox Name="cbDataFormat" />
 
-                            <fluent:SplitButton
+                            <Fluent:SplitButton
                                 Name="btAccounting"
                                 Icon="{iconPacks:BootstrapIcons Kind=ClipboardData}"
                                 Size="Small" />
-                            <fluent:Button
+                            <Fluent:Button
                                 Name="btPercent"
                                 Icon="{iconPacks:BootstrapIcons Kind=Percent}"
                                 Size="Small" />
-                            <fluent:Button
+                            <Fluent:Button
                                 Name="btComma"
                                 Icon="{iconPacks:Material Kind=Comma}"
                                 Size="Small" />
 
-                            <fluent:Button
+                            <Fluent:Button
                                 x:Name="btDecimalDecrease"
                                 Icon="{iconPacks:Material Kind=DecimalDecrease}"
                                 Size="Small" />
-                            <fluent:Button
+                            <Fluent:Button
                                 x:Name="btDecimalIncrease"
                                 Icon="{iconPacks:Material Kind=DecimalIncrease}"
                                 Size="Small" />
-                        </fluent:RibbonToolBar>
+                        </Fluent:RibbonToolBar>
 
 
 
-                    </fluent:RibbonGroupBox>
-                    <fluent:RibbonGroupBox Header="样式" IsLauncherVisible="False">
-                        <fluent:DropDownButton Header="条件格式">
-                            <fluent:DropDownButton.Icon>
+                    </Fluent:RibbonGroupBox>
+                    <Fluent:RibbonGroupBox Header="样式" IsLauncherVisible="False">
+                        <Fluent:DropDownButton Header="条件格式">
+                            <Fluent:DropDownButton.Icon>
                                 <iconPacks:PackIconBootstrapIcons
                                     Width="25"
                                     Height="25"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Kind="UiRadiosGrid" />
-                            </fluent:DropDownButton.Icon>
-                        </fluent:DropDownButton>
-                        <fluent:DropDownButton Header="套用 表格格式">
-                            <fluent:DropDownButton.Icon>
+                            </Fluent:DropDownButton.Icon>
+                        </Fluent:DropDownButton>
+                        <Fluent:DropDownButton Header="套用 表格格式">
+                            <Fluent:DropDownButton.Icon>
                                 <iconPacks:PackIconModern
                                     Width="25"
                                     Height="25"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Kind="DrawPixelFillGrid" />
-                            </fluent:DropDownButton.Icon>
-                        </fluent:DropDownButton>
-                        <fluent:InRibbonGallery
+                            </Fluent:DropDownButton.Icon>
+                        </Fluent:DropDownButton>
+                        <Fluent:InRibbonGallery
                             MinWidth="200"
                             ItemHeight="28"
                             ItemsSource="{Binding GridItemStyles}"
                             MaxItemsInRow="2">
-                            <fluent:InRibbonGallery.ItemTemplate>
+                            <Fluent:InRibbonGallery.ItemTemplate>
                                 <DataTemplate>
                                     <Border
                                         Width="98"
@@ -469,12 +778,12 @@
                                         </DataTrigger>
                                     </DataTemplate.Triggers>
                                 </DataTemplate>
-                            </fluent:InRibbonGallery.ItemTemplate>
-                        </fluent:InRibbonGallery>
-                    </fluent:RibbonGroupBox>
-                    <fluent:RibbonGroupBox Header="单元格" IsLauncherVisible="False">
-                        <fluent:SplitButton Header="插入">
-                            <fluent:SplitButton.Icon>
+                            </Fluent:InRibbonGallery.ItemTemplate>
+                        </Fluent:InRibbonGallery>
+                    </Fluent:RibbonGroupBox>
+                    <Fluent:RibbonGroupBox Header="单元格" IsLauncherVisible="False">
+                        <Fluent:SplitButton Header="插入">
+                            <Fluent:SplitButton.Icon>
                                 <Path
                                     Width="30"
                                     Height="30"
@@ -483,10 +792,10 @@
                                     Stretch="Fill"
                                     Stroke="Black"
                                     StrokeThickness="0.1" />
-                            </fluent:SplitButton.Icon>
-                        </fluent:SplitButton>
-                        <fluent:SplitButton Header="删除">
-                            <fluent:SplitButton.Icon>
+                            </Fluent:SplitButton.Icon>
+                        </Fluent:SplitButton>
+                        <Fluent:SplitButton Header="删除">
+                            <Fluent:SplitButton.Icon>
                                 <Path
                                     Width="30"
                                     Height="30"
@@ -495,10 +804,10 @@
                                     Stretch="Fill"
                                     Stroke="Black"
                                     StrokeThickness="0.1" />
-                            </fluent:SplitButton.Icon>
-                        </fluent:SplitButton>
-                        <fluent:DropDownButton Header="格式">
-                            <fluent:DropDownButton.Icon>
+                            </Fluent:SplitButton.Icon>
+                        </Fluent:SplitButton>
+                        <Fluent:DropDownButton Header="格式">
+                            <Fluent:DropDownButton.Icon>
                                 <Path
                                     Width="30"
                                     Height="30"
@@ -507,25 +816,25 @@
                                     Stretch="Fill"
                                     Stroke="Black"
                                     StrokeThickness="0.1" />
-                            </fluent:DropDownButton.Icon>
-                        </fluent:DropDownButton>
-                    </fluent:RibbonGroupBox>
-                    <fluent:RibbonGroupBox Header="编辑" IsLauncherVisible="False">
-                        <fluent:SplitButton
+                            </Fluent:DropDownButton.Icon>
+                        </Fluent:DropDownButton>
+                    </Fluent:RibbonGroupBox>
+                    <Fluent:RibbonGroupBox Header="编辑" IsLauncherVisible="False">
+                        <Fluent:SplitButton
                             Header="自动求和"
                             Icon="{iconPacks:Material Kind=Sigma}"
                             Size="Middle" />
-                        <fluent:DropDownButton
+                        <Fluent:DropDownButton
                             Header="填充"
                             Icon="{iconPacks:BoxIcons Kind=RegularTable}"
                             Size="Middle" />
-                        <fluent:DropDownButton Header="清除" Size="Middle">
-                            <fluent:DropDownButton.Icon>
+                        <Fluent:DropDownButton Header="清除" Size="Middle">
+                            <Fluent:DropDownButton.Icon>
                                 <iconPacks:PackIconBoxIcons Foreground="Purple" Kind="SolidEraser" />
-                            </fluent:DropDownButton.Icon>
-                        </fluent:DropDownButton>
-                        <fluent:DropDownButton Header="排序和筛选">
-                            <fluent:DropDownButton.Icon>
+                            </Fluent:DropDownButton.Icon>
+                        </Fluent:DropDownButton>
+                        <Fluent:DropDownButton Header="排序和筛选">
+                            <Fluent:DropDownButton.Icon>
                                 <Path
                                     Width="30"
                                     Height="30"
@@ -534,10 +843,10 @@
                                     Stretch="Fill"
                                     Stroke="Black"
                                     StrokeThickness="0.1" />
-                            </fluent:DropDownButton.Icon>
-                        </fluent:DropDownButton>
-                        <fluent:DropDownButton Header="查找和选择">
-                            <fluent:DropDownButton.Icon>
+                            </Fluent:DropDownButton.Icon>
+                        </Fluent:DropDownButton>
+                        <Fluent:DropDownButton Header="查找和选择">
+                            <Fluent:DropDownButton.Icon>
 
                                 <Path
                                     Width="30"
@@ -547,13 +856,13 @@
                                     Stretch="Fill"
                                     Stroke="Black"
                                     StrokeThickness="0.1" />
-                            </fluent:DropDownButton.Icon>
-                        </fluent:DropDownButton>
+                            </Fluent:DropDownButton.Icon>
+                        </Fluent:DropDownButton>
 
-                    </fluent:RibbonGroupBox>
-                    <fluent:RibbonGroupBox Header="加载项" IsLauncherVisible="False">
-                        <fluent:Button Header="加 载项">
-                            <fluent:Button.Icon>
+                    </Fluent:RibbonGroupBox>
+                    <Fluent:RibbonGroupBox Header="加载项" IsLauncherVisible="False">
+                        <Fluent:Button Header="加 载项">
+                            <Fluent:Button.Icon>
                                 <Path
                                     Width="30"
                                     Height="30"
@@ -561,9 +870,9 @@
                                     Stretch="Fill"
                                     Stroke="#FFE06538"
                                     StrokeThickness="2" />
-                            </fluent:Button.Icon>
-                        </fluent:Button>
-                    </fluent:RibbonGroupBox>
+                            </Fluent:Button.Icon>
+                        </Fluent:Button>
+                    </Fluent:RibbonGroupBox>
                 </StackPanel>
             </TabItem>
             <TabItem Header="插入" />

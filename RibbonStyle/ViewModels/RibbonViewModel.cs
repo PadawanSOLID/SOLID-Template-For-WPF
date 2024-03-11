@@ -19,7 +19,7 @@ namespace RibbonStyle.ViewModels
             new("/Assets/tt5.png","超出饼图的教程"),
             new("/Assets/tt6.png","季节性照片日历"),
             new("/Assets/tt7.png","个人月度预算"),
-            new("/Assets/tt8.png","具有季节性插图的任意年份日历"),
+            new("/Assets/tt8.png","具有季节性插图的任意年份..."),
             new("/Assets/tt9.png","任意年份的单月月历"),
         };
     }
