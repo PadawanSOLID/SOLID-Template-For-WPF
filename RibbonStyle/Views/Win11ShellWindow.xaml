@@ -67,7 +67,6 @@
     </mah:MetroWindow.LeftWindowCommands>
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands Padding="0">
-
             <Button
                 MinWidth="156"
                 Margin="3,0"

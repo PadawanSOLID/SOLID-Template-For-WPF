@@ -37,7 +37,7 @@
                 TextElement.Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground}">
                 <mah:TransitioningContentControl
                     Name="mainContentControl"
-                    Margin="5"
+                    Margin="1"
                     behaviors:ReloadBehavior.OnSelectedTabChanged="True"
                     Focusable="False"
                     RestartTransitionOnContentChange="True"

@@ -1,4 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <SolidColorBrush x:Key="ActiveThemeBackground" Color="#FFE9EFF2" />
     <SolidColorBrush x:Key="RibbonTabControlContentBackground" Color="#FFF3F3F3" />
+    <SolidColorBrush x:Key="win10.Control.MouseOverBrush" Color="#FF0E5C2F" />
 </ResourceDictionary>

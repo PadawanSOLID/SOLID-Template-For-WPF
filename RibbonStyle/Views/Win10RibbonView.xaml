@@ -17,48 +17,44 @@
     d:DesignWidth="1620"
     mc:Ignorable="d">
     <Fluent:Ribbon
-        ContentHeight="110"
+        ContentHeight="94"
         FontSize="12"
         SelectedTabIndex="0"
         Style="{StaticResource win10RibbonStyle}">
-
         <Fluent:Ribbon.Resources>
-            <Style BasedOn="{StaticResource win10ribbonTabItemStyle}" TargetType="Fluent:RibbonTabItem" />
             <Style
                 x:Key="baseFluentButton"
                 BasedOn="{StaticResource Fluent.Ribbon.Styles.Button}"
                 TargetType="Fluent:Button">
-                <Setter Property="Margin" Value="2" />
+                <Setter Property="Margin" Value="1,0" />
                 <Setter Property="SimplifiedSizeDefinition" Value="Small" />
             </Style>
             <Style
                 x:Key="baseFluentComboBox"
                 BasedOn="{StaticResource MahApps.Styles.ComboBox}"
                 TargetType="Fluent:ComboBox">
-                <Setter Property="Margin" Value="2" />
+                <Setter Property="Margin" Value="1" />
             </Style>
             <Style
                 x:Key="baseFluentSplitButton"
                 BasedOn="{StaticResource Fluent.Ribbon.Styles.RibbonSplitButton}"
                 TargetType="Fluent:SplitButton">
-                <Setter Property="Margin" Value="2" />
+                <Setter Property="Margin" Value="1" />
             </Style>
             <Style
                 x:Key="baseFluentDropDownButton"
                 BasedOn="{StaticResource Fluent.Ribbon.Styles.RibbonDropDownButton}"
                 TargetType="Fluent:DropDownButton">
-                <Setter Property="Margin" Value="2" />
+                <Setter Property="Margin" Value="1" />
             </Style>
-            <Style BasedOn="{StaticResource Fluent.Ribbon.Styles.RibbonGroupBox}" TargetType="Fluent:RibbonGroupBox">
-                <Setter Property="Margin" Value="5" />
-                <Setter Property="IsLauncherVisible" Value="True" />
-                <Setter Property="Icon" Value="{iconPacks:Material Kind=Launch}" />
-            </Style>
+            <Style BasedOn="{StaticResource ribbonGroupBox}" TargetType="Fluent:RibbonGroupBox" />
             <Style BasedOn="{StaticResource baseFluentButton}" TargetType="Fluent:Button" />
             <Style BasedOn="{StaticResource baseFluentDropDownButton}" TargetType="Fluent:DropDownButton" />
             <Style BasedOn="{StaticResource baseFluentSplitButton}" TargetType="Fluent:SplitButton" />
             <Style BasedOn="{StaticResource baseFluentComboBox}" TargetType="Fluent:ComboBox" />
+            <Style BasedOn="{StaticResource win10ribbonTabItemStyle}" TargetType="Fluent:RibbonTabItem" />
         </Fluent:Ribbon.Resources>
+
         <Fluent:Ribbon.Menu>
             <Fluent:Backstage>
                 <Fluent:BackstageTabControl
@@ -167,7 +163,7 @@
             </Fluent:Backstage>
         </Fluent:Ribbon.Menu>
         <Fluent:RibbonTabItem Header="开始">
-            <Fluent:RibbonGroupBox Header="剪贴板">
+            <Fluent:RibbonGroupBox Header="剪贴板" IsLauncherVisible="True">
                 <Fluent:SplitButton Header="粘贴">
                     <Fluent:SplitButton.Icon>
                         <iconPacks:PackIconZondicons
@@ -341,7 +337,7 @@
                         Icon="{iconPacks:VaadinIcons Kind=Indent}"
                         SizeDefinition="Small" />
                 </Fluent:RibbonToolBar>
-                <Separator />
+                <Separator Margin="0,-5,0,0" />
                 <Fluent:Button
                     Margin="2,5"
                     Header="自动换行"

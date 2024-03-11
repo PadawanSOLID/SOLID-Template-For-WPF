@@ -19,6 +19,31 @@
     TitleCharacterCasing="Normal"
     WindowTitleBrush="{StaticResource MahApps.Brushes.AccentBase}"
     mc:Ignorable="d">
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands Padding="0" ShowSeparators="False">
+            <Button 
+                Style="{StaticResource windowCommandButtonStyle}" 
+                    Fluent:RibbonProperties.MouseOverBackground="{StaticResource win10.Control.MouseOverBrush}"
+                MinWidth="156"
+                Margin="3,0"
+                Padding="10,0"
+                HorizontalContentAlignment="Stretch"
+                mah:ControlsHelper.CornerRadius="0">
+                <DockPanel HorizontalAlignment="Center">
+                    <iconPacks:PackIconCodicons Margin="10,0"
+                        Width="20"
+                        Height="20"
+                        DockPanel.Dock="Right"
+                        Kind="Account" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Text="User"
+                        TextAlignment="Center" />
+                </DockPanel>
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
+
     <mah:MetroWindow.LeftWindowCommands>
         <mah:WindowCommands ShowSeparators="False">
             <Button>

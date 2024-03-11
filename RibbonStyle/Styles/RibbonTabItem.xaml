@@ -115,6 +115,7 @@
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+
     <Style x:Key="ribbonTabItemStyle" TargetType="Fluent:RibbonTabItem">
         <Setter Property="Foreground" Value="Black" />
         <Setter Property="Padding" Value="10,1" />
@@ -205,6 +206,6 @@
         <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.ThemeBackground}" />
         <Setter Property="Padding" Value="5,3" />
         <Setter Property="Template" Value="{StaticResource win10RibbonTabItem}" />
-        <Setter Property="Fluent:RibbonProperties.MouseOverBackground" Value="#FF0E5C2F" />
+        <Setter Property="Fluent:RibbonProperties.MouseOverBackground" Value="{StaticResource win10.Control.MouseOverBrush}" />
     </Style>
 </ResourceDictionary>
