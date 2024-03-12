@@ -19,10 +19,6 @@
                     x:Name="rowDefinition"
                     MinHeight="{TemplateBinding ContentHeight}"
                     MaxHeight="{TemplateBinding ContentHeight}" />
-                <RowDefinition
-                    x:Name="rowDefinition1"
-                    MinHeight="{TemplateBinding ContentGapHeight}"
-                    MaxHeight="{TemplateBinding ContentGapHeight}" />
             </Grid.RowDefinitions>
             <Border
                 Grid.Row="1"
@@ -35,31 +31,83 @@
                 KeyboardNavigation.TabIndex="2"
                 KeyboardNavigation.TabNavigation="Local"
                 TextElement.Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground}">
-                <mah:TransitioningContentControl
-                    Name="mainContentControl"
-                    Margin="1"
-                    behaviors:ReloadBehavior.OnSelectedTabChanged="True"
-                    Focusable="False"
-                    RestartTransitionOnContentChange="True"
-                    Transition="{TemplateBinding mah:TabControlHelper.Transition}"
-                    UseLayoutRounding="True">
-                    <ContentPresenter
-                        x:Name="PART_SelectedContentPresenter"
-                        Margin="{TemplateBinding Padding}"
-                        ContentSource="SelectedContent"
-                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                        UseLayoutRounding="False" />
-                </mah:TransitioningContentControl>
+                <DockPanel>
+                    <Fluent:DropDownButton
+                        x:Name="PART_DisplayOptionsButton"
+                        Grid.Row="1"
+                        Width="22"
+                        Height="22"
+                        Margin="0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        DockPanel.Dock="Right"
+                        Icon="{DynamicResource Fluent.Ribbon.Images.RibbonDisplayOptions}"
+                        Size="Small"
+                        Style="{DynamicResource Fluent.Ribbon.Styles.RibbonTabControl.DisplayOptionsButton}"
+                        ToolTip="{DynamicResource Fluent.Ribbon.ScreenTips.Resources.RibbonTabControl.DisplayOptionsScreenTip}"
+                        Visibility="{Binding IsDisplayOptionsButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
+                        <Fluent:MenuItem
+                            FontWeight="Bold"
+                            Foreground="{DynamicResource Fluent.Ribbon.Brushes.Black}"
+                            Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ShowRibbon, Mode=OneWay}"
+                            IsEnabled="False"
+                            Opacity="1"
+                            Template="{DynamicResource Fluent.Ribbon.Templates.MenuItem.HeaderOnly}"
+                            Visibility="{Binding CanMinimize, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
+                        <Fluent:MenuItem
+                            Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ExpandRibbon, Mode=OneWay}"
+                            IsCheckable="True"
+                            IsChecked="{Binding IsMinimized, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static converters:InverseBoolConverter.Instance}}"
+                            Visibility="{Binding CanMinimize, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
+                        <Fluent:MenuItem
+                            Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MinimizeRibbon, Mode=OneWay}"
+                            IsCheckable="True"
+                            IsChecked="{Binding IsMinimized, RelativeSource={RelativeSource TemplatedParent}}"
+                            Visibility="{Binding CanMinimize, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
+                        <Separator
+                            x:Name="DisplayOptionsButtonMenuSeparator"
+                            Style="{x:Null}"
+                            Visibility="Collapsed" />
+                        <Fluent:MenuItem
+                            FontWeight="Bold"
+                            Foreground="{DynamicResource Fluent.Ribbon.Brushes.Black}"
+                            Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.RibbonLayout, Mode=OneWay}"
+                            IsEnabled="False"
+                            Opacity="1"
+                            Template="{DynamicResource Fluent.Ribbon.Templates.MenuItem.HeaderOnly}"
+                            Visibility="{Binding CanUseSimplified, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
+                        <Fluent:MenuItem
+                            Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.UseClassicRibbon, Mode=OneWay}"
+                            IsCheckable="True"
+                            IsChecked="{Binding IsSimplified, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static converters:InverseBoolConverter.Instance}}"
+                            Visibility="{Binding CanUseSimplified, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
+                        <Fluent:MenuItem
+                            Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.UseSimplifiedRibbon, Mode=OneWay}"
+                            IsCheckable="True"
+                            IsChecked="{Binding IsSimplified, RelativeSource={RelativeSource TemplatedParent}}"
+                            Visibility="{Binding CanUseSimplified, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
+                    </Fluent:DropDownButton>
+
+                    <mah:TransitioningContentControl
+                        Name="mainContentControl"
+                        Margin="1"
+                        behaviors:ReloadBehavior.OnSelectedTabChanged="True"
+                        Focusable="False"
+                        RestartTransitionOnContentChange="True"
+                        Transition="{TemplateBinding mah:TabControlHelper.Transition}"
+                        UseLayoutRounding="True">
+                        <ContentPresenter
+                            x:Name="PART_SelectedContentPresenter"
+                            Margin="{TemplateBinding Padding}"
+                            ContentSource="SelectedContent"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                            UseLayoutRounding="False" />
+                    </mah:TransitioningContentControl>
+
+                </DockPanel>
             </Border>
-            <Border
-                Grid.Row="2"
-                Margin="0"
-                VerticalAlignment="Stretch"
-                Background="{Binding Path=SelectedTabItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}, FallbackValue=Transparent}" />
             <Grid
                 x:Name="TabsGrid"
-                Grid.Row="0"
-                Margin="0"
                 HorizontalAlignment="Stretch"
                 Background="{Binding Path=(ap:RibbonTabControlHelper.TabBackground), RelativeSource={RelativeSource AncestorType=Fluent:Ribbon}}"
                 KeyboardNavigation.TabIndex="1"
@@ -113,60 +161,12 @@
                     <StackPanel
                         x:Name="PART_ToolbarPanel"
                         Orientation="Horizontal"
-                        Visibility="{Binding IsToolBarVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
-                    <Fluent:DropDownButton
-                        x:Name="PART_DisplayOptionsButton"
-                        Width="22"
-                        Height="22"
-                        Margin="0"
-                        Icon="{DynamicResource Fluent.Ribbon.Images.RibbonDisplayOptions}"
-                        Size="Small"
-                        Style="{DynamicResource Fluent.Ribbon.Styles.RibbonTabControl.DisplayOptionsButton}"
-                        ToolTip="{DynamicResource Fluent.Ribbon.ScreenTips.Resources.RibbonTabControl.DisplayOptionsScreenTip}"
-                        Visibility="{Binding IsDisplayOptionsButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
-                        <Fluent:MenuItem
-                            FontWeight="Bold"
-                            Foreground="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                            Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ShowRibbon, Mode=OneWay}"
-                            IsEnabled="False"
-                            Opacity="1"
-                            Template="{DynamicResource Fluent.Ribbon.Templates.MenuItem.HeaderOnly}"
-                            Visibility="{Binding CanMinimize, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
-                        <Fluent:MenuItem
-                            Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ExpandRibbon, Mode=OneWay}"
-                            IsCheckable="True"
-                            IsChecked="{Binding IsMinimized, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static converters:InverseBoolConverter.Instance}}"
-                            Visibility="{Binding CanMinimize, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
-                        <Fluent:MenuItem
-                            Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MinimizeRibbon, Mode=OneWay}"
-                            IsCheckable="True"
-                            IsChecked="{Binding IsMinimized, RelativeSource={RelativeSource TemplatedParent}}"
-                            Visibility="{Binding CanMinimize, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
-                        <Separator
-                            x:Name="DisplayOptionsButtonMenuSeparator"
-                            Style="{x:Null}"
-                            Visibility="Collapsed" />
-                        <Fluent:MenuItem
-                            FontWeight="Bold"
-                            Foreground="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                            Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.RibbonLayout, Mode=OneWay}"
-                            IsEnabled="False"
-                            Opacity="1"
-                            Template="{DynamicResource Fluent.Ribbon.Templates.MenuItem.HeaderOnly}"
-                            Visibility="{Binding CanUseSimplified, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
-                        <Fluent:MenuItem
-                            Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.UseClassicRibbon, Mode=OneWay}"
-                            IsCheckable="True"
-                            IsChecked="{Binding IsSimplified, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static converters:InverseBoolConverter.Instance}}"
-                            Visibility="{Binding CanUseSimplified, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
-                        <Fluent:MenuItem
-                            Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.UseSimplifiedRibbon, Mode=OneWay}"
-                            IsCheckable="True"
-                            IsChecked="{Binding IsSimplified, RelativeSource={RelativeSource TemplatedParent}}"
-                            Visibility="{Binding CanUseSimplified, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
-                    </Fluent:DropDownButton>
+                        Visibility="{Binding IsToolBarVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
+                        <Button Style="{StaticResource win10.Button.WindowCommands}" />
+                    </StackPanel>
                 </StackPanel>
             </Grid>
+
             <Popup
                 x:Name="PART_Popup"
                 AllowsTransparency="True"
@@ -202,7 +202,6 @@
                 <Setter TargetName="mainContentControl" Property="Content" Value="{x:Null}" />
                 <Setter TargetName="popupContentControl" Property="Content" Value="{Binding ElementName=PART_SelectedContentPresenter, Mode=OneWay}" />
                 <Setter TargetName="rowDefinition" Property="MinHeight" Value="0" />
-                <Setter TargetName="rowDefinition1" Property="MinHeight" Value="0" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>

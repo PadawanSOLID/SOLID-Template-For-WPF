@@ -38,9 +38,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-
-
     <ControlTemplate x:Key="backstageBackButtonTemplate" TargetType="Button">
         <Grid
             x:Name="ContentGrid"
@@ -48,35 +45,41 @@
             Background="Transparent">
             <ContentControl
                 Margin="{TemplateBinding Padding}"
-                HorizontalAlignment="Left"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
                 Focusable="False">
-                <Grid>
-                    <Path
-                        x:Name="arrowpath"
-                        Width="16"
-                        Height="12"
-                        Data="F1 M 36,22L 36,26L 19.75,26L 27,33L 20.5,33L 11,24L 20.5,15L 27,15L 19.75,22L 36,22 Z "
-                        Fill="{TemplateBinding Foreground}"
-                        Stretch="Uniform" />
-                    <Ellipse
-                        x:Name="backellipse"
-                        Width="24"
-                        Height="24"
-                        Stroke="{TemplateBinding Foreground}"
-                        StrokeThickness="2" />
-                    <Path
-                        Width="Auto"
-                        Margin="0"
-                        HorizontalAlignment="Stretch"
-                        Data="M0,0 C0,35 0,35 0,35 C0,35 35,35 35,35 L35,0 z"
-                        Fill="Transparent"
-                        Stretch="None" />
-                </Grid>
+                <Border
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}">
+                    <Grid>
+                        <Path
+                            x:Name="arrowpath"
+                            Width="16"
+                            Height="12"
+                            Margin="-80,0,0,0"
+                            Data="F1 M 36,22L 36,26L 19.75,26L 27,33L 20.5,33L 11,24L 20.5,15L 27,15L 19.75,22L 36,22 Z "
+                            Fill="{TemplateBinding Foreground}"
+                            Stretch="Uniform"
+                            StrokeThickness="0.1" />
+                        <Ellipse
+                            x:Name="backellipse"
+                            Width="24"
+                            Height="24"
+                            Margin="-80,0,0,0"
+                            Stroke="{TemplateBinding Foreground}"
+                            StrokeThickness="1" />
+
+                    </Grid>
+                </Border>
             </ContentControl>
         </Grid>
 
         <ControlTemplate.Triggers>
             <Trigger Property="IsKeyboardFocused" Value="True">
+                <!--<Setter Property="BorderBrush" Value="{Binding Path=(mah:ControlsHelper.FocusBorderBrush)}" />
+                <Setter Property="BorderThickness" Value="{Binding Path=(mah:ControlsHelper.FocusBorderThickness)}" />-->
                 <Setter TargetName="ContentGrid" Property="Background" Value="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}" />
                 <Setter TargetName="arrowpath" Property="Opacity" Value="0.8" />
                 <Setter TargetName="backellipse" Property="Opacity" Value="0.8" />
@@ -117,27 +120,13 @@
         </ControlTemplate.Resources>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="46" />
+                <RowDefinition Height="40" />
                 <RowDefinition />
             </Grid.RowDefinitions>
             <DockPanel Background="{StaticResource ActiveThemeBackground}" LastChildFill="False">
-                <Image
-                    Width="25"
-                    Height="25"
-                    Margin="10"
-                    VerticalAlignment="Center"
-                    Source="/Assets/logo.png"
-                    Stretch="Fill" />
-                <Button
-                    Content="工作簿1 - Excel"
-                    FontSize="12"
-                    Style="{StaticResource win11.Button.WindowCommands}" />
-
                 <UniformGrid DockPanel.Dock="Right" Rows="1">
-
                     <Button Content="{iconPacks:VaadinIcons Kind=Chat}" Style="{StaticResource win11.Button.WindowCommands}" />
                     <Button Content="?" Style="{StaticResource win11.Button.WindowCommands}" />
-
                     <Button
                         x:Name="PART_Min"
                         Width="46"
@@ -224,7 +213,8 @@
                     </DockPanel>
                 </Button>
             </DockPanel>
-            <Grid Grid.Row="1" >
+
+            <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" MinWidth="{TemplateBinding ItemsPanelMinWidth}" />
                     <ColumnDefinition Width="*" />
@@ -281,6 +271,192 @@
             </Grid>
         </Grid>
     </ControlTemplate>
+    <ControlTemplate x:Key="win10BackStageTemplate" TargetType="fluent:BackstageTabControl">
+        <ControlTemplate.Resources>
+            <ResourceDictionary>
+                <Style
+                    x:Key="{x:Type ScrollBar}"
+                    BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollBarWhite}"
+                    TargetType="{x:Type ScrollBar}" />
+
+                <Style
+                    x:Key="{x:Type fluent:Button}"
+                    BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.Button}"
+                    TargetType="{x:Type fluent:Button}" />
+                <Style
+                    x:Key="{x:Type fluent:ToggleButton}"
+                    BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.ToggleButton}"
+                    TargetType="{x:Type fluent:ToggleButton}" />
+                <Style
+                    x:Key="{x:Type fluent:DropDownButton}"
+                    BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.DropDownButton}"
+                    TargetType="{x:Type fluent:DropDownButton}" />
+                <Style
+                    x:Key="{x:Type fluent:ComboBox}"
+                    BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.ComboBox}"
+                    TargetType="{x:Type fluent:ComboBox}" />
+            </ResourceDictionary>
+        </ControlTemplate.Resources>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="141" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid
+                x:Name="PART_ItemsPanelContainer"
+                VerticalAlignment="Stretch"
+                Background="{DynamicResource Fluent.Ribbon.Brushes.White}">
+                <Grid Background="{TemplateBinding ItemsPanelBackground}" KeyboardNavigation.DirectionalNavigation="Cycle">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="84" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <fluent:WindowSteeringHelperControl
+                        Grid.RowSpan="2"
+                        Height="{Binding SelectedContentMargin.Top, RelativeSource={RelativeSource TemplatedParent}}"
+                        VerticalAlignment="Top"
+                        IsEnabled="{TemplateBinding IsWindowSteeringHelperEnabled}" />
+
+                    <Button
+                        x:Name="PART_BackButton"
+                        Uid="{TemplateBinding BackButtonUid}"
+                        Grid.Row="0"
+                        Height="42"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Bottom"
+                        AutomationProperties.AcceleratorKey="ESC"
+                        AutomationProperties.Name="{Binding Uid, RelativeSource={RelativeSource Self}}"
+                        Background="{StaticResource win10.Control.MouseOverBrush}"
+                        Command="{x:Static fluent:RibbonCommands.OpenBackstage}"
+                        FocusVisualStyle="{x:Null}"
+                        Foreground="{StaticResource MahApps.Brushes.ThemeBackground}"
+                        Template="{StaticResource backstageBackButtonTemplate}"
+                        Visibility="{Binding Path=IsBackButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
+                    <ItemsPresenter Grid.Row="1" Height="Auto" />
+                </Grid>
+            </Grid>
+
+            <Grid
+                x:Name="PART_SelectedContentGrid"
+                Grid.Column="1"
+                Height="Auto"
+                Margin="{TemplateBinding SelectedContentMargin}"
+                Background="{DynamicResource Fluent.Ribbon.Brushes.White}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <DockPanel LastChildFill="False">
+                    <DockPanel.Resources>
+                        <Style BasedOn="{StaticResource win10.Button.WindowCommands}" TargetType="Button">
+                            <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.ThemeForeground}" />
+                            <Setter Property="fluent:RibbonProperties.MouseOverBackground" Value="{StaticResource win10.BackStage.MouseOverBrush}" />
+                            <Setter Property="fluent:RibbonProperties.MouseOverForeground" Value="{StaticResource MahApps.Brushes.ThemeForeground}" />
+                        </Style>
+                    </DockPanel.Resources>
+                    <UniformGrid DockPanel.Dock="Right" Rows="1">
+                        <Button Content="{iconPacks:VaadinIcons Kind=Chat}" />
+                        <Button Content="?" />
+                        <Button
+                            x:Name="PART_Min"
+                            AutomationProperties.AutomationId="Minimize"
+                            AutomationProperties.Name="Minimize"
+                            Focusable="False" 
+                            Command="{x:Static SystemCommands.CloseWindowCommand}"
+                            IsEnabled="{Binding IsMinButtonEnabled, RelativeSource={RelativeSource AncestorType={x:Type mah:MetroWindow}}}"
+                            ToolTip="{Binding Minimize, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                            UseLayoutRounding="True">
+                            <Path
+                                Width="10"
+                                Height="10"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Data="M0,0L10,0 10,1 10,1 1,1 0,1z"
+                                Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                RenderOptions.EdgeMode="Aliased"
+                                SnapsToDevicePixels="True"
+                                Stretch="Uniform" />
+                        </Button>
+                        <Button
+                            x:Name="PART_Max"
+                            AutomationProperties.AutomationId="MaximizeRestore"
+                            AutomationProperties.Name="Maximize"
+                            Focusable="False"
+                            IsEnabled="{Binding IsMaxRestoreButtonEnabled, RelativeSource={RelativeSource AncestorType={x:Type mah:MetroWindow}}}"
+                            ToolTip="{Binding Maximize, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                            UseLayoutRounding="True">
+                            <Path
+                                x:Name="PART_MaxPath"
+                                Width="10"
+                                Height="10"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Data="M1,1L1,11 11,11 11,1z M0,0L12,0 12,12 0,12z"
+                                Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                RenderOptions.EdgeMode="Aliased"
+                                SnapsToDevicePixels="True"
+                                Stretch="Uniform" />
+                        </Button>
+                        <Button
+                            x:Name="PART_Close"
+                            AutomationProperties.AutomationId="Close"
+                            AutomationProperties.Name="Close"
+                            Focusable="False"
+                            IsEnabled="{Binding RelativeSource={RelativeSource AncestorType={x:Type mah:MetroWindow}}, Path=IsCloseButtonEnabled, Mode=OneWay}"
+                            Style="{StaticResource Button.Light.Close}"
+                            ToolTip="{Binding Close, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                            UseLayoutRounding="True">
+                            <Path
+                                Width="10"
+                                Height="10"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Data="F1M8.583,8L13,12.424 12.424,13 8,8.583 3.576,13 3,12.424 7.417,8 3,3.576 3.576,3 8,7.417 12.424,3 13,3.576z"
+                                Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                RenderOptions.EdgeMode="Aliased"
+                                SnapsToDevicePixels="True"
+                                Stretch="Uniform" />
+                        </Button>
+                    </UniformGrid>
+                    <Button
+                        Margin="3,0"
+                        Padding="10,0"
+                        HorizontalContentAlignment="Center"
+                        DockPanel.Dock="Right">
+                        <DockPanel>
+                            <iconPacks:PackIconCodicons
+                                Width="20"
+                                Height="20"
+                                Margin="10,0"
+                                DockPanel.Dock="Right"
+                                Kind="Account" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Text="User"
+                                TextAlignment="Center" />
+                        </DockPanel>
+                    </Button>
+                </DockPanel>
+
+                <Border Grid.Row="1" Background="{TemplateBinding Background}">
+                    <ContentPresenter
+                        x:Name="PART_SelectedContentHost"
+                        Height="Auto"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        ContentSource="SelectedContent"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                </Border>
+            </Grid>
+            <TextBlock
+                Grid.ColumnSpan="2"
+                Margin="5"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Text="ShellWindow" />
+        </Grid>
+    </ControlTemplate>
 
     <Style BasedOn="{StaticResource Fluent.Ribbon.Styles.BackstageTabControl}" TargetType="fluent:BackstageTabControl">
         <Setter Property="ItemContainerStyleSelector" Value="{x:Static styles:BackstageTabControlItemContainerStyleSelector.Instance}" />
@@ -289,5 +465,7 @@
     <Style
         x:Key="win10BackStageTabControlStyle"
         BasedOn="{StaticResource Fluent.Ribbon.Styles.BackstageTabControl}"
-        TargetType="fluent:BackstageTabControl" />
+        TargetType="fluent:BackstageTabControl">
+        <Setter Property="Template" Value="{StaticResource win10BackStageTemplate}" />
+    </Style>
 </ResourceDictionary>

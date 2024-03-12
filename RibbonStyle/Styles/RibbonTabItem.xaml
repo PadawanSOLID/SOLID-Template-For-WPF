@@ -206,6 +206,7 @@
         <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.ThemeBackground}" />
         <Setter Property="Padding" Value="5,3" />
         <Setter Property="Template" Value="{StaticResource win10RibbonTabItem}" />
+        <Setter Property="ActiveTabBackground" Value="#FFF3F3F3" />
         <Setter Property="Fluent:RibbonProperties.MouseOverBackground" Value="{StaticResource win10.Control.MouseOverBrush}" />
     </Style>
 </ResourceDictionary>

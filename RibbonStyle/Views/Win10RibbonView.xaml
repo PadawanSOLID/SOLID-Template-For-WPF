@@ -54,17 +54,12 @@
             <Style BasedOn="{StaticResource baseFluentComboBox}" TargetType="Fluent:ComboBox" />
             <Style BasedOn="{StaticResource win10ribbonTabItemStyle}" TargetType="Fluent:RibbonTabItem" />
         </Fluent:Ribbon.Resources>
-
         <Fluent:Ribbon.Menu>
-            <Fluent:Backstage>
-                <Fluent:BackstageTabControl
-                    Margin="0,20,0,0"
-                    ItemsPanelMinWidth="150"
-                    Style="{StaticResource win10BackStageTabControlStyle}"
-                    Template="{StaticResource backStageTemplate}">
+            <Fluent:Backstage >
+                <Fluent:BackstageTabControl Style="{StaticResource win10BackStageTabControlStyle}" >
                     <Fluent:BackstageTabItem
                         Foreground="{StaticResource MahApps.Brushes.ThemeBackground}"
-                        Header="开始"
+                        Header="开始" 
                         Icon="{iconPacks:Codicons Kind=Home}">
                         <ScrollViewer>
                             <StackPanel>
@@ -190,7 +185,7 @@
                     SizeDefinition="Middle,Small" />
             </Fluent:RibbonGroupBox>
             <Fluent:RibbonGroupBox Header="字体">
-                <Fluent:RibbonToolBar>
+                <Fluent:RibbonToolBar Margin="0,3">
                     <Fluent:RibbonToolBar.LayoutDefinitions>
                         <Fluent:RibbonToolBarLayoutDefinition>
                             <Fluent:RibbonToolBarRow>
@@ -272,7 +267,7 @@
 
             </Fluent:RibbonGroupBox>
             <Fluent:RibbonGroupBox Header="对齐方式">
-                <Fluent:RibbonToolBar>
+                <Fluent:RibbonToolBar Margin="0,3">
                     <Fluent:RibbonToolBar.LayoutDefinitions>
                         <Fluent:RibbonToolBarLayoutDefinition>
 
@@ -351,7 +346,7 @@
                     SizeDefinition="Middle,Small" />
             </Fluent:RibbonGroupBox>
             <Fluent:RibbonGroupBox Header="数字">
-                <Fluent:RibbonToolBar>
+                <Fluent:RibbonToolBar Margin="0,3">
                     <Fluent:RibbonToolBar.LayoutDefinitions>
                         <Fluent:RibbonToolBarLayoutDefinition>
                             <Fluent:RibbonToolBarRow>

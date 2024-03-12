@@ -2,6 +2,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Fluent="urn:fluent-ribbon"
+    xmlns:ap="clr-namespace:RibbonStyle.AttachProperties"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
     <Style
         x:Key="Button.Dark"
@@ -40,6 +41,7 @@
         <Setter Property="mah:ControlsHelper.FocusBorderThickness" Value="0.3" />
         <Setter Property="mah:ControlsHelper.ContentCharacterCasing" Value="Normal" />
         <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="ap:ControlsHelper.NonActiveBackground" Value="{StaticResource noneActiveBackground}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ButtonBase}">
@@ -79,8 +81,9 @@
                         </Trigger>
 
                         <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="False">
-                            <Setter TargetName="Border" Property="Background" Value="{StaticResource noneActiveBackground}" />
+                            <Setter TargetName="Border" Property="Background" Value="{Binding (ap:ControlsHelper.NonActiveBackground), RelativeSource={RelativeSource Self}}" />
                             <Setter Property="Foreground" Value="{StaticResource noneActiveForeground}" />
+                            <Setter Property="Opacity" Value="0.5"/>
                         </DataTrigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="DisabledVisualElement" Property="Opacity" Value="0.7" />
@@ -99,7 +102,20 @@
         <Setter Property="Fluent:RibbonProperties.MouseOverBackground" Value="{StaticResource MahApps.Brushes.ThemeBackground}" />
         <Setter Property="Fluent:RibbonProperties.MouseOverForeground" Value="{StaticResource MahApps.Brushes.ThemeForeground}" />
     </Style>
-    <Style TargetType="Button" BasedOn="{StaticResource MahApps.Styles.Button}" x:Key="hyperLink">
+    <Style
+        x:Key="win10.Button.WindowCommands"
+        BasedOn="{StaticResource windowCommandButtonStyle}"
+        TargetType="Button">
+        <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.ThemeBackground}" />
+        <Setter Property="Fluent:RibbonProperties.MouseOverBackground" Value="{StaticResource win10.Control.MouseOverBrush}" />
+        <Setter Property="Fluent:RibbonProperties.MouseOverForeground" Value="{StaticResource MahApps.Brushes.ThemeBackground}" />
+        <Setter Property="ap:ControlsHelper.NonActiveBackground" Value="Transparent"/>
+        <Setter Property="mah:ControlsHelper.CornerRadius" Value="0" />
+    </Style>
+    <Style
+        x:Key="hyperLink"
+        BasedOn="{StaticResource MahApps.Styles.Button}"
+        TargetType="Button">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ButtonBase}">

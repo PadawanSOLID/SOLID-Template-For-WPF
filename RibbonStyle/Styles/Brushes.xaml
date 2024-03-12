@@ -4,4 +4,5 @@
     <SolidColorBrush x:Key="noneActiveBackground" Color="#FFF0F0F0" />
     <SolidColorBrush x:Key="noneActiveForeground" Color="#FFBDBDBD" />
     <SolidColorBrush x:Key="win10.Control.MouseOverBrush" Color="#FF0E5C2F" />
+    <SolidColorBrush x:Key="win10.BackStage.MouseOverBrush" Color="#330E5C2F" />
 </ResourceDictionary>

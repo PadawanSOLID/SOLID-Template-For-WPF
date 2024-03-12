@@ -5,7 +5,7 @@
     xmlns:cvt="clr-namespace:RibbonStyle.Converters"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
     <ControlTemplate x:Key="backstageTabItem" TargetType="{x:Type Fluent:BackstageTabItem}">
-        <Grid
+        <Grid 
             x:Name="rootGrid"
             Background="Transparent"
             ToolTip="{TemplateBinding ToolTip}">
@@ -91,7 +91,7 @@
         <Setter Property="Fluent:RibbonProperties.MouseOverBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.MouseOver.Background}" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
         <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-        <Setter Property="Height" Value="38" />
+        <Setter Property="Height" Value="45" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="Template" Value="{DynamicResource backstageTabItem}" />
         <Setter Property="ToolTipService.IsEnabled" Value="False" />

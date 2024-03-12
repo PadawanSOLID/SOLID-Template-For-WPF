@@ -21,19 +21,18 @@
     mc:Ignorable="d">
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands Padding="0" ShowSeparators="False">
-            <Button 
-                Style="{StaticResource windowCommandButtonStyle}" 
-                    Fluent:RibbonProperties.MouseOverBackground="{StaticResource win10.Control.MouseOverBrush}"
-                MinWidth="156"
+            <Button
                 Margin="3,0"
                 Padding="10,0"
-                HorizontalContentAlignment="Stretch"
-                mah:ControlsHelper.CornerRadius="0">
+                Foreground="{StaticResource MahApps.Brushes.ThemeBackground}"
+                Style="{StaticResource win10.Button.WindowCommands}">
                 <DockPanel HorizontalAlignment="Center">
-                    <iconPacks:PackIconCodicons Margin="10,0"
+                    <iconPacks:PackIconCodicons
                         Width="20"
                         Height="20"
+                        Margin="10,0"
                         DockPanel.Dock="Right"
+                        Foreground="Silver"
                         Kind="Account" />
                     <TextBlock
                         VerticalAlignment="Center"
@@ -41,20 +40,47 @@
                         TextAlignment="Center" />
                 </DockPanel>
             </Button>
+            <Button
+                Width="46"
+                Content="{iconPacks:Material Kind=ArchiveArrowUpOutline}"
+                Style="{StaticResource win10.Button.WindowCommands}" />
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
+    <mah:MetroWindow.WindowButtonCommands>
+        <mah:WindowButtonCommands
+            VerticalContentAlignment="Stretch"
+            DarkCloseButtonStyle="{StaticResource MahApps.Styles.Button.MetroWindow.Close.Dark.Win10}"
+            DarkMaxButtonStyle="{StaticResource MahApps.Styles.Button.MetroWindow.Dark}"
+            DarkMinButtonStyle="{StaticResource MahApps.Styles.Button.MetroWindow.Dark}"
+            LightCloseButtonStyle="{StaticResource MahApps.Styles.Button.MetroWindow.Close.Light.Win10}"
+            LightMaxButtonStyle="{StaticResource MahApps.Styles.Button.MetroWindow.Light}"
+            LightMinButtonStyle="{StaticResource MahApps.Styles.Button.MetroWindow.Light}" />
+    </mah:MetroWindow.WindowButtonCommands>
 
     <mah:MetroWindow.LeftWindowCommands>
         <mah:WindowCommands ShowSeparators="False">
-            <Button>
-                <iconPacks:PackIconMaterialDesign Kind="Save" />
+            <mah:WindowCommands.Resources>
+                <DrawingImage x:Key="Fluent.Ribbon.Images.QuickAccessToolbarDropDown" x:Shared="False">
+                    <DrawingImage.Drawing>
+                        <DrawingGroup>
+                            <DrawingGroup.Children>
+                                <GeometryDrawing Brush="#00FFFFFF" Geometry="F1 M 0,85.3333L 85.3333,85.3333L 85.3333,0L 0,0L 0,85.3333 Z " />
+                                <GeometryDrawing Brush="White" Geometry="F1 M 5.33333,13.3333L 80.0013,13.3333L 80.0013,0L 5.33333,0M 12.6667,28L 42.6667,64L 72.6667,28L 12.6667,28 Z " />
+                            </DrawingGroup.Children>
+                        </DrawingGroup>
+                    </DrawingImage.Drawing>
+                </DrawingImage>
+
+            </mah:WindowCommands.Resources>
+            <Button Opacity="1">
+                <iconPacks:PackIconMaterialDesign Foreground="{StaticResource MahApps.Brushes.ThemeBackground}" Kind="Save" />
             </Button>
-            <mah:SplitButton Foreground="White">
+            <mah:SplitButton Foreground="{StaticResource MahApps.Brushes.ThemeBackground}" Opacity="1">
                 <mah:SplitButton.Icon>
                     <iconPacks:PackIconMaterial Kind="ArrowULeftTop" />
                 </mah:SplitButton.Icon>
             </mah:SplitButton>
-            <mah:SplitButton Foreground="White">
+            <mah:SplitButton Foreground="{StaticResource MahApps.Brushes.ThemeBackground}" Opacity="1">
                 <mah:SplitButton.Icon>
                     <iconPacks:PackIconMaterial Kind="ArrowURightTop" />
                 </mah:SplitButton.Icon>
