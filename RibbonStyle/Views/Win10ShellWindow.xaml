@@ -88,5 +88,14 @@
             <Fluent:QuickAccessToolBar />
         </mah:WindowCommands>
     </mah:MetroWindow.LeftWindowCommands>
-    <view:Win10RibbonView />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <view:Win10RibbonView />
+        <view:TableView Grid.Row="1"/>
+    </Grid>
+   
 </mah:MetroWindow>

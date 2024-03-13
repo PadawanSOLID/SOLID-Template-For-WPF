@@ -24,5 +24,31 @@ namespace RibbonStyle.Views
         {
             InitializeComponent();
         }
+
+        private void DockPanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton==MouseButtonState.Pressed)
+            {
+                App.Current.MainWindow.DragMove();
+            }
+        }
+
+        private void PART_Min_Click(object sender, RoutedEventArgs e)
+        {
+            App.Current.MainWindow.WindowState= WindowState.Minimized;
+        }
+
+        private void PART_Max_Click(object sender, RoutedEventArgs e)
+        {
+            var window=App.Current.MainWindow;
+            if (window.WindowState==WindowState.Maximized)
+            {
+                window.WindowState = WindowState.Normal;
+            }
+            else
+            {
+                window.WindowState= WindowState.Maximized;
+            }
+        }
     }
 }
