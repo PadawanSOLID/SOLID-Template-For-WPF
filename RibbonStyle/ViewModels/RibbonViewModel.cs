@@ -22,5 +22,14 @@ namespace RibbonStyle.ViewModels
             new("/Assets/tt8.png","具有季节性插图的任意年份..."),
             new("/Assets/tt9.png","任意年份的单月月历"),
         };
+        public List<ExcelFile> ExcelFiles { get; set; } = new()
+        {
+            new(){Icon="Excel" ,FileName="工作簿1.xlsx",Source="桌面",UpdateDate=DateTime.Now.ToShortDateString()},
+            new(){Icon="Excel" ,FileName="工作簿2.xlsx",Source="OneDrive",UpdateDate=DateTime.Now.ToShortDateString()},
+            new(){Icon="Excel" ,FileName="工作簿3.xlsx",Source="文档",UpdateDate=DateTime.Now.ToShortDateString()},
+            new(){Icon="Excel" ,FileName="工作簿4.xlsx",Source="OneDrive",UpdateDate=DateTime.Now.ToShortDateString()},
+            new(){Icon="Excel" ,FileName="工作簿5.xlsx",Source="桌面",UpdateDate=DateTime.Now.ToShortDateString()},
+            new(){Icon="Excel" ,FileName="工作簿6.xlsx",Source="OneDrive",UpdateDate=DateTime.Now.ToShortDateString()},
+        };
     }
 }

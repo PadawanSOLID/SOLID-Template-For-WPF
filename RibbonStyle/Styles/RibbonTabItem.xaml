@@ -116,6 +116,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+
     <Style x:Key="ribbonTabItemStyle" TargetType="Fluent:RibbonTabItem">
         <Setter Property="Foreground" Value="Black" />
         <Setter Property="Padding" Value="10,1" />
