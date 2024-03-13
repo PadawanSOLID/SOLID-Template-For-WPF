@@ -13,7 +13,6 @@
     xmlns:vm="clr-namespace:RibbonStyle.ViewModels"
     d:DataContext="{d:DesignInstance Type=vm:RibbonViewModel,
                                      IsDesignTimeCreatable=True}"
-    d:DesignHeight="1080"
     d:DesignWidth="1620"
     mc:Ignorable="d">
     <Fluent:Ribbon
@@ -55,106 +54,208 @@
             <Style BasedOn="{StaticResource win10ribbonTabItemStyle}" TargetType="Fluent:RibbonTabItem" />
         </Fluent:Ribbon.Resources>
         <Fluent:Ribbon.Menu>
-            <Fluent:Backstage >
-                <Fluent:BackstageTabControl Style="{StaticResource win10BackStageTabControlStyle}" >
-                    <Fluent:BackstageTabItem
-                        Foreground="{StaticResource MahApps.Brushes.ThemeBackground}"
-                        Header="开始" 
-                        Icon="{iconPacks:Codicons Kind=Home}">
-                        <ScrollViewer>
-                            <StackPanel>
-                                <TextBlock Style="{StaticResource tabContentHeader}" Text="晚上好" />
-                                <Expander
-                                    Margin="10"
-                                    mah:HeaderedControlHelper.HeaderBackground="Transparent"
-                                    mah:HeaderedControlHelper.HeaderFontSize="16"
-                                    mah:HeaderedControlHelper.HeaderFontWeight="Bold"
-                                    mah:HeaderedControlHelper.HeaderForeground="{StaticResource MahApps.Brushes.ThemeForeground}"
-                                    mah:HeaderedControlHelper.HeaderMargin="10,5"
-                                    BorderBrush="{StaticResource ActiveThemeBackground}"
-                                    BorderThickness="0"
-                                    Header="新建">
-                                    <ListBox ItemsSource="{Binding TableTemplates}">
-                                        <ListBox.ItemContainerStyle>
-                                            <Style BasedOn="{StaticResource MahApps.Styles.ListBoxItem}" TargetType="ListBoxItem">
-                                                <Setter Property="Padding" Value="0" />
-                                                <Setter Property="Margin" Value="10" />
-                                            </Style>
-                                        </ListBox.ItemContainerStyle>
-                                        <ListBox.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <StackPanel Orientation="Horizontal" />
-                                            </ItemsPanelTemplate>
-                                        </ListBox.ItemsPanel>
-                                        <ListBox.ItemTemplate>
-                                            <DataTemplate>
-                                                <Border Margin="20,20,20,0">
-                                                    <Grid>
-                                                        <Grid.RowDefinitions>
-                                                            <RowDefinition />
-                                                            <RowDefinition Height="auto" />
-                                                        </Grid.RowDefinitions>
-                                                        <Image
-                                                            Width="120"
-                                                            Height="90"
-                                                            Source="{Binding Path}"
-                                                            Stretch="Fill" />
-                                                        <TextBlock
-                                                            Grid.Row="1"
-                                                            Margin="10"
-                                                            FontWeight="Bold"
-                                                            Text="{Binding Name}"
-                                                            TextAlignment="Center" />
-                                                    </Grid>
-                                                </Border>
-                                            </DataTemplate>
-                                        </ListBox.ItemTemplate>
-                                    </ListBox>
-                                </Expander>
-                                <Separator
-                                    Margin="10"
-                                    Opacity="0.3"
-                                    Style="{x:Null}" />
-                            </StackPanel>
-                        </ScrollViewer>
-                    </Fluent:BackstageTabItem>
-                    <Fluent:BackstageTabItem
-                        Foreground="{StaticResource MahApps.Brushes.ThemeBackground}"
-                        Header="新建"
-                        Icon="{iconPacks:Codicons Kind=File}" />
-                    <Fluent:BackstageTabItem
-                        Foreground="{StaticResource MahApps.Brushes.ThemeBackground}"
-                        Header="打开"
-                        Icon="{iconPacks:Codicons Kind=FolderOpened}" />
+            <Fluent:Backstage>
+                <Grid>
 
-                    <Fluent:SeparatorTabItem />
 
-                    <Fluent:BackstageTabItem Header="获取加载项">
-                        <Fluent:BackstageTabItem.Icon>
-                            <iconPacks:PackIconOcticons
-                                Width="5"
-                                Height="5"
-                                VerticalAlignment="Center"
-                                Foreground="#FFF28C00"
-                                Kind="PrimitiveDot" />
-                        </Fluent:BackstageTabItem.Icon>
-                    </Fluent:BackstageTabItem>
-                    <Fluent:BackstageTabItem Header="信息" />
-                    <Fluent:BackstageTabItem Header="保存" />
-                    <Fluent:BackstageTabItem Header="另存为" />
-                    <Fluent:BackstageTabItem Header="历史记录" />
-                    <Fluent:BackstageTabItem Header="打印" />
-                    <Fluent:BackstageTabItem Header="共享" />
-                    <Fluent:BackstageTabItem Header="导出" />
-                    <Fluent:BackstageTabItem Header="发布" />
-                    <Fluent:BackstageTabItem Header="关闭" />
+                    <Fluent:BackstageTabControl Style="{StaticResource win10BackStageTabControlStyle}">
+                        <Fluent:BackstageTabItem
+                            Foreground="{StaticResource MahApps.Brushes.ThemeBackground}"
+                            Header="开始"
+                            Icon="{iconPacks:Codicons Kind=Home}">
+                            <ScrollViewer>
+                                <StackPanel>
+                                    <TextBlock Style="{StaticResource tabContentHeader}" Text="晚上好" />
+                                    <Expander
+                                        Margin="10"
+                                        mah:HeaderedControlHelper.HeaderBackground="Transparent"
+                                        mah:HeaderedControlHelper.HeaderFontSize="16"
+                                        mah:HeaderedControlHelper.HeaderFontWeight="Bold"
+                                        mah:HeaderedControlHelper.HeaderForeground="{StaticResource MahApps.Brushes.ThemeForeground}"
+                                        mah:HeaderedControlHelper.HeaderMargin="10,5"
+                                        BorderBrush="{StaticResource ActiveThemeBackground}"
+                                        BorderThickness="0"
+                                        Header="新建">
+                                        <ListBox ItemsSource="{Binding TableTemplates}">
+                                            <ListBox.ItemContainerStyle>
+                                                <Style BasedOn="{StaticResource MahApps.Styles.ListBoxItem}" TargetType="ListBoxItem">
+                                                    <Setter Property="Padding" Value="0" />
+                                                    <Setter Property="Margin" Value="10" />
+                                                </Style>
+                                            </ListBox.ItemContainerStyle>
+                                            <ListBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel Orientation="Horizontal" />
+                                                </ItemsPanelTemplate>
+                                            </ListBox.ItemsPanel>
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Border Margin="20,20,20,0">
+                                                        <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition />
+                                                                <RowDefinition Height="auto" />
+                                                            </Grid.RowDefinitions>
+                                                            <Image
+                                                                Width="120"
+                                                                Height="90"
+                                                                Source="{Binding Path}"
+                                                                Stretch="Fill" />
+                                                            <TextBlock
+                                                                Grid.Row="1"
+                                                                Margin="10"
+                                                                FontWeight="Bold"
+                                                                Text="{Binding Name}"
+                                                                TextAlignment="Center" />
+                                                        </Grid>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                    </Expander>
+                                    <Separator
+                                        Margin="10"
+                                        Opacity="0.3"
+                                        Style="{x:Null}" />
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Fluent:BackstageTabItem>
+                        <Fluent:BackstageTabItem
+                            Foreground="{StaticResource MahApps.Brushes.ThemeBackground}"
+                            Header="新建"
+                            Icon="{iconPacks:Codicons Kind=File}" />
+                        <Fluent:BackstageTabItem
+                            Foreground="{StaticResource MahApps.Brushes.ThemeBackground}"
+                            Header="打开"
+                            Icon="{iconPacks:Codicons Kind=FolderOpened}" />
 
-                    <Fluent:SeparatorTabItem DockPanel.Dock="Bottom" Opacity="0" />
-                    <Fluent:BackstageTabItem DockPanel.Dock="Bottom" Header="选项" />
-                    <Fluent:BackstageTabItem DockPanel.Dock="Bottom" Header="反馈" />
-                    <Fluent:BackstageTabItem DockPanel.Dock="Bottom" Header="账户" />
-                    <Fluent:SeparatorTabItem DockPanel.Dock="Bottom" />
-                </Fluent:BackstageTabControl>
+                        <Fluent:SeparatorTabItem />
+
+                        <Fluent:BackstageTabItem Header="获取加载项">
+                            <Fluent:BackstageTabItem.Icon>
+                                <iconPacks:PackIconOcticons
+                                    Width="5"
+                                    Height="5"
+                                    VerticalAlignment="Center"
+                                    Foreground="#FFF28C00"
+                                    Kind="PrimitiveDot" />
+                            </Fluent:BackstageTabItem.Icon>
+                        </Fluent:BackstageTabItem>
+                        <Fluent:BackstageTabItem Header="信息" />
+                        <Fluent:BackstageTabItem Header="保存" />
+                        <Fluent:BackstageTabItem Header="另存为" />
+                        <Fluent:BackstageTabItem Header="历史记录" />
+                        <Fluent:BackstageTabItem Header="打印" />
+                        <Fluent:BackstageTabItem Header="共享" />
+                        <Fluent:BackstageTabItem Header="导出" />
+                        <Fluent:BackstageTabItem Header="发布" />
+                        <Fluent:BackstageTabItem Header="关闭" />
+
+                        <Fluent:SeparatorTabItem DockPanel.Dock="Bottom" Opacity="0" />
+                        <Fluent:BackstageTabItem DockPanel.Dock="Bottom" Header="选项" />
+                        <Fluent:BackstageTabItem DockPanel.Dock="Bottom" Header="反馈" />
+                        <Fluent:BackstageTabItem DockPanel.Dock="Bottom" Header="账户" />
+                        <Fluent:SeparatorTabItem DockPanel.Dock="Bottom" />
+                    </Fluent:BackstageTabControl>
+                    <DockPanel
+                        Height="30"
+                        VerticalAlignment="Top"
+                        Background="Transparent"
+                        LastChildFill="False"
+                        MouseMove="DockPanel_MouseMove">
+                        <DockPanel.Resources>
+                            <Style BasedOn="{StaticResource win10.Button.WindowCommands}" TargetType="Button">
+                                <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.ThemeForeground}" />
+                                <Setter Property="Fluent:RibbonProperties.MouseOverBackground" Value="{StaticResource win10.BackStage.MouseOverBrush}" />
+                                <Setter Property="Fluent:RibbonProperties.MouseOverForeground" Value="{StaticResource MahApps.Brushes.ThemeForeground}" />
+                            </Style>
+                        </DockPanel.Resources>
+                        <UniformGrid DockPanel.Dock="Right" Rows="1">
+                            <Button Content="{iconPacks:VaadinIcons Kind=Chat}" />
+                            <Button Content="?" />
+                            <Button
+                                x:Name="PART_Min"
+                                AutomationProperties.AutomationId="Minimize"
+                                AutomationProperties.Name="Minimize"
+                                Click="PART_Min_Click"
+                                Focusable="False"
+                                IsEnabled="{Binding IsMinButtonEnabled, RelativeSource={RelativeSource AncestorType={x:Type mah:MetroWindow}}}"
+                                ToolTip="{Binding Minimize, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                                UseLayoutRounding="True">
+                                <Path
+                                    Width="10"
+                                    Height="10"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Data="M0,0L10,0 10,1 10,1 1,1 0,1z"
+                                    Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                    RenderOptions.EdgeMode="Aliased"
+                                    SnapsToDevicePixels="True"
+                                    Stretch="Uniform" />
+                            </Button>
+                            <Button
+                                x:Name="PART_Max"
+                                AutomationProperties.AutomationId="MaximizeRestore"
+                                AutomationProperties.Name="Maximize"
+                                Click="PART_Max_Click"
+                                Focusable="False"
+                                IsEnabled="{Binding IsMaxRestoreButtonEnabled, RelativeSource={RelativeSource AncestorType={x:Type mah:MetroWindow}}}"
+                                ToolTip="{Binding Maximize, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                                UseLayoutRounding="True">
+                                <Path
+                                    x:Name="PART_MaxPath"
+                                    Width="10"
+                                    Height="10"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Data="M1,1L1,11 11,11 11,1z M0,0L12,0 12,12 0,12z"
+                                    Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                    RenderOptions.EdgeMode="Aliased"
+                                    SnapsToDevicePixels="True"
+                                    Stretch="Uniform" />
+                            </Button>
+                            <Button
+                                x:Name="PART_Close"
+                                AutomationProperties.AutomationId="Close"
+                                AutomationProperties.Name="Close"
+                                Command="{Binding ClosingCommand}"
+                                Focusable="False"
+                                IsEnabled="{Binding RelativeSource={RelativeSource AncestorType={x:Type mah:MetroWindow}}, Path=IsCloseButtonEnabled, Mode=OneWay}"
+                                Style="{StaticResource Button.Light.Close}"
+                                ToolTip="{Binding Close, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                                UseLayoutRounding="True">
+                                <Path
+                                    Width="10"
+                                    Height="10"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Data="F1M8.583,8L13,12.424 12.424,13 8,8.583 3.576,13 3,12.424 7.417,8 3,3.576 3.576,3 8,7.417 12.424,3 13,3.576z"
+                                    Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                    RenderOptions.EdgeMode="Aliased"
+                                    SnapsToDevicePixels="True"
+                                    Stretch="Uniform" />
+                            </Button>
+                        </UniformGrid>
+                        <Button
+                            Margin="3,0"
+                            Padding="10,0"
+                            HorizontalContentAlignment="Center"
+                            DockPanel.Dock="Right">
+                            <DockPanel>
+                                <iconPacks:PackIconCodicons
+                                    Width="20"
+                                    Height="20"
+                                    Margin="10,0"
+                                    DockPanel.Dock="Right"
+                                    Kind="Account" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Text="User"
+                                    TextAlignment="Center" />
+                            </DockPanel>
+                        </Button>
+                    </DockPanel>
+                </Grid>
             </Fluent:Backstage>
         </Fluent:Ribbon.Menu>
         <Fluent:RibbonTabItem Header="开始">
