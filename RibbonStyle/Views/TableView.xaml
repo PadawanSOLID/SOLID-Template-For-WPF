@@ -45,11 +45,18 @@
                 BorderBrush="Black"
                 BorderThickness="1" />
         </DockPanel>
-        <TabControl
+        <TabControl Style="{StaticResource tableTabControlStyle}"
             Grid.Row="1"
             Padding="0"
+            mah:TabControlHelper.UnderlinePlacement="Bottom"
+            mah:TabControlHelper.Underlined="SelectedTabItem"
             BorderThickness="0"
             TabStripPlacement="Bottom">
+            <TabControl.ItemContainerStyle>
+                <Style BasedOn="{StaticResource Ribbon.TabItem}" TargetType="TabItem">
+                    <Setter Property="Padding" Value="5,5" />
+                </Style>
+            </TabControl.ItemContainerStyle>
             <TabControl.Resources>
                 <Style
                     x:Key="editingTb"
@@ -75,13 +82,15 @@
                     FontSize="10"
                     GridLinesVisibility="All"
                     HeadersVisibility="All"
+                    HorizontalScrollBarVisibility="Hidden"
                     ItemsSource="{Binding TableDatas}"
-                    MinRowHeight="0"
-                    SelectionUnit="Cell">
+                    MinRowHeight="15"
+                    SelectionUnit="Cell"
+                    VerticalScrollBarVisibility="Visible">
                     <DataGrid.CellStyle>
                         <Style TargetType="{x:Type DataGridCell}">
-                            <Setter Property="FontSize" Value="10" />
-                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="FontSize" Value="12" />
+                            <Setter Property="Foreground" Value="Black" />
                             <Setter Property="Background" Value="Transparent" />
                             <Setter Property="BorderBrush" Value="Transparent" />
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -216,15 +225,20 @@
                             <Setter Property="Background" Value="#FFE6E6E6" />
                             <Setter Property="BorderThickness" Value="0,0,0,1" />
                             <Setter Property="BorderBrush" Value="Gray" />
+                            <Setter Property="FontSize" Value="13" />
+                            <Setter Property="MinHeight" Value="0" />
+                            <Setter Property="VerticalContentAlignment" Value="Bottom" />
                             <Setter Property="FontWeight" Value="Normal" />
                             <Setter Property="HorizontalContentAlignment" Value="Center" />
                         </Style>
                     </DataGrid.ColumnHeaderStyle>
                     <DataGrid.RowHeaderStyle>
                         <Style BasedOn="{StaticResource MahApps.Styles.DataGridRowHeader}" TargetType="DataGridRowHeader">
-                            <Setter Property="Padding" Value="5,0" />
-                            <Setter Property="MinHeight" Value="0" />
-                            <Setter Property="MinWidth" Value="20" />
+                            <Setter Property="Padding" Value="0" />
+                            <Setter Property="MinHeight" Value="10" />
+                            <Setter Property="Height" Value="20" />
+                            <Setter Property="Width" Value="30" />
+
                             <Setter Property="Background" Value="#FFE6E6E6" />
                             <Setter Property="HorizontalContentAlignment" Value="Center" />
                             <Setter Property="Content" Value="{Binding DataContext.Index, RelativeSource={RelativeSource AncestorType=DataGridRow}}" />

@@ -11,9 +11,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:system="clr-namespace:System;assembly=mscorlib"
     xmlns:view="clr-namespace:RibbonStyle.Views"
+    xmlns:viewmodels="clr-namespace:RibbonStyle.ViewModels"
     Title="Ribbon Style Window"
     Width="1920"
     Height="1000"
+    d:DataContext="{d:DesignInstance Type=viewmodels:TableViewModel,IsDesignTimeCreatable=True}"
     Background="{StaticResource ActiveThemeBackground}"
     FontFamily="Microsoft YaHei UI"
     NonActiveWindowTitleBrush="#FFF0F0F0"
@@ -399,7 +401,6 @@
     </mah:MetroWindow.RightWindowCommands>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="20" />
@@ -884,6 +885,6 @@
             <TabItem Header="帮助" />
         </TabControl>-->
 
-
+        <view:TableView Grid.Row="1" />
     </Grid>
 </mah:MetroWindow>
