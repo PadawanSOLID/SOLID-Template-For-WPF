@@ -16,6 +16,7 @@
     d:DesignWidth="1620"
     mc:Ignorable="d">
     <Fluent:Ribbon
+        
         ContentHeight="94"
         FontSize="12"
         SelectedTabIndex="0"
@@ -53,6 +54,22 @@
             <Style BasedOn="{StaticResource baseFluentComboBox}" TargetType="Fluent:ComboBox" />
             <Style BasedOn="{StaticResource win10ribbonTabItemStyle}" TargetType="Fluent:RibbonTabItem" />
         </Fluent:Ribbon.Resources>
+        <Fluent:Ribbon.StartScreen>
+            <Fluent:StartScreen>
+                <Fluent:StartScreenTabControl>
+                    <Fluent:StartScreenTabControl.LeftContent>
+                        <StackPanel>
+                            <TextBlock Text="tetet"/>
+                        </StackPanel>
+                    </Fluent:StartScreenTabControl.LeftContent>
+                    <Fluent:StartScreenTabControl.RightContent>
+                        <StackPanel>
+                            <TextBlock Text="231231"/>
+                        </StackPanel>
+                    </Fluent:StartScreenTabControl.RightContent>
+                </Fluent:StartScreenTabControl>
+            </Fluent:StartScreen>
+        </Fluent:Ribbon.StartScreen>
         <Fluent:Ribbon.Menu>
             <Fluent:Backstage>
                 <Grid>
