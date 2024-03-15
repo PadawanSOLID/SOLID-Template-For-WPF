@@ -1,0 +1,74 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Fluent="urn:fluent-ribbon">
+    <ControlTemplate x:Key="startScreenTabControl" TargetType="{x:Type Fluent:StartScreenTabControl}">
+        <ControlTemplate.Resources>
+            <ResourceDictionary>
+                <Style
+                    x:Key="{x:Type ScrollBar}"
+                    BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollBarWhite}"
+                    TargetType="{x:Type ScrollBar}" />
+                <Style
+                    x:Key="{x:Type Fluent:Button}"
+                    BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.Button}"
+                    TargetType="{x:Type Fluent:Button}" />
+                <Style
+                    x:Key="{x:Type Fluent:DropDownButton}"
+                    BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.DropDownButton}"
+                    TargetType="{x:Type Fluent:DropDownButton}" />
+                <Style
+                    x:Key="{x:Type Fluent:ComboBox}"
+                    BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.ComboBox}"
+                    TargetType="{x:Type Fluent:ComboBox}" />
+            </ResourceDictionary>
+        </ControlTemplate.Resources>
+        <Grid x:Name="grid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" MinWidth="{TemplateBinding ItemsPanelMinWidth}" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid
+                x:Name="PART_LeftContentGrid"
+                Margin="{TemplateBinding LeftContentMargin}"
+                VerticalAlignment="Stretch"
+                Background="{TemplateBinding ItemsPanelBackground}">
+                <Border Padding="0,25">
+                    <ContentPresenter
+                        Height="Auto"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Content="{TemplateBinding LeftContent}" />
+                </Border>
+
+                <Fluent:WindowSteeringHelperControl
+                    Height="{Binding SelectedContentMargin.Top, RelativeSource={RelativeSource TemplatedParent}}"
+                    VerticalAlignment="Top"
+                    IsEnabled="{TemplateBinding IsWindowSteeringHelperEnabled}" />
+            </Grid>
+
+            <Grid
+                x:Name="PART_SelectedContentGrid"
+                Grid.Column="1"
+                Height="Auto"
+                Margin="{TemplateBinding SelectedContentMargin}"
+                Background="{DynamicResource Fluent.Ribbon.Brushes.White}">
+                <Border Padding="33,16" Background="{DynamicResource Fluent.Ribbon.Brushes.White}">
+                    <ContentPresenter
+                        x:Name="PART_SelectedContentHost"
+                        Height="Auto"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Content="{TemplateBinding RightContent}" />
+                </Border>
+            </Grid>
+        </Grid>
+    </ControlTemplate>
+    <Style
+        x:Key="startScreenTabControlStyle"
+        BasedOn="{StaticResource Fluent.Ribbon.Styles.StartScreenTabControl}"
+        TargetType="Fluent:StartScreenTabControl">
+        <Setter Property="Template" Value="{StaticResource startScreenTabControl}" />
+    </Style>
+</ResourceDictionary>

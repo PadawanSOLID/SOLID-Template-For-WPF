@@ -475,7 +475,10 @@
                                     Grid.Column="1"
                                     IsItemsHost="true"
                                     KeyboardNavigation.TabIndex="1" />
-                                <UniformGrid Grid.Column="2" Rows="1" HorizontalAlignment="Left">
+                                <UniformGrid
+                                    Grid.Column="2"
+                                    HorizontalAlignment="Left"
+                                    Rows="1">
                                     <Button Content="{iconPacks:RadixIcons Kind=DotsHorizontal, Width=10, Height=10}" />
                                     <Button Content="{iconPacks:Ionicons Kind=AddMD, Width=10, Height=10}" />
 
@@ -574,5 +577,4 @@
         <Setter Property="mah:TabControlHelper.UnderlineMouseOverSelectedBrush" Value="{DynamicResource MahApps.Brushes.Highlight}" />
         <Setter Property="mah:TabControlHelper.UnderlineSelectedBrush" Value="{DynamicResource MahApps.Brushes.Accent}" />
     </Style>
-
 </ResourceDictionary>

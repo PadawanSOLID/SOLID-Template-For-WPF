@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RibbonStyle.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace RibbonStyle.Views
         public Win10RibbonView()
         {
             InitializeComponent();
+            DataContext = new RibbonViewModel();
         }
 
         private void DockPanel_MouseMove(object sender, MouseEventArgs e)

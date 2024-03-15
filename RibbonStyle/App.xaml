@@ -24,7 +24,9 @@
 
                 <ResourceDictionary Source="/Styles/Button.xaml" />
                 <ResourceDictionary Source="/Styles/TabControl.xaml" />
+                <ResourceDictionary Source="/Styles/ListBox.xaml" />
                 <ResourceDictionary Source="/Styles/BackStageTabControl.xaml" />
+                <ResourceDictionary Source="/Styles/StartScreenTabControl.xaml" />
                 <ResourceDictionary Source="/Styles/BackStageTabControlItem.xaml" />
                 <ResourceDictionary Source="/Styles/BackStage.xaml" />
                 <ResourceDictionary Source="/Styles/RibbonGroupBox.xaml" />

@@ -34,5 +34,6 @@ namespace RibbonStyle.ViewModels
                 Foreground=new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF9C5700")),
             },
         };
+      
     }
 }
