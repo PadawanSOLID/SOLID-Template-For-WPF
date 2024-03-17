@@ -45,18 +45,14 @@
                 BorderBrush="Black"
                 BorderThickness="1" />
         </DockPanel>
-        <TabControl Style="{StaticResource tableTabControlStyle}"
+        <TabControl
             Grid.Row="1"
             Padding="0"
             mah:TabControlHelper.UnderlinePlacement="Bottom"
             mah:TabControlHelper.Underlined="SelectedTabItem"
             BorderThickness="0"
+            Style="{StaticResource tableTabControlStyle}"
             TabStripPlacement="Bottom">
-            <TabControl.ItemContainerStyle>
-                <Style BasedOn="{StaticResource Ribbon.TabItem}" TargetType="TabItem">
-                    <Setter Property="Padding" Value="5,5" />
-                </Style>
-            </TabControl.ItemContainerStyle>
             <TabControl.Resources>
                 <Style
                     x:Key="editingTb"

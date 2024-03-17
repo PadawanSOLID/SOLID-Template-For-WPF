@@ -116,7 +116,7 @@
                 Margin="30"
                 Padding="10,15"
                 mah:TabControlHelper.Underlined="SelectedTabItem"
-                Background="WhiteSmoke"
+                Background="Transparent"
                 Style="{StaticResource MahApps.Styles.TabControl.Animated}">
                 <TabControl.ItemContainerStyle>
                     <Style BasedOn="{StaticResource Ribbon.TabItem}" TargetType="TabItem">

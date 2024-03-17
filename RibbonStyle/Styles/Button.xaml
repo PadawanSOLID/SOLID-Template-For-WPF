@@ -38,13 +38,15 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="FontSize" Value="13" />
+        <Setter Property="Fluent:RibbonProperties.MouseOverBackground" Value="{StaticResource MahApps.Brushes.ThemeBackground}" />
+        <Setter Property="Fluent:RibbonProperties.MouseOverForeground" Value="{StaticResource MahApps.Brushes.ThemeForeground}" />
+        <Setter Property="ap:ControlsHelper.NonActiveBackground" Value="{StaticResource noneActiveBackground}" />
         <Setter Property="mah:ControlsHelper.FocusBorderThickness" Value="0.3" />
         <Setter Property="mah:ControlsHelper.ContentCharacterCasing" Value="Normal" />
         <Setter Property="FontWeight" Value="Normal" />
-        <Setter Property="ap:ControlsHelper.NonActiveBackground" Value="{StaticResource noneActiveBackground}" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ButtonBase}">
+                <ControlTemplate TargetType="Button">
                     <Grid>
                         <mah:ClipBorder
                             x:Name="Border"
@@ -79,11 +81,10 @@
                             <Setter TargetName="Border" Property="Background" Value="{Binding (Fluent:RibbonProperties.MouseOverBackground), RelativeSource={RelativeSource TemplatedParent}}" />
                             <Setter Property="Foreground" Value="{Binding (Fluent:RibbonProperties.MouseOverForeground), RelativeSource={RelativeSource Self}}" />
                         </Trigger>
-
                         <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="False">
-                            <Setter TargetName="Border" Property="Background" Value="{Binding (ap:ControlsHelper.NonActiveBackground), RelativeSource={RelativeSource Self}}" />
+                            <Setter TargetName="Border" Property="Background" Value="{Binding (ap:ControlsHelper.NonActiveBackground), RelativeSource={RelativeSource TemplatedParent}}" />
                             <Setter Property="Foreground" Value="{StaticResource noneActiveForeground}" />
-                            <Setter Property="Opacity" Value="0.5"/>
+                            <Setter Property="Opacity" Value="0.5" />
                         </DataTrigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="DisabledVisualElement" Property="Opacity" Value="0.7" />
@@ -94,11 +95,14 @@
             </Setter.Value>
         </Setter>
 
+
+
     </Style>
     <Style
         x:Key="win11.Button.WindowCommands"
         BasedOn="{StaticResource windowCommandButtonStyle}"
         TargetType="Button">
+        <Setter Property="ap:ControlsHelper.NonActiveBackground" Value="{StaticResource noneActiveBackground}" />
         <Setter Property="Fluent:RibbonProperties.MouseOverBackground" Value="{StaticResource MahApps.Brushes.ThemeBackground}" />
         <Setter Property="Fluent:RibbonProperties.MouseOverForeground" Value="{StaticResource MahApps.Brushes.ThemeForeground}" />
     </Style>
@@ -109,7 +113,7 @@
         <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.ThemeBackground}" />
         <Setter Property="Fluent:RibbonProperties.MouseOverBackground" Value="{StaticResource win10.Control.MouseOverBrush}" />
         <Setter Property="Fluent:RibbonProperties.MouseOverForeground" Value="{StaticResource MahApps.Brushes.ThemeBackground}" />
-        <Setter Property="ap:ControlsHelper.NonActiveBackground" Value="Transparent"/>
+        <Setter Property="ap:ControlsHelper.NonActiveBackground" Value="Transparent" />
         <Setter Property="mah:ControlsHelper.CornerRadius" Value="0" />
     </Style>
     <Style

@@ -9,10 +9,11 @@
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
+    xmlns:view="clr-namespace:RibbonStyle.Views"
     xmlns:vm="clr-namespace:RibbonStyle.ViewModels"
     d:DataContext="{d:DesignInstance Type=vm:RibbonViewModel,
                                      IsDesignTimeCreatable=True}"
-    d:DesignHeight="1080" xmlns:view="clr-namespace:RibbonStyle.Views"
+    d:DesignHeight="1080"
     d:DesignWidth="1600"
     prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
@@ -252,44 +253,149 @@
             </Fluent:Ribbon.Resources>
             <Fluent:Ribbon.Menu>
                 <Fluent:Backstage Style="{StaticResource win11BackStageStyle}">
-                    <Fluent:BackstageTabControl
-                        Background="WhiteSmoke"
-                        ItemsPanelMinWidth="140"
-                        Template="{StaticResource backStageTemplate}">
-                        <Fluent:BackstageTabItem Header="开始" Icon="{iconPacks:Codicons Kind=Home}">
-                        </Fluent:BackstageTabItem>
-                        <Fluent:BackstageTabItem Header="新建" Icon="{iconPacks:Codicons Kind=File}" />
-                        <Fluent:BackstageTabItem Header="打开" Icon="{iconPacks:Codicons Kind=FolderOpened}" />
-                        <view:StartView/>
-                        <Fluent:SeparatorTabItem />
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="48" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <DockPanel Background="{StaticResource ActiveThemeBackground}" LastChildFill="False">
+                            <Image Margin="10" Source="/Assets/logo.png" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Foreground="Black"
+                                Text="工作簿1 - Excel" />
+                            <UniformGrid DockPanel.Dock="Right" Rows="1">
+                                <Button Content="{iconPacks:VaadinIcons Kind=Chat}" Style="{StaticResource win11.Button.WindowCommands}" />
+                                <Button Content="?" Style="{StaticResource win11.Button.WindowCommands}" />
+                                <Button
+                                    x:Name="PART_Min"
+                                    Width="46"
+                                    AutomationProperties.AutomationId="Minimize"
+                                    AutomationProperties.Name="Minimize"
+                                    Focusable="False"
+                                    IsEnabled="{Binding IsMinButtonEnabled, RelativeSource={RelativeSource AncestorType={x:Type mah:MetroWindow}}}"
+                                    Style="{StaticResource win11.Button.WindowCommands}"
+                                    ToolTip="{Binding Minimize, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                                    UseLayoutRounding="True">
+                                    <Path
+                                        Width="10"
+                                        Height="10"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Data="M0,0L10,0 10,1 10,1 1,1 0,1z"
+                                        Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                        RenderOptions.EdgeMode="Aliased"
+                                        SnapsToDevicePixels="True"
+                                        Stretch="Uniform" />
+                                </Button>
+                                <Button
+                                    x:Name="PART_Max"
+                                    Width="46"
+                                    AutomationProperties.AutomationId="MaximizeRestore"
+                                    AutomationProperties.Name="Maximize"
+                                    Focusable="False"
+                                    IsEnabled="{Binding IsMaxRestoreButtonEnabled, RelativeSource={RelativeSource AncestorType={x:Type mah:MetroWindow}}}"
+                                    Style="{StaticResource win11.Button.WindowCommands}"
+                                    ToolTip="{Binding Maximize, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                                    UseLayoutRounding="True">
+                                    <Path
+                                        x:Name="PART_MaxPath"
+                                        Width="10"
+                                        Height="10"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Data="M1,1L1,11 11,11 11,1z M0,0L12,0 12,12 0,12z"
+                                        Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                        RenderOptions.EdgeMode="Aliased"
+                                        SnapsToDevicePixels="True"
+                                        Stretch="Uniform" />
+                                </Button>
+                                <Button
+                                    x:Name="PART_Close"
+                                    Width="46"
+                                    AutomationProperties.AutomationId="Close"
+                                    AutomationProperties.Name="Close"
+                                    Focusable="False"
+                                    IsEnabled="{Binding RelativeSource={RelativeSource AncestorType={x:Type mah:MetroWindow}}, Path=IsCloseButtonEnabled, Mode=OneWay}"
+                                    Style="{StaticResource Button.Light.Close}"
+                                    ToolTip="{Binding Close, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                                    UseLayoutRounding="True">
+                                    <Path
+                                        Width="10"
+                                        Height="10"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Data="F1M8.583,8L13,12.424 12.424,13 8,8.583 3.576,13 3,12.424 7.417,8 3,3.576 3.576,3 8,7.417 12.424,3 13,3.576z"
+                                        Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                        RenderOptions.EdgeMode="Aliased"
+                                        SnapsToDevicePixels="True"
+                                        Stretch="Uniform" />
+                                </Button>
+                            </UniformGrid>
+                            <Button
+                                MinWidth="156"
+                                Margin="3,0"
+                                Padding="10"
+                                HorizontalContentAlignment="Center"
+                                DockPanel.Dock="Right"
+                                Style="{StaticResource win11.Button.WindowCommands}">
+                                <DockPanel>
+                                    <iconPacks:PackIconCodicons
+                                        Width="20"
+                                        Height="20"
+                                        Margin="10,0"
+                                        DockPanel.Dock="Right"
+                                        Kind="Account" />
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Text="User"
+                                        TextAlignment="Center" />
+                                </DockPanel>
+                            </Button>
+                        </DockPanel>
+                        <Fluent:BackstageTabControl
+                            Grid.Row="1"
+                            Background="WhiteSmoke"
+                            ItemsPanelMinWidth="140"
+                            Style="{StaticResource win11BackStageTabControlStyle}">
+                            <Fluent:BackstageTabItem Header="开始" Icon="{iconPacks:Codicons Kind=Home}">
+                                <view:StartView />
+                            </Fluent:BackstageTabItem>
+                            <Fluent:BackstageTabItem Header="新建" Icon="{iconPacks:Codicons Kind=File}">
+                                <view:NewFileView />
+                            </Fluent:BackstageTabItem>
+                            <Fluent:BackstageTabItem Header="打开" Icon="{iconPacks:Codicons Kind=FolderOpened}" />
+                            <Fluent:SeparatorTabItem />
 
-                        <Fluent:BackstageTabItem Header="获取加载项">
-                            <Fluent:BackstageTabItem.Icon>
-                                <iconPacks:PackIconFeatherIcons BorderThickness="1" Kind="Grid" />
-                            </Fluent:BackstageTabItem.Icon>
-                        </Fluent:BackstageTabItem>
-                        <Fluent:BackstageTabItem Header="信息" />
-                        <Fluent:BackstageTabItem Header="保存" />
-                        <Fluent:BackstageTabItem Header="另存为" />
-                        <Fluent:BackstageTabItem Header="历史记录" />
-                        <Fluent:BackstageTabItem Header="打印" />
-                        <Fluent:BackstageTabItem Header="共享" />
-                        <Fluent:BackstageTabItem Header="导出" />
-                        <Fluent:BackstageTabItem Header="发布" />
-                        <Fluent:BackstageTabItem Header="关闭" />
+                            <Fluent:BackstageTabItem Header="获取加载项">
+                                <Fluent:BackstageTabItem.Icon>
+                                    <iconPacks:PackIconFeatherIcons BorderThickness="1" Kind="Grid" />
+                                </Fluent:BackstageTabItem.Icon>
+                            </Fluent:BackstageTabItem>
+                            <Fluent:BackstageTabItem Header="信息" />
+                            <Fluent:BackstageTabItem Header="保存" />
+                            <Fluent:BackstageTabItem Header="另存为" />
+                            <Fluent:BackstageTabItem Header="历史记录" />
+                            <Fluent:BackstageTabItem Header="打印" />
+                            <Fluent:BackstageTabItem Header="共享" />
+                            <Fluent:BackstageTabItem Header="导出" />
+                            <Fluent:BackstageTabItem Header="发布" />
+                            <Fluent:BackstageTabItem Header="关闭" />
 
-                        <Fluent:SeparatorTabItem DockPanel.Dock="Bottom" Opacity="0" />
-                        <Fluent:BackstageTabItem
-                            VerticalAlignment="Bottom"
-                            DockPanel.Dock="Bottom"
-                            Header="选项" />
-                        <Fluent:BackstageTabItem
-                            VerticalAlignment="Bottom"
-                            DockPanel.Dock="Bottom"
-                            Header="账户" />
-                        <Fluent:SeparatorTabItem DockPanel.Dock="Bottom" />
-                    </Fluent:BackstageTabControl>
+                            <Fluent:SeparatorTabItem DockPanel.Dock="Bottom" Opacity="0" />
+                            <Fluent:BackstageTabItem
+                                VerticalAlignment="Bottom"
+                                DockPanel.Dock="Bottom"
+                                Header="选项" />
+                            <Fluent:BackstageTabItem
+                                VerticalAlignment="Bottom"
+                                DockPanel.Dock="Bottom"
+                                Header="账户" />
+                            <Fluent:SeparatorTabItem DockPanel.Dock="Bottom" />
+                        </Fluent:BackstageTabControl>
+                    </Grid>
                 </Fluent:Backstage>
+
             </Fluent:Ribbon.Menu>
             <Fluent:RibbonTabItem Header="开始">
                 <Fluent:RibbonGroupBox Header="剪贴板">

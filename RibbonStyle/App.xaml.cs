@@ -15,7 +15,7 @@ namespace RibbonStyle
     {
         protected override Window CreateShell()
         {
-            return Container.Resolve<Win10ShellWindow>();
+            return Container.Resolve<Win11ShellWindow>();
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)

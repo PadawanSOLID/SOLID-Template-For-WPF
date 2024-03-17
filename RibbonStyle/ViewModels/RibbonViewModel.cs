@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using RibbonStyle.Models;
 using System;
 using System.Collections.Generic;
@@ -30,5 +31,10 @@ namespace RibbonStyle.ViewModels
             new("","选项"),
         };
 
+        [RelayCommand]
+        void Closing()
+        {
+
+        }
     }
 }
