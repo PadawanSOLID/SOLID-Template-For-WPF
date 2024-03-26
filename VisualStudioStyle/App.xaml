@@ -10,8 +10,8 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Emerald.xaml" />
-                <ResourceDictionary Source="/Themes/Brush.xaml"/>
-                <ResourceDictionary Source="/Styles/SplitButton.xaml"/>
+                <ResourceDictionary Source="/Themes/Brush.xaml" />
+                <ResourceDictionary Source="/Styles/SplitButton.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 

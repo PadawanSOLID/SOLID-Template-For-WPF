@@ -60,12 +60,88 @@
     </mah:MetroWindow.RightWindowCommands>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="78" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <ToolBarTray Background="{DynamicResource MenuAndToolBackground}">
-
+            <ToolBarTray.Resources>
+                <Style x:Key="MahApps.Styles.Button.ToolBar" TargetType="{x:Type ButtonBase}">
+                    <Style.Resources>
+                        <!--  Disabled all images placed inside a button - most common scenario  -->
+                        <Style TargetType="Image">
+                            <Style.Triggers>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Opacity" Value="0.5" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Style.Resources>
+                    <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Transparent}" />
+                    <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Transparent}" />
+                    <Setter Property="BorderThickness" Value="1" />
+                    <Setter Property="FocusVisualStyle" Value="{DynamicResource MahApps.Styles.Button.FocusVisualStyle.Flat}" />
+                    <Setter Property="FontSize" Value="{DynamicResource MahApps.Font.Size.Button.Flat}" />
+                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Text}" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <Setter Property="OverridesDefaultStyle" Value="true" />
+                    <Setter Property="Padding" Value="3" />
+                    <Setter Property="SnapsToDevicePixels" Value="true" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ButtonBase}">
+                                <Border
+                                    x:Name="Border"
+                                    Margin="0"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="{TemplateBinding mah:ControlsHelper.CornerRadius}"
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                                    <mah:ContentControlEx
+                                        x:Name="PART_ContentPresenter"
+                                        Padding="{TemplateBinding Padding}"
+                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        Content="{TemplateBinding Content}"
+                                        ContentCharacterCasing="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mah:ControlsHelper.ContentCharacterCasing)}"
+                                        ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                                        ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                                        RecognizesAccessKey="{TemplateBinding mah:ControlsHelper.RecognizesAccessKey}"
+                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource Button.ToolBar.MouseOverBackground}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource Button.ToolBar.MouseOverBorderBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource Button.ToolBar.MouseOverBackground}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource Button.ToolBar.MouseOverBorderBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource Button.ToolBar.PressedBackground}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource Button.ToolBar.MouseOverBorderBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray3}" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+                <Style
+                    x:Key="{x:Static ToolBar.ButtonStyleKey}"
+                    BasedOn="{StaticResource MahApps.Styles.Button.ToolBar}"
+                    TargetType="{x:Type Button}" />
+                <Style TargetType="Separator">
+                    <Setter Property="Background" Value="{DynamicResource ToolBarSeparatorBackground}"/>
+                    <Setter Property="Margin" Value="3,0"/>
+                </Style>
+            </ToolBarTray.Resources>
             <ToolBar>
                 <mah:SplitButton Foreground="#FF0053A7" Icon="{iconPacks:FontAwesome Kind=ArrowAltCircleLeftRegular}" />
                 <mah:SplitButton Foreground="#FF0053A7" Icon="{iconPacks:FontAwesome Kind=ArrowAltCircleRightRegular}" />
@@ -113,10 +189,10 @@
                 </Button>
                 <Button Content="{iconPacks:MaterialLight Kind=ContentSave}" Foreground="#FF0053A7" />
                 <Button Content="{iconPacks:MaterialLight Kind=ContentSaveAll}" Foreground="#FF0053A7" />
-                <Separator Background="{DynamicResource ToolBarSeparatorBackground}" />
+                <Separator />
                 <mah:SplitButton Icon="{iconPacks:Modern Kind=UndoCurve}" />
                 <mah:SplitButton Icon="{iconPacks:Modern Kind=RedoCurve}" />
-                <Separator Background="{DynamicResource ToolBarSeparatorBackground}" />
+                <Separator />
                 <ComboBox Width="64" />
                 <ComboBox Width="110" />
                 <ComboBox Width="200" />
@@ -179,10 +255,51 @@
                 <Button Content="{iconPacks:Codicons Kind=DebugStepInto}" Foreground="#FF125EAE" />
                 <Button Content="{iconPacks:Codicons Kind=DebugStepOver}" Foreground="#FF125EAE" />
                 <Button Content="{iconPacks:Codicons Kind=DebugStepOut}" Foreground="#FF125EAE" />
+                <Separator Background="{DynamicResource ToolBarSeparatorBackground}" />
+                <Button>
+
+                    <Path
+                        Width="16"
+                        Height="16"
+                        Data="M0,22  A10,10 180 0,0 30,22 M0,38 A10,10 180 0,1 30,38 M10,2 A10,10 180 0,0 40,2 M10,18 A10,10 180 0,1 40,18 "
+                        Stretch="Uniform"
+                        Stroke="#FF125EAE" />
+                </Button>
             </ToolBar>
-            <ToolBar />
-            <ToolBar />
-            <ToolBar Band="1" />
+
+            <ToolBar Band="1">
+                <TextBlock Text="进程:" />
+                <ComboBox Width="200" />
+                <mah:DropDownButton Content="生命周期事件" Icon="{iconPacks:Codicons Kind=SymbolEvent}" />
+                <TextBlock Text="线程:" />
+                <ComboBox Width="200" />
+                <Button Content="{iconPacks:Material Kind=Flag}" />
+                <Button>
+                    <Path
+                        Width="16"
+                        Height="16"
+                        Fill="Black"
+                        Stretch="Fill">
+                        <Path.Data>
+                            M9.4,1 L9,-1 H0 V16 H2 V9 H7.6 L8,11 H15 V1 H9.4z
+                            M29.4,-9 L29,-11 H20 V6 H22 V-1 H27.6 L28,1 H35 V-9 H29.4z
+                        </Path.Data>
+                    </Path>
+                </Button>
+                <Button>
+                    <Path
+                        Width="16"
+                        Height="16"
+                        Data="M0,32  A15,15 180 0,1 40,32 M0,8 A15,15 180 0,0 40,8"
+                        Stretch="Uniform"
+                        Stroke="Black" />
+                </Button>
+                <TextBlock Text="堆栈帧:" />
+                <ComboBox Width="200" />
+            </ToolBar>
+            <ToolBar Band="1">
+                <mah:SplitButton />
+            </ToolBar>
         </ToolBarTray>
         <DockingManager Grid.Row="1" />
         <Border
