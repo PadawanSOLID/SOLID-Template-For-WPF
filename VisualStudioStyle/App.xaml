@@ -10,8 +10,11 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Emerald.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/AvalonDock.Themes.VS2013;component/BlueTheme.xaml" />
                 <ResourceDictionary Source="/Themes/Brush.xaml" />
                 <ResourceDictionary Source="/Styles/SplitButton.xaml" />
+                <ResourceDictionary Source="/Styles/DropDownButton.xaml" />
+                <ResourceDictionary Source="/Styles/Button.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 

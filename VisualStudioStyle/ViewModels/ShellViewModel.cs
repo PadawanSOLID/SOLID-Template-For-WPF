@@ -10,10 +10,16 @@ namespace VisualStudioStyle.ViewModels
 {
     public partial class ShellViewModel : ObservableObject
     {
+        [ObservableProperty]
+        string statusText;
         [RelayCommand]
         void NewProject()
         {
 
+        }
+        public ShellViewModel()
+        {
+            StatusText = "就绪";
         }
     }
 }

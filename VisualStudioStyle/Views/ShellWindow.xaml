@@ -7,9 +7,12 @@
     xmlns:local="clr-namespace:VisualStudioStyle"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:VisualStudioStyle.ViewModels"
     Title="MainWindow"
     Width="1600"
     Height="900"
+    d:DataContext="{d:DesignInstance vm:ShellViewModel,
+                                     IsDesignTimeCreatable=True}"
     mah:ControlsHelper.CornerRadius="10"
     BorderBrush="#FF525252"
     BorderThickness="1"
@@ -68,7 +71,6 @@
             <ToolBarTray.Resources>
                 <Style x:Key="MahApps.Styles.Button.ToolBar" TargetType="{x:Type ButtonBase}">
                     <Style.Resources>
-                        <!--  Disabled all images placed inside a button - most common scenario  -->
                         <Style TargetType="Image">
                             <Style.Triggers>
                                 <Trigger Property="IsEnabled" Value="False">
@@ -138,8 +140,8 @@
                     BasedOn="{StaticResource MahApps.Styles.Button.ToolBar}"
                     TargetType="{x:Type Button}" />
                 <Style TargetType="Separator">
-                    <Setter Property="Background" Value="{DynamicResource ToolBarSeparatorBackground}"/>
-                    <Setter Property="Margin" Value="3,0"/>
+                    <Setter Property="Background" Value="{DynamicResource ToolBarSeparatorBackground}" />
+                    <Setter Property="Margin" Value="3,0" />
                 </Style>
             </ToolBarTray.Resources>
             <ToolBar>
@@ -257,7 +259,6 @@
                 <Button Content="{iconPacks:Codicons Kind=DebugStepOut}" Foreground="#FF125EAE" />
                 <Separator Background="{DynamicResource ToolBarSeparatorBackground}" />
                 <Button>
-
                     <Path
                         Width="16"
                         Height="16"
@@ -270,7 +271,7 @@
             <ToolBar Band="1">
                 <TextBlock Text="进程:" />
                 <ComboBox Width="200" />
-                <mah:DropDownButton Content="生命周期事件" Icon="{iconPacks:Codicons Kind=SymbolEvent}" />
+                <mah:SplitButton Width="100" Icon="{iconPacks:Codicons Kind=SymbolEvent}" />
                 <TextBlock Text="线程:" />
                 <ComboBox Width="200" />
                 <Button Content="{iconPacks:Material Kind=Flag}" />
@@ -301,20 +302,73 @@
                 <mah:SplitButton />
             </ToolBar>
         </ToolBarTray>
-        <DockingManager Grid.Row="1" />
+        <DockingManager Grid.Row="1">
+            <LayoutRoot>
+                <LayoutRoot.LeftSide>
+                    <LayoutAnchorSide>
+                        <LayoutAnchorGroup>
+                            <LayoutAnchorable Title="实时可视化树" />
+                        </LayoutAnchorGroup>
+                    </LayoutAnchorSide>
+                </LayoutRoot.LeftSide>
+                <LayoutRoot.RightSide>
+                    <LayoutAnchorSide>
+                        <LayoutAnchorGroup>
+                            <LayoutAnchorable Title="解决方案资源管理器" />
+                            <LayoutAnchorable Title="Git更改" />
+                            <LayoutAnchorable Title="属性" />
+                            <LayoutAnchorable Title="实时属性资源管理器" />
+                            <LayoutAnchorable Title="XAML实时预览" />
+                        </LayoutAnchorGroup>
+                    </LayoutAnchorSide>
+                </LayoutRoot.RightSide>
+                <LayoutRoot.BottomSide>
+                    <LayoutAnchorSide>
+                        <LayoutAnchorGroup>
+                            <LayoutAnchorable Title="输出" />
+                            <LayoutAnchorable Title="错误列表" />
+                        </LayoutAnchorGroup>
+                    </LayoutAnchorSide>
+                </LayoutRoot.BottomSide>
+                <LayoutPanel>
+                    <LayoutDocumentPane />
+                </LayoutPanel>
+            </LayoutRoot>
+        </DockingManager>
         <Border
             Grid.Row="2"
             Height="25"
-            Background="#FF40508D">
+            Background="#FF40508D"
+            TextElement.Foreground="{StaticResource ThemeForeground}">
+            <Border.Resources>
+                <Style BasedOn="{StaticResource Button.ToolBar}" TargetType="Button">
+                    <Setter Property="Foreground" Value="{DynamicResource ThemeForeground}" />
+                </Style>
+                <!--<Style TargetType="ToggleButton" BasedOn="{StaticResource Button.ToolBar}"/>-->
+            </Border.Resources>
             <DockPanel>
-                <Button />
+                <ToggleButton Name="commentBt">
+                    <Grid>
+                        <iconPacks:PackIconCodicons Kind="Comment" />
+
+                    </Grid>
+                </ToggleButton>
+                <Popup  StaysOpen="False"
+                    PlacementTarget="{Binding ElementName=commentBt}"
+                    IsOpen="{Binding ElementName=commentBt, Path=IsChecked, Mode=OneWay}"
+                    Placement="Top"
+                    PopupAnimation="Slide">
+                    <Border Background="{DynamicResource ThemeForeground}">
+                        <TextBlock Text="没有任务正在运行" Foreground="Black"/>
+                    </Border>
+                </Popup>
                 <mah:DropDownButton DockPanel.Dock="Right" />
                 <Button DockPanel.Dock="Right" />
                 <mah:DropDownButton DockPanel.Dock="Right" />
                 <mah:DropDownButton DockPanel.Dock="Right" />
                 <Button DockPanel.Dock="Right" />
                 <Button DockPanel.Dock="Right" />
-                <TextBlock />
+                <TextBlock VerticalAlignment="Center" Text="{Binding StatusText}" />
             </DockPanel>
         </Border>
     </Grid>
