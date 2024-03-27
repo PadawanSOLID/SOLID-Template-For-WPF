@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:local="clr-namespace:VisualStudioStyle"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
@@ -19,6 +20,11 @@
     NonActiveWindowTitleBrush="{DynamicResource MenuAndToolBackground}"
     WindowTitleBrush="{DynamicResource MenuAndToolBackground}"
     mc:Ignorable="d">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <mah:MetroWindow.Icon>
         <DrawingImage>
             <DrawingImage.Drawing>
@@ -69,91 +75,43 @@
         </Grid.RowDefinitions>
         <ToolBarTray Background="{DynamicResource MenuAndToolBackground}">
             <ToolBarTray.Resources>
-                <Style x:Key="MahApps.Styles.Button.ToolBar" TargetType="{x:Type ButtonBase}">
-                    <Style.Resources>
-                        <Style TargetType="Image">
-                            <Style.Triggers>
-                                <Trigger Property="IsEnabled" Value="False">
-                                    <Setter Property="Opacity" Value="0.5" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Style.Resources>
-                    <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Transparent}" />
-                    <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Transparent}" />
-                    <Setter Property="BorderThickness" Value="1" />
-                    <Setter Property="FocusVisualStyle" Value="{DynamicResource MahApps.Styles.Button.FocusVisualStyle.Flat}" />
-                    <Setter Property="FontSize" Value="{DynamicResource MahApps.Font.Size.Button.Flat}" />
-                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Text}" />
-                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                    <Setter Property="OverridesDefaultStyle" Value="true" />
-                    <Setter Property="Padding" Value="3" />
-                    <Setter Property="SnapsToDevicePixels" Value="true" />
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type ButtonBase}">
-                                <Border
-                                    x:Name="Border"
-                                    Margin="0"
-                                    Background="{TemplateBinding Background}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                    CornerRadius="{TemplateBinding mah:ControlsHelper.CornerRadius}"
-                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-                                    <mah:ContentControlEx
-                                        x:Name="PART_ContentPresenter"
-                                        Padding="{TemplateBinding Padding}"
-                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                        Content="{TemplateBinding Content}"
-                                        ContentCharacterCasing="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mah:ControlsHelper.ContentCharacterCasing)}"
-                                        ContentStringFormat="{TemplateBinding ContentStringFormat}"
-                                        ContentTemplate="{TemplateBinding ContentTemplate}"
-                                        ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
-                                        RecognizesAccessKey="{TemplateBinding mah:ControlsHelper.RecognizesAccessKey}"
-                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                    <Setter Property="VerticalContentAlignment" Value="Center" />
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{DynamicResource Button.ToolBar.MouseOverBackground}" />
-                            <Setter Property="BorderBrush" Value="{DynamicResource Button.ToolBar.MouseOverBorderBrush}" />
-                        </Trigger>
-                        <Trigger Property="IsKeyboardFocused" Value="True">
-                            <Setter Property="Background" Value="{DynamicResource Button.ToolBar.MouseOverBackground}" />
-                            <Setter Property="BorderBrush" Value="{DynamicResource Button.ToolBar.MouseOverBorderBrush}" />
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" Value="{DynamicResource Button.ToolBar.PressedBackground}" />
-                            <Setter Property="BorderBrush" Value="{DynamicResource Button.ToolBar.MouseOverBorderBrush}" />
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray3}" />
-                        </Trigger>
-                    </Style.Triggers>
+                <Style
+                    x:Key="{x:Static ToolBar.ComboBoxStyleKey}"
+                    BasedOn="{StaticResource MahApps.Styles.ComboBox}"
+                    TargetType="{x:Type ComboBox}">
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                    <Setter Property="Margin" Value="3,0" />
+                    <Setter Property="Padding" Value="2" />
+                    <Setter Property="MinHeight" Value="0" />
+                    <Setter Property="SelectedIndex" Value="0" />
+                </Style>
+                <Style BasedOn="{StaticResource MahApps.Styles.TextBlock}" TargetType="TextBlock">
+                    <Setter Property="VerticalAlignment" Value="Center" />
                 </Style>
                 <Style
                     x:Key="{x:Static ToolBar.ButtonStyleKey}"
-                    BasedOn="{StaticResource MahApps.Styles.Button.ToolBar}"
-                    TargetType="{x:Type Button}" />
-                <Style TargetType="Separator">
-                    <Setter Property="Background" Value="{DynamicResource ToolBarSeparatorBackground}" />
-                    <Setter Property="Margin" Value="3,0" />
+                    BasedOn="{StaticResource Button.ToolBar}"
+                    TargetType="{x:Type Button}">
+                    <Setter Property="Width" Value="22" />
+                </Style>
+                <Style TargetType="Path">
+                    <Setter Property="Height" Value="15" />
+                    <Setter Property="Width" Value="15" />
+                    <Setter Property="Stretch" Value="Uniform" />
+                </Style>
+                <Style TargetType="Image">
+                    <Setter Property="Height" Value="15" />
+                    <Setter Property="Width" Value="15" />
+                    <Setter Property="Stretch" Value="Uniform" />
                 </Style>
             </ToolBarTray.Resources>
             <ToolBar>
-                <mah:SplitButton Foreground="#FF0053A7" Icon="{iconPacks:FontAwesome Kind=ArrowAltCircleLeftRegular}" />
-                <mah:SplitButton Foreground="#FF0053A7" Icon="{iconPacks:FontAwesome Kind=ArrowAltCircleRightRegular}" />
-                <Separator Background="{DynamicResource ToolBarSeparatorBackground}" />
+                <mah:SplitButton Foreground="#FF0053A7" Icon="{iconPacks:FontAwesome Kind=ArrowAltCircleLeftRegular, Height=15, Width=15}" />
+                <mah:SplitButton Foreground="#FF0053A7" Icon="{iconPacks:FontAwesome Kind=ArrowAltCircleRightRegular, Height=15, Width=15}" />
+                <Separator />
                 <mah:SplitButton>
                     <mah:SplitButton.Icon>
-                        <Image
-                            Width="16"
-                            Height="16"
-                            Stretch="Uniform">
+                        <Image>
                             <Image.Source>
                                 <DrawingImage>
                                     <DrawingImage.Drawing>
@@ -181,40 +139,48 @@
                 </mah:SplitButton>
                 <Button>
                     <Path
-                        Width="16"
-                        Height="16"
                         Data="M19,20H4C2.89,20 2,19.1 2,18V6C2,4.89 2.89,4 4,4H10L12,6H19A2,2 0 0,1 21,8H21L4,8V18L6.14,10H23.21L20.93,18.5C20.7,19.37 19.92,20 19,20Z"
                         Fill="#FFAB9B78"
-                        Stretch="Fill"
                         Stroke="#FF8A6200"
                         StrokeThickness="0.5" />
                 </Button>
-                <Button Content="{iconPacks:MaterialLight Kind=ContentSave}" Foreground="#FF0053A7" />
-                <Button Content="{iconPacks:MaterialLight Kind=ContentSaveAll}" Foreground="#FF0053A7" />
+                <Button Content="{iconPacks:MaterialLight Kind=ContentSave, Height=15, Width=15}" Foreground="#FF0053A7" />
+                <Button Content="{iconPacks:MaterialLight Kind=ContentSaveAll, Height=15, Width=15}" Foreground="#FF0053A7" />
                 <Separator />
-                <mah:SplitButton Icon="{iconPacks:Modern Kind=UndoCurve}" />
-                <mah:SplitButton Icon="{iconPacks:Modern Kind=RedoCurve}" />
+                <mah:SplitButton Icon="{iconPacks:Modern Kind=UndoCurve, Height=15, Width=15}" />
+                <mah:SplitButton Icon="{iconPacks:Modern Kind=RedoCurve, Height=15, Width=15}" />
                 <Separator />
-                <ComboBox Width="64" />
-                <ComboBox Width="110" />
+                <ComboBox Width="64">
+                    <TextBlock Text="Debug" />
+                    <TextBlock Text="Release" />
+                    <TextBlock Text="配置管理器..." />
+                </ComboBox>
+                <ComboBox Width="110">
+                    <TextBlock Text="Any CPU" />
+                    <TextBlock Text="配置管理器..." />
+                </ComboBox>
                 <ComboBox Width="200" />
                 <mah:SplitButton>
                     <mah:SplitButton.Icon>
-                        <iconPacks:PackIconVaadinIcons Foreground="#FF1B731B" Kind="CaretRight" />
+                        <iconPacks:PackIconVaadinIcons
+                            Width="15"
+                            Height="15"
+                            Foreground="#FF1B731B"
+                            Kind="CaretRight" />
                     </mah:SplitButton.Icon>
                 </mah:SplitButton>
                 <Button>
                     <Path
-                        Width="16"
-                        Height="16"
                         Data="M320 128v640l448-320z"
                         Fill="Transparent"
-                        Stretch="Uniform"
                         Stroke="#FF1B731B" />
                 </Button>
                 <mah:SplitButton>
                     <mah:SplitButton.Icon>
-                        <iconPacks:PackIconIonicons Kind="FlameMD">
+                        <iconPacks:PackIconIonicons
+                            Width="15"
+                            Height="15"
+                            Kind="FlameMD">
                             <iconPacks:PackIconIonicons.Foreground>
                                 <RadialGradientBrush Center=".6,.9">
                                     <GradientStop Offset="0" Color="#FFDD9FA9" />
@@ -246,12 +212,12 @@
                     </Image>
                 </Button>
                 <Separator Background="{DynamicResource ToolBarSeparatorBackground}" />
-                <Button Content="{iconPacks:Codicons Kind=Window}" />
+                <Button Content="{iconPacks:Codicons Kind=Window, Height=15, Width=15}" />
             </ToolBar>
             <ToolBar>
-                <Button Content="{iconPacks:PicolIcons Kind=ControlsPause}" />
-                <Button Content="{iconPacks:Modern Kind=DebugStop}" Foreground="#FFB83C4B" />
-                <Button Content="{iconPacks:Codicons Kind=DebugRestart, RotationAngle=90}" Foreground="#FF125EAE" />
+                <Button Content="{iconPacks:PicolIcons Kind=ControlsPause, Width=12, Height=12}" />
+                <Button Content="{iconPacks:Modern Kind=DebugStop, Width=10, Height=10}" Foreground="#FFB83C4B" />
+                <Button Content="{iconPacks:Codicons Kind=DebugRestart, RotationAngle=90, Width=15, Height=15}" Foreground="#FF125EAE" />
                 <Separator Background="{DynamicResource ToolBarSeparatorBackground}" />
                 <Button Content="{iconPacks:Microns Kind=RightArrow}" Foreground="#FF125EAE" />
                 <Button Content="{iconPacks:Codicons Kind=DebugStepInto}" Foreground="#FF125EAE" />
@@ -341,34 +307,123 @@
             Background="#FF40508D"
             TextElement.Foreground="{StaticResource ThemeForeground}">
             <Border.Resources>
-                <Style BasedOn="{StaticResource Button.ToolBar}" TargetType="Button">
-                    <Setter Property="Foreground" Value="{DynamicResource ThemeForeground}" />
-                </Style>
-                <!--<Style TargetType="ToggleButton" BasedOn="{StaticResource Button.ToolBar}"/>-->
+                <Style BasedOn="{StaticResource Button.StatusBar}" TargetType="Button" />
+
+                <Style BasedOn="{StaticResource ToggleButton.ToolBar}" TargetType="ToggleButton" />
             </Border.Resources>
             <DockPanel>
                 <ToggleButton Name="commentBt">
                     <Grid>
                         <iconPacks:PackIconCodicons Kind="Comment" />
-
+                        <Popup IsOpen="{Binding ElementName=commentBt, Path=IsChecked}" PlacementTarget="{Binding ElementName=commentBt}">
+                            <Border Padding="15" Background="{DynamicResource ThemeForeground}">
+                                <TextBlock Foreground="Black" Text="没有任务正在运行。" />
+                            </Border>
+                        </Popup>
                     </Grid>
                 </ToggleButton>
-                <Popup  StaysOpen="False"
-                    PlacementTarget="{Binding ElementName=commentBt}"
-                    IsOpen="{Binding ElementName=commentBt, Path=IsChecked, Mode=OneWay}"
-                    Placement="Top"
-                    PopupAnimation="Slide">
-                    <Border Background="{DynamicResource ThemeForeground}">
-                        <TextBlock Text="没有任务正在运行" Foreground="Black"/>
-                    </Border>
-                </Popup>
-                <mah:DropDownButton DockPanel.Dock="Right" />
-                <Button DockPanel.Dock="Right" />
-                <mah:DropDownButton DockPanel.Dock="Right" />
-                <mah:DropDownButton DockPanel.Dock="Right" />
-                <Button DockPanel.Dock="Right" />
-                <Button DockPanel.Dock="Right" />
-                <TextBlock VerticalAlignment="Center" Text="{Binding StatusText}" />
+                <Button Padding="0" DockPanel.Dock="Right">
+                    <Grid>
+                        <iconPacks:PackIconCodicons Margin="3" Kind="Bell" />
+                        <Grid
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Visibility="{Binding HasNotification, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Ellipse
+                                Width="15"
+                                Height="15"
+                                Fill="Red" />
+                            <TextBlock Text="{Binding NotificationCount}" />
+                        </Grid>
+                    </Grid>
+                </Button>
+
+                <DockPanel DataContext="{Binding Git}" DockPanel.Dock="Right">
+                    <DockPanel.Resources>
+                        <Style BasedOn="{StaticResource ToggleButton.ToolBar}" TargetType="ToggleButton">
+                            <Setter Property="Padding" Value="3,0" />
+                            <Setter Property="Margin" Value="3" />
+                        </Style>
+                        <Style BasedOn="{StaticResource Button.StatusBar}" TargetType="Button">
+                            <Setter Property="Margin" Value="3" />
+                            <Setter Property="Padding" Value="3,0" />
+                        </Style>
+                    </DockPanel.Resources>
+                    <ToggleButton Name="gitOperation">
+                        <DockPanel>
+                            <iconPacks:PackIconMaterial Margin="3,0" Kind="Sync" />
+                            <TextBlock Margin="3,0" Foreground="White">
+                                <Run Text="{Binding OutCount}" />
+                                <Run Text=" / " />
+                                <Run Text="{Binding InCount}" />
+                            </TextBlock>
+                            <Path
+                                Width="8"
+                                Height="8"
+                                Margin="3,0"
+                                Data="M9,5 L5,1 L1,5z"
+                                Fill="{DynamicResource ThemeForeground}"
+                                Stretch="Uniform" />
+                            <Popup IsOpen="{Binding IsChecked, ElementName=gitOperation}" PlacementTarget="{Binding ElementName=gitOperation}">
+                                <Border
+                                    Padding="3"
+                                    Background="{DynamicResource MenuAndToolBackground}"
+                                    TextElement.Foreground="Black">
+                                    <StackPanel>
+                                        <StackPanel.Resources>
+                                            <Style BasedOn="{StaticResource gitMenuItemStyle}" TargetType="MenuItem" />
+                                        </StackPanel.Resources>
+                                        <ListBox>
+                                            <MenuItem Header="查看所有提交" InputGestureText="Ctrl+0, Ctrl+Y" />
+                                            <Separator />
+                                            <MenuItem Header="提取(F)" Icon="{iconPacks:RadixIcons Kind=ArrowDown}" />
+                                            <MenuItem Header="拉取(U)" Icon="{iconPacks:PixelartIcons Kind=ArrowDown}" />
+                                            <MenuItem Header="推送(P)" Icon="{iconPacks:RadixIcons Kind=ArrowUp}" />
+                                            <MenuItem Header="同步(拉取然后推送)(S)" Icon="{iconPacks:EvaIcons Kind=SyncOutline}" />
+                                        </ListBox>
+                                    </StackPanel>
+                                </Border>
+                            </Popup>
+                        </DockPanel>
+                    </ToggleButton>
+                    <Button>
+                        <UniformGrid Rows="1">
+                            <iconPacks:PackIconFeatherIcons Margin="3,0" Kind="Edit2" />
+                            <TextBlock Margin="3,0" Text="{Binding ChangeCount}" />
+                        </UniformGrid>
+                    </Button>
+                    <ToggleButton Name="gitBranch">
+                        <DockPanel>
+                            <iconPacks:PackIconIonicons Margin="3,0" Kind="GitBranchiOS" />
+                            <TextBlock Margin="3,0" Text="{Binding CurrentBranch}" />
+                            <Path
+                                Width="8"
+                                Height="8"
+                                Margin="3,0"
+                                Data="M9,5 L5,1 L1,5z"
+                                Fill="{DynamicResource ThemeForeground}"
+                                Stretch="Uniform" />
+                        </DockPanel>
+                    </ToggleButton>
+                    <ToggleButton Name="gitRepo">
+                        <DockPanel>
+                            <iconPacks:PackIconIonicons Margin="3,0" Kind="GitBranchiOS" />
+                            <TextBlock Margin="3,0" Text="{Binding CurrentRepo}" />
+                            <Path
+                                Width="8"
+                                Height="8"
+                                Margin="3,0"
+                                Data="M9,5 L5,1 L1,5z"
+                                Fill="{DynamicResource ThemeForeground}"
+                                Stretch="Uniform" />
+                        </DockPanel>
+                    </ToggleButton>
+                </DockPanel>
+
+                <TextBlock
+                    Margin="5"
+                    VerticalAlignment="Center"
+                    Text="{Binding StatusText}" />
             </DockPanel>
         </Border>
     </Grid>

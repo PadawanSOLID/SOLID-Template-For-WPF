@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VisualStudioStyle.Models;
 
 namespace VisualStudioStyle.ViewModels
 {
@@ -12,6 +13,16 @@ namespace VisualStudioStyle.ViewModels
     {
         [ObservableProperty]
         string statusText;
+
+        [ObservableProperty]
+        Git git=new();
+
+        [RelayCommand]
+        async Task Loaded()
+        {
+            await Git.GetGitInfo();
+        }
+
         [RelayCommand]
         void NewProject()
         {

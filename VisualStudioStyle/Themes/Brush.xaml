@@ -5,4 +5,6 @@
     <SolidColorBrush x:Key="Button.ToolBar.MouseOverBackground" Color="#FFECF4FF" />
     <SolidColorBrush x:Key="Button.ToolBar.PressedBackground" Color="#ffffff" />
     <SolidColorBrush x:Key="ThemeForeground" Color="#ffffff" />
+    <SolidColorBrush x:Key="ToolButton.ToolBar.MouseOverMashBrush" Color="#33ffffff" />
+    <SolidColorBrush x:Key="Button.StatusBar.MouseOverMashBrush" Color="#66ffffff" />
 </ResourceDictionary> 
