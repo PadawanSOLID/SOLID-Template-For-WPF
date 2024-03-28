@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,15 @@ namespace VisualStudioStyle.ViewModels
         [ObservableProperty]
         Git git=new();
 
+        [ObservableProperty]
+        ObservableCollection<CommonFileViewModel> files=new();
+
+        [ObservableProperty]
+        CommonFileViewModel activeDocument;
+
+        [ObservableProperty]
+        List<PaneViewModel> panes=new();
+
         [RelayCommand]
         async Task Loaded()
         {
@@ -31,6 +41,13 @@ namespace VisualStudioStyle.ViewModels
         public ShellViewModel()
         {
             StatusText = "就绪";
+
+            Files = new()
+            {
+                new CSFileViewModel(){FilePath="test.cs"},
+                new XamlFileViewModel(){FilePath="test.xaml"},
+                new (){FilePath="common.txt"},
+            };
         }
     }
 }

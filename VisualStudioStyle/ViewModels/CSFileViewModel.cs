@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VisualStudioStyle.ViewModels
 {
-    class ToolViewModel
+  public partial  class CSFileViewModel:CommonFileViewModel
     {
     }
 }

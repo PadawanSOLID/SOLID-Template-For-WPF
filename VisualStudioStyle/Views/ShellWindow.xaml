@@ -2,10 +2,11 @@
     x:Class="VisualStudioStyle.Views.ShellWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-    xmlns:local="clr-namespace:VisualStudioStyle"
+    xmlns:local="clr-namespace:VisualStudioStyle"     xmlns:selectors="clr-namespace:VisualStudioStyle.StyleSelectors"     
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:VisualStudioStyle.ViewModels"
@@ -268,7 +269,60 @@
                 <mah:SplitButton />
             </ToolBar>
         </ToolBarTray>
-        <DockingManager Grid.Row="1">
+        <DockingManager Grid.Row="1" DocumentsSource="{Binding Files}" AnchorablesSource="{Binding Panes}" ActiveContent="{Binding ActiveDocument}">
+            <DockingManager.LayoutItemContainerStyleSelector>
+                <selectors:PanesStyleSelector>
+                    <selectors:PanesStyleSelector.FileStyle>
+                        <Style TargetType="LayoutItem">
+                            <Setter Property="Title" Value="{Binding Model.Title}" />
+                            <Setter Property="ToolTip" Value="{Binding Model.FilePath}" />
+                            <Setter Property="CloseCommand" Value="{Binding Model.CloseCommand}" />
+                            <Setter Property="ContentId" Value="{Binding Model.ContentId}" />
+                        </Style>
+                    </selectors:PanesStyleSelector.FileStyle>
+                    <selectors:PanesStyleSelector.ToolStyle>
+                        <Style TargetType="LayoutAnchorableItem">
+                            <Setter Property="Title" Value="{Binding Model.Title}" />
+                            <Setter Property="CanHide" Value="True" />
+                            <!--<Setter Property="Visibility" Value="{Binding Model.IsVisible, Mode=TwoWay,  Converter={ }, ConverterParameter={x:Static Visibility.Hidden}}" />-->
+                            <Setter Property="ContentId" Value="{Binding Model.ContentId}" />
+                            <Setter Property="IsSelected" Value="{Binding Model.IsSelected, Mode=TwoWay}" />
+                            <Setter Property="IsActive" Value="{Binding Model.IsActive, Mode=TwoWay}" />
+                        </Style>
+                    </selectors:PanesStyleSelector.ToolStyle>
+                </selectors:PanesStyleSelector>
+            </DockingManager.LayoutItemContainerStyleSelector>
+            <DockingManager.LayoutItemTemplateSelector>
+                <selectors:PanesTemplateSelector>
+                    <selectors:PanesTemplateSelector.CommomFile>
+                        <DataTemplate DataType="vm:CSFileViewModel">
+                            <Border Padding="5">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="5" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <ComboBox />
+                                        <ComboBox Grid.Column="2" />
+                                    </Grid>
+                                    <avalonEdit:TextEditor />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </selectors:PanesTemplateSelector.CommomFile>
+                    <selectors:PanesTemplateSelector.ToolBox>
+                        <DataTemplate />
+                    </selectors:PanesTemplateSelector.ToolBox>
+                </selectors:PanesTemplateSelector>
+
+            </DockingManager.LayoutItemTemplateSelector>
             <LayoutRoot>
                 <LayoutRoot.LeftSide>
                     <LayoutAnchorSide>
@@ -297,7 +351,15 @@
                     </LayoutAnchorSide>
                 </LayoutRoot.BottomSide>
                 <LayoutPanel>
-                    <LayoutDocumentPane />
+                    <LayoutDocumentPane>
+                        <LayoutDocument Title="MyClass.cs">
+                            <Border Padding="5">
+                                <avalonEdit:TextEditor ShowLineNumbers="True" SyntaxHighlighting="C#">
+                                    Hello World ！
+                                </avalonEdit:TextEditor>
+                            </Border>
+                        </LayoutDocument>
+                    </LayoutDocumentPane>
                 </LayoutPanel>
             </LayoutRoot>
         </DockingManager>
