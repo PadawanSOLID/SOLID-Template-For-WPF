@@ -7,7 +7,6 @@ namespace VisualStudioStyle.StyleSelectors
 {
     class PanesTemplateSelector : DataTemplateSelector
     {
-
         public DataTemplate CommomFile
         {
             get;
@@ -40,20 +39,14 @@ namespace VisualStudioStyle.StyleSelectors
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-            switch (item)
+            return item switch
             {
-
-                case CSFileViewModel :
-                    return CSFile;
-                case ToolBoxViewModel :
-                    return ToolBox;
-                case XamlFileViewModel :
-                    return XamlFile;
-                case SolutionResourceViewModel :
-                    return SolutionResource;
-                default:
-                    return CommomFile;
-            }
+                CSFileViewModel => CSFile,
+                ToolBoxViewModel => ToolBox,
+                XamlFileViewModel => XamlFile,
+                SolutionResourceViewModel => SolutionResource,
+                _ => CommomFile,
+            };
         }
     }
 }

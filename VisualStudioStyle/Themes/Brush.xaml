@@ -7,4 +7,5 @@
     <SolidColorBrush x:Key="ThemeForeground" Color="#ffffff" />
     <SolidColorBrush x:Key="ToolButton.ToolBar.MouseOverMashBrush" Color="#33ffffff" />
     <SolidColorBrush x:Key="Button.StatusBar.MouseOverMashBrush" Color="#66ffffff" />
+    <SolidColorBrush x:Key="ScrollBar.Background" Color="#FFE8E8EC" />
 </ResourceDictionary> 

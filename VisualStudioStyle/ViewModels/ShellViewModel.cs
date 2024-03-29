@@ -38,15 +38,16 @@ namespace VisualStudioStyle.ViewModels
         {
 
         }
+
         public ShellViewModel()
         {
             StatusText = "就绪";
 
             Files = new()
             {
-                new CSFileViewModel(){FilePath="test.cs"},
-                new XamlFileViewModel(){FilePath="test.xaml"},
-                new (){FilePath="common.txt"},
+                new CSFileViewModel(){Title="test.cs"},
+                new XamlFileViewModel(){Title="test.xaml"},
+                new (){Title="common.txt"},
             };
         }
     }

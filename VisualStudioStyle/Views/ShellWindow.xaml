@@ -6,9 +6,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-    xmlns:local="clr-namespace:VisualStudioStyle"     xmlns:selectors="clr-namespace:VisualStudioStyle.StyleSelectors"     
+    xmlns:local="clr-namespace:VisualStudioStyle"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:selectors="clr-namespace:VisualStudioStyle.StyleSelectors"
     xmlns:vm="clr-namespace:VisualStudioStyle.ViewModels"
     Title="MainWindow"
     Width="1600"
@@ -269,7 +270,11 @@
                 <mah:SplitButton />
             </ToolBar>
         </ToolBarTray>
-        <DockingManager Grid.Row="1" DocumentsSource="{Binding Files}" AnchorablesSource="{Binding Panes}" ActiveContent="{Binding ActiveDocument}">
+        <DockingManager
+            Grid.Row="1"
+            ActiveContent="{Binding ActiveDocument}"
+            AnchorablesSource="{Binding Panes}"
+            DocumentsSource="{Binding Files}">
             <DockingManager.LayoutItemContainerStyleSelector>
                 <selectors:PanesStyleSelector>
                     <selectors:PanesStyleSelector.FileStyle>
@@ -294,10 +299,18 @@
             </DockingManager.LayoutItemContainerStyleSelector>
             <DockingManager.LayoutItemTemplateSelector>
                 <selectors:PanesTemplateSelector>
-                    <selectors:PanesTemplateSelector.CommomFile>
+                    <selectors:PanesTemplateSelector.CSFile>
                         <DataTemplate DataType="vm:CSFileViewModel">
-                            <Border Padding="5">
-                                <Grid>
+                            <DataTemplate.Resources>
+                                <Style BasedOn="{StaticResource MahApps.Styles.ComboBox}" TargetType="ComboBox">
+                                    <Setter Property="Margin" Value="0,1" />
+                                </Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource Button.StatusBar}">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                </Style>
+                            </DataTemplate.Resources>
+                            <Border>
+                                <Grid Background="{DynamicResource MenuAndToolBackground}">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="auto" />
                                         <RowDefinition Height="*" />
@@ -306,22 +319,73 @@
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="5" />
+                                            <ColumnDefinition Width="3" />
                                             <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="3" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="auto" />
                                         </Grid.ColumnDefinitions>
                                         <ComboBox />
                                         <ComboBox Grid.Column="2" />
+                                        <ComboBox Grid.Column="4" />
+                                        <Button
+                                            Grid.Column="5"
+                                            Margin="0"
+                                            Padding="0">
+                                            <iconPacks:PackIconMaterial
+                                                Width="15"
+                                                Height="15"
+                                                Kind="ArrowSplitHorizontal" />
+                                        </Button>
                                     </Grid>
-                                    <avalonEdit:TextEditor />
+                                    <avalonEdit:TextEditor
+                                        Grid.Row="1"
+                                        FontSize="16"
+                                        ShowLineNumbers="True" />
+                                    <Grid Grid.Row="2"  Background="{DynamicResource ScrollBar.Background}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="62"/>
+                                            <ColumnDefinition Width="206"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <ComboBox />
+                                        <UniformGrid Grid.Column="1" Rows="1">
+                                            <Button HorizontalAlignment="Left">
+                                                <iconPacks:PackIconRemixIcon Kind="LightbulbFlashLine" />
+                                            </Button>
+                                            <Button>
+                                                <DockPanel Width="50">
+                                                    <iconPacks:PackIconMicrons Kind="Fail" Width="10" Foreground="#FFBB0A16"/>
+                                                    <TextBlock TextAlignment="Center" Text="{Binding ErrorCount}"/>
+                                                </DockPanel>
+                                            </Button>
+                                            <Button>
+                                                <DockPanel Width="50">
+                                                    <iconPacks:PackIconFontAwesome Kind="ExclamationTriangleSolid" Width="10" Foreground="#FF916800"/>
+                                                    <TextBlock TextAlignment="Center" Text="{Binding WarningCount}"/>
+                                                </DockPanel>
+                                            </Button>
+                                            <Button HorizontalAlignment="Center">
+                                                <iconPacks:PackIconEvaIcons Kind="ArrowUpwardOutline" />
+                                            </Button>
+                                            <Button HorizontalAlignment="Center">
+                                                <iconPacks:PackIconEvaIcons Kind="ArrowDownwardOutline" />
+                                            </Button>
+                                            <Separator Height="20" Width="1" />
+                                        </UniformGrid>
+                                    </Grid>
                                 </Grid>
                             </Border>
                         </DataTemplate>
-                    </selectors:PanesTemplateSelector.CommomFile>
-                    <selectors:PanesTemplateSelector.ToolBox>
+                    </selectors:PanesTemplateSelector.CSFile>
+                    <selectors:PanesTemplateSelector.CommomFile>
                         <DataTemplate />
-                    </selectors:PanesTemplateSelector.ToolBox>
+                    </selectors:PanesTemplateSelector.CommomFile>
+                    <selectors:PanesTemplateSelector.XamlFile>
+                        <DataTemplate />
+                    </selectors:PanesTemplateSelector.XamlFile>
                 </selectors:PanesTemplateSelector>
-
             </DockingManager.LayoutItemTemplateSelector>
             <LayoutRoot>
                 <LayoutRoot.LeftSide>
@@ -351,15 +415,7 @@
                     </LayoutAnchorSide>
                 </LayoutRoot.BottomSide>
                 <LayoutPanel>
-                    <LayoutDocumentPane>
-                        <LayoutDocument Title="MyClass.cs">
-                            <Border Padding="5">
-                                <avalonEdit:TextEditor ShowLineNumbers="True" SyntaxHighlighting="C#">
-                                    Hello World ！
-                                </avalonEdit:TextEditor>
-                            </Border>
-                        </LayoutDocument>
-                    </LayoutDocumentPane>
+                    <LayoutDocumentPane />
                 </LayoutPanel>
             </LayoutRoot>
         </DockingManager>
@@ -370,7 +426,6 @@
             TextElement.Foreground="{StaticResource ThemeForeground}">
             <Border.Resources>
                 <Style BasedOn="{StaticResource Button.StatusBar}" TargetType="Button" />
-
                 <Style BasedOn="{StaticResource ToggleButton.ToolBar}" TargetType="ToggleButton" />
             </Border.Resources>
             <DockPanel>
