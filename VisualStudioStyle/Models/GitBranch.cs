@@ -16,6 +16,8 @@ namespace VisualStudioStyle.Models
         [ObservableProperty]
         string author;
         [ObservableProperty]
+        bool hasNewChanges;
+        [ObservableProperty]
         DateTime updateTime;
     }
 }

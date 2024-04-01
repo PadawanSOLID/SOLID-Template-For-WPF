@@ -28,7 +28,7 @@ namespace VisualStudioStyle.Services
             }
         }
 
-        string GitBash(string cmd)
+        bool GitBash(string cmd)
         {
             if (hasGitRepo)
             {
@@ -43,6 +43,12 @@ namespace VisualStudioStyle.Services
                 p.Start();
                 error = p.StandardError.ReadToEnd();
                 output = p.StandardOutput.ReadToEnd();
+                if (string.IsNullOrEmpty(error))
+                {
+                    return true;
+                }
+                return false;
+            
                
             }
             else
@@ -59,9 +65,12 @@ namespace VisualStudioStyle.Services
         {
             GitBash("branch -l");
             var r = output;
+          
             if (!string.IsNullOrEmpty(r)) 
             {
-                return new List<GitBranch>();
+                var branches = r.Split('\n',StringSplitOptions.RemoveEmptyEntries);
+                var gitBranches = branches.Select(n => new GitBranch { HasNewChanges = n.StartsWith('*'), Name = n.StartsWith('*') ? n.Substring(1).Trim() : n.Trim() });
+                return gitBranches;
             }
             return null;
         }

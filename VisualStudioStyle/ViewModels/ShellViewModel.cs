@@ -36,6 +36,7 @@ namespace VisualStudioStyle.ViewModels
             GitService gitService = new();
             gitService.SetGitWorkingDirectory("D:\\GitHub\\SOLID-Template-For-WPF\\RibbonStyle.sln");
             var r=gitService.GitStatus();
+            var r1=gitService.GetBranches();
         }
 
         [RelayCommand]
