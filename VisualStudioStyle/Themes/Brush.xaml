@@ -4,8 +4,12 @@
     <SolidColorBrush x:Key="Button.ToolBar.MouseOverBorderBrush" Color="#FF5D6B99" />
     <SolidColorBrush x:Key="Button.ToolBar.MouseOverBackground" Color="#FFECF4FF" />
     <SolidColorBrush x:Key="Button.ToolBar.PressedBackground" Color="#ffffff" />
+    <SolidColorBrush x:Key="Button.Common.Background" Color=" #FFECECF0" />
     <SolidColorBrush x:Key="ThemeForeground" Color="#ffffff" />
+    <SolidColorBrush x:Key="ThemeBackground" Color="#000" />
     <SolidColorBrush x:Key="ToolButton.ToolBar.MouseOverMashBrush" Color="#33ffffff" />
     <SolidColorBrush x:Key="Button.StatusBar.MouseOverMashBrush" Color="#66ffffff" />
     <SolidColorBrush x:Key="ScrollBar.Background" Color="#FFE8E8EC" />
+    <SolidColorBrush x:Key="Pane.Background" Color="#FFF7F9FE" />
+    <SolidColorBrush x:Key="TabItem.UnderlineBrush" Color="#FF203D77" />
 </ResourceDictionary> 

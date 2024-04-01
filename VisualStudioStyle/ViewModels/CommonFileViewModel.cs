@@ -16,6 +16,12 @@ namespace VisualStudioStyle.ViewModels
         string textContent;
         [ObservableProperty]
         bool isDirty;
+        [ObservableProperty]
+        List<double> scalePercents = new()
+        {
+            0.2,0.5,0.7,1,1.5,2,4
+        };
+
         [RelayCommand]
         void Save()
         {
@@ -31,5 +37,6 @@ namespace VisualStudioStyle.ViewModels
         {
 
         }
+
     }
 }
