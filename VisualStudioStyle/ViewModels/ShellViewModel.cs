@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VisualStudioStyle.Models;
+using VisualStudioStyle.Services;
 
 namespace VisualStudioStyle.ViewModels
 {
@@ -31,6 +32,10 @@ namespace VisualStudioStyle.ViewModels
         async Task Loaded()
         {
             await Git.GetGitInfo();
+
+            GitService gitService = new();
+            gitService.SetGitWorkingDirectory("D:\\GitHub\\SOLID-Template-For-WPF\\RibbonStyle.sln");
+            var r=gitService.GitStatus();
         }
 
         [RelayCommand]

@@ -9,12 +9,10 @@ using System.Threading.Tasks;
 
 namespace VisualStudioStyle.Models
 {
-   public partial class Git:ObservableObject
+    public partial class Git : ObservableObject
     {
         string repoUrl;
-
         bool hasRemote;
-
         [ObservableProperty]
         int inCount;
         [ObservableProperty]
@@ -22,22 +20,27 @@ namespace VisualStudioStyle.Models
         [ObservableProperty]
         int changeCount;
         [ObservableProperty]
-        string currentBranch;
+        GitBranch currentBranch;
         [ObservableProperty]
-         ObservableCollection<string> branches;
-
+        ObservableCollection<GitBranch> localBranches;
+        [ObservableProperty]
+        ObservableCollection<GitBranch> remoteBranches;
+        [ObservableProperty]
+        ObservableCollection<string> otherRepos;
+        [ObservableProperty]
+        ObservableCollection<string> activeRepos;
         public async Task GetGitInfo()
         {
             if (!hasRemote)
             {
-                Branches = new()
+               LocalBranches = new()
                 {
-                    "main",
-                    "devlop",
-                    "alphy",
-                    "beta"
+                 //new(){Author="solid",   "main",
+                 //   "devlop",
+                 //   "alphy",
+                 //   "beta"
                 };
-                CurrentBranch = Branches[0];
+                CurrentBranch = LocalBranches.FirstOrDefault();
             }
             await Task.CompletedTask;
         }

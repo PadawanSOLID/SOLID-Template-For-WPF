@@ -361,10 +361,13 @@
                                             <ColumnDefinition />
                                             <ColumnDefinition Width="260" />
                                         </Grid.ColumnDefinitions>
-                                        <ComboBox Padding="0" ItemsSource="{Binding ScalePercents}">
+                                        <ComboBox
+                                            Padding="0"
+                                            ItemsSource="{Binding ScalePercents}"
+                                            SelectedItem="{Binding ScalePercent}">
                                             <ComboBox.ItemTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Padding="2" Text="{Binding ., StringFormat=\{0:P0\}}" />
+                                                    <TextBlock Padding="1" Text="{Binding ., StringFormat=\{0:P0\}}" />
                                                 </DataTemplate>
                                             </ComboBox.ItemTemplate>
                                         </ComboBox>
@@ -609,7 +612,6 @@
                                     </DockPanel>
                                 </Border>
                             </Popup>
-
                         </DockPanel>
                     </ToggleButton>
                     <ToggleButton Name="gitRepo">
@@ -633,15 +635,28 @@
                                     <DockPanel>
                                         <DockPanel DockPanel.Dock="Top">
                                             <Button
-                                            Content="{iconPacks:Material Kind=DotsHorizontal}"
-                                            DockPanel.Dock="Right"
-                                            Foreground="{DynamicResource ThemeBackground}" />
+                                                Content="{iconPacks:Material Kind=DotsHorizontal}"
+                                                DockPanel.Dock="Right"
+                                                Foreground="{DynamicResource ThemeBackground}" />
                                             <TextBox />
                                         </DockPanel>
-                                        <TreeView>
-                                            <TreeViewItem Header="活动存储库"/>
-                                            <TreeViewItem Header="其他"/>
-                                        </TreeView>
+                                        <StackPanel DockPanel.Dock="Top">
+                                            <Expander Header="活动存储库">
+                                                <ListBox ItemsSource="{Binding ActiveRepos}" >
+                                                    <ListBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <DockPanel>
+                                                                <iconPacks:PackIconCodicons/>
+                                                                <TextBlock Text="{Binding Name}"/>
+                                                            </DockPanel>
+                                                        </DataTemplate>
+                                                    </ListBox.ItemTemplate>
+                                                </ListBox>
+                                            </Expander>
+                                            <Expander Header="其他">
+                                                <ListBox ItemsSource="{Binding OtherRepos}" />
+                                            </Expander>
+                                        </StackPanel>
                                     </DockPanel>
                                 </Border>
                             </Popup>

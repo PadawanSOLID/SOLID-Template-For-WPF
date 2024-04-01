@@ -21,7 +21,8 @@ namespace VisualStudioStyle.ViewModels
         {
             0.2,0.5,0.7,1,1.5,2,4
         };
-
+        [ObservableProperty]
+        double scalePercent=1;
         [RelayCommand]
         void Save()
         {
