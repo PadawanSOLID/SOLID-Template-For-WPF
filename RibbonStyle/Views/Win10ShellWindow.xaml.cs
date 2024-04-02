@@ -1,4 +1,6 @@
 ﻿using MahApps.Metro.Controls;
+using System.Windows.Input;
+using System.Windows;
 
 namespace RibbonStyle.Views
 {
@@ -9,7 +11,31 @@ namespace RibbonStyle.Views
     {
         public Win10ShellWindow()
         {
-            InitializeComponent();
+             InitializeComponent();
+        }
+        private void DockPanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
+
+        private void PART_Min_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void PART_Max_Click(object sender, RoutedEventArgs e)
+        {
+            if (WindowState == WindowState.Maximized)
+            {
+               WindowState = WindowState.Normal;
+            }
+            else
+            {
+                WindowState = WindowState.Maximized;
+            }
         }
     }
 }

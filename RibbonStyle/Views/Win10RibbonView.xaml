@@ -16,7 +16,7 @@
                                      IsDesignTimeCreatable=True}"
     d:DesignWidth="1620"
     mc:Ignorable="d">
-    <Fluent:Ribbon
+    <Fluent:Ribbon Name="rib"
         ContentHeight="94"
         FontSize="12"
         SelectedTabIndex="0"

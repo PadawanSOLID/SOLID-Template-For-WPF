@@ -4,13 +4,17 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Fluent="urn:fluent-ribbon"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:local="clr-namespace:RibbonStyle.Views"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
+    xmlns:vm="clr-namespace:RibbonStyle.ViewModels"
+    d:DataContext="{d:DesignInstance vm:StartViewModel,
+                                     IsDesignTimeCreatable=True}"
+    d:DesignHeight="900"
+    d:DesignWidth="1600"
     prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
     <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -31,6 +35,11 @@
                     Background="Transparent"
                     ItemsSource="{Binding TableTemplates}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding NewWorkBookCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                     <ListBox.ItemContainerStyle>
                         <Style BasedOn="{StaticResource MahApps.Styles.ListBoxItem}" TargetType="ListBoxItem">
                             <Setter Property="Padding" Value="0" />
@@ -129,6 +138,7 @@
                 <TabItem Header="最近">
                     <DataGrid
                         AutoGenerateColumns="False"
+                        Background="Transparent"
                         CanUserAddRows="False"
                         CanUserReorderColumns="False"
                         CanUserResizeColumns="False"
@@ -141,7 +151,7 @@
                             <Style BasedOn="{StaticResource MahApps.Styles.DataGridColumnHeader}" TargetType="DataGridColumnHeader">
                                 <Setter Property="BorderThickness" Value="0,0,0,1" />
                                 <Setter Property="Padding" Value="0" />
-                                <Setter Property="Background" Value="WhiteSmoke" />
+                                <Setter Property="Background" Value="Transparent" />
                                 <Setter Property="FontWeight" Value="Normal" />
                             </Style>
                         </DataGrid.ColumnHeaderStyle>
@@ -289,7 +299,7 @@
                         </DataGrid.CellStyle>
                         <DataGrid.RowStyle>
                             <Style BasedOn="{StaticResource MahApps.Styles.DataGridRow}" TargetType="DataGridRow">
-                                <Setter Property="Background" Value="WhiteSmoke" />
+                                <Setter Property="Background" Value="Transparent" />
                                 <Setter Property="BorderThickness" Value="0" />
                             </Style>
                         </DataGrid.RowStyle>

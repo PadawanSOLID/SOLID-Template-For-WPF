@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using RibbonStyle.Interfaces;
 using RibbonStyle.Models;
 using System;
 using System.Collections.Generic;
@@ -8,8 +10,10 @@ using System.Threading.Tasks;
 
 namespace RibbonStyle.ViewModels
 {
-   public class StartViewModel:ObservableObject
+   public partial class StartViewModel:ObservableObject
     {
+        IRibbonViewSwitchService _viewSwitchService;
+
         public List<TableTemplate> TableTemplates { get; set; } = new()
         {
             new("/Assets/tt1.png","空白工作簿"),
@@ -31,5 +35,15 @@ namespace RibbonStyle.ViewModels
             new(){Icon="Excel" ,FileName="工作簿5.xlsx",Source="桌面",UpdateDate=DateTime.Now.ToShortDateString()},
             new(){Icon="Excel" ,FileName="工作簿6.xlsx",Source="OneDrive",UpdateDate=DateTime.Now.ToShortDateString()},
         };
+
+        public StartViewModel(IRibbonViewSwitchService ribbonViewSwitchService)
+        {
+            _viewSwitchService=ribbonViewSwitchService;
+        }
+        [RelayCommand]
+        void NewWorkBook()
+        {
+            _viewSwitchService.ToMain();
+        }
     }
 }
