@@ -12,4 +12,6 @@
     <SolidColorBrush x:Key="ScrollBar.Background" Color="#FFE8E8EC" />
     <SolidColorBrush x:Key="Pane.Background" Color="#FFF7F9FE" />
     <SolidColorBrush x:Key="TabItem.UnderlineBrush" Color="#FF203D77" />
+    <SolidColorBrush x:Key="ListBoxItem.MouseOverBackground" Color="#FFC4D5FF" />
+    <SolidColorBrush x:Key="ListBoxItem.MouseOverBorderBrush" Color="#FF5D76AA" />
 </ResourceDictionary> 

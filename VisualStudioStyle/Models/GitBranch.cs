@@ -17,5 +17,9 @@ namespace VisualStudioStyle.Models
         string author;
         [ObservableProperty]
         DateTime updateTime;
+        [ObservableProperty]
+        bool isCurrentBranch;
+        [ObservableProperty]
+        bool isLocal;
     }
 }

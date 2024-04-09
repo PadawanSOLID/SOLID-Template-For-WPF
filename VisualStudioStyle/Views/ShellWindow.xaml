@@ -554,7 +554,7 @@
                     <ToggleButton Name="gitBranch">
                         <DockPanel>
                             <iconPacks:PackIconIonicons Margin="3,0" Kind="GitBranchiOS" />
-                            <TextBlock Margin="3,0" Text="{Binding CurrentBranch}" />
+                            <TextBlock Margin="3,0" Text="{Binding CurrentBranch.Name}" />
                             <Path
                                 Width="8"
                                 Height="8"
@@ -603,10 +603,41 @@
                                             DockPanel.Dock="Top"
                                             TabStripPlacement="Top">
                                             <TabItem Header="本地">
-                                                <ListBox Background="Transparent" ItemsSource="{Binding LocalBranches}" />
+                                                <ListBox
+                                                    Background="Transparent"
+                                                    ItemContainerStyle="{StaticResource ListBoxItem.GitBranch}"
+                                                    ItemsSource="{Binding LocalBranches}"
+                                                    SelectedItem="{Binding CurrentBranch}">
+                                                    <ListBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <DockPanel>
+                                                                <iconPacks:PackIconIonicons
+                                                                    Margin="3"
+                                                                    Foreground="ForestGreen"
+                                                                    Kind="GitBranchiOS" />
+                                                                <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+                                                            </DockPanel>
+                                                        </DataTemplate>
+                                                    </ListBox.ItemTemplate>
+                                                </ListBox>
                                             </TabItem>
                                             <TabItem Header="远程">
-                                                <ListBox Background="Transparent" ItemsSource="{Binding RemoteBranches}" />
+                                                <ListBox
+                                                    Background="Transparent"
+                                                    ItemContainerStyle="{StaticResource ListBoxItem.GitBranch}"
+                                                    ItemsSource="{Binding RemoteBranches}">
+                                                    <ListBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <DockPanel>
+                                                                <iconPacks:PackIconIonicons
+                                                                    Margin="3"
+                                                                    Foreground="CornflowerBlue"
+                                                                    Kind="GitBranchiOS" />
+                                                                <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+                                                            </DockPanel>
+                                                        </DataTemplate>
+                                                    </ListBox.ItemTemplate>
+                                                </ListBox>
                                             </TabItem>
                                         </TabControl>
                                     </DockPanel>
@@ -641,13 +672,31 @@
                                             <TextBox />
                                         </DockPanel>
                                         <StackPanel DockPanel.Dock="Top">
+                                            <TreeView ItemsSource="{Binding repo}">
+                                                <TreeView.ItemTemplate>
+                                                    <HierarchicalDataTemplate ItemsSource="{Binding Repositories}">
+                                                        <TextBlock Text="{Binding Kind}" />
+                                                        <HierarchicalDataTemplate.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <DockPanel>
+                                                                    <iconPacks:PackIconIonicons
+                                                                        Margin="3"
+                                                                        Foreground="ForestGreen"
+                                                                        Kind="GitBranchiOS" />
+                                                                    <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+                                                                </DockPanel>
+                                                            </DataTemplate>
+                                                        </HierarchicalDataTemplate.ItemTemplate>
+                                                    </HierarchicalDataTemplate>
+                                                </TreeView.ItemTemplate>
+                                            </TreeView>
                                             <Expander Header="活动存储库">
-                                                <ListBox ItemsSource="{Binding ActiveRepos}" >
+                                                <ListBox ItemsSource="{Binding ActiveRepos}">
                                                     <ListBox.ItemTemplate>
                                                         <DataTemplate>
                                                             <DockPanel>
-                                                                <iconPacks:PackIconCodicons/>
-                                                                <TextBlock Text="{Binding Name}"/>
+                                                                <iconPacks:PackIconCodicons />
+                                                                <TextBlock Text="{Binding Name}" />
                                                             </DockPanel>
                                                         </DataTemplate>
                                                     </ListBox.ItemTemplate>

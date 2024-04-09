@@ -3,6 +3,7 @@ using Prism.Unity;
 using System.Configuration;
 using System.Data;
 using System.Windows;
+using VisualStudioStyle.Services;
 using VisualStudioStyle.ViewModels;
 using VisualStudioStyle.Views;
 
@@ -18,6 +19,7 @@ namespace VisualStudioStyle
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<ShellWindow, ShellViewModel>();
+            containerRegistry.Register<GitService>();
         }
     }
 

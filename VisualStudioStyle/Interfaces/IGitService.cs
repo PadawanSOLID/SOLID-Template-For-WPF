@@ -9,13 +9,13 @@ namespace VisualStudioStyle.Interfaces
 {
    public interface IGitService
     {
-        IEnumerable<GitBranch > GetBranches();
+        IEnumerable<GitBranch > GetRemoteBranches();
+
+        IEnumerable<GitBranch > GetLocalBranches();
 
         IEnumerable<GitRepository> GetRepositories();
 
-        string ManualCommand();
-       
-
+        bool GitBash(string cmd);
         
     }
 }

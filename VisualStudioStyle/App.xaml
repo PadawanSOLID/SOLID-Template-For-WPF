@@ -14,6 +14,7 @@
                 <ResourceDictionary Source="/Styles/Menu.xaml" />
                 <ResourceDictionary Source="/Styles/Popup.xaml" />
                 <ResourceDictionary Source="/Themes/Brush.xaml" />
+                <ResourceDictionary Source="/Themes/Listbox.xaml" />
                 <ResourceDictionary Source="/Styles/SplitButton.xaml" />
                 <ResourceDictionary Source="/Styles/DropDownButton.xaml" />
                 <ResourceDictionary Source="/Styles/Button.xaml" />

@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -13,8 +14,10 @@ namespace VisualStudioStyle.ViewModels
 {
     public partial class ShellViewModel : ObservableObject
     {
+        private GitService _gitService;
+
         [ObservableProperty]
-        string statusText;
+        string statusText="就绪";
 
         [ObservableProperty]
         Git git=new();
@@ -31,11 +34,19 @@ namespace VisualStudioStyle.ViewModels
         [RelayCommand]
         async Task Loaded()
         {
-            await Git.GetGitInfo();
+            SetGitInfo();
 
-            GitService gitService = new();
-            gitService.SetGitWorkingDirectory("D:\\GitHub\\SOLID-Template-For-WPF\\RibbonStyle.sln");
-            var r=gitService.GitStatus();
+        }
+
+        private void SetGitInfo()
+        {
+            var projectPath = Environment.CurrentDirectory + @"\..\..\..\..";
+            _gitService.SetGitWorkingDirectory(projectPath);
+   
+            Git.LocalBranches =new(_gitService.GetLocalBranches());
+            Git.CurrentBranch = Git.LocalBranches.First(n=>n.IsCurrentBranch);
+            Git.RemoteBranches =new(_gitService.GetRemoteBranches());
+
         }
 
         [RelayCommand]
@@ -46,7 +57,12 @@ namespace VisualStudioStyle.ViewModels
 
         public ShellViewModel()
         {
-            StatusText = "就绪";
+            
+        }
+
+        public ShellViewModel(GitService gitService)
+        {
+            _gitService = gitService;
 
             Files = new()
             {
