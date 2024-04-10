@@ -236,7 +236,6 @@
                         Stroke="#FF125EAE" />
                 </Button>
             </ToolBar>
-
             <ToolBar Band="1">
                 <TextBlock Text="进程:" />
                 <ComboBox Width="200" />
@@ -471,7 +470,7 @@
                 <Style BasedOn="{StaticResource ToggleButton.ToolBar}" TargetType="ToggleButton" />
             </Border.Resources>
             <DockPanel>
-                <ToggleButton Name="commentBt">
+                <ToggleButton Name="commentBt" >
                     <Grid>
                         <iconPacks:PackIconCodicons Kind="Comment" />
                         <Popup IsOpen="{Binding ElementName=commentBt, Path=IsChecked}" PlacementTarget="{Binding ElementName=commentBt}">
@@ -481,7 +480,7 @@
                         </Popup>
                     </Grid>
                 </ToggleButton>
-                <Button Padding="0" DockPanel.Dock="Right">
+                <Button Padding="0" DockPanel.Dock="Right" Margin="10,0" Width="32">
                     <Grid>
                         <iconPacks:PackIconCodicons Margin="3" Kind="Bell" />
                         <Grid
@@ -501,7 +500,7 @@
                     <DockPanel.Resources>
                         <Style BasedOn="{StaticResource ToggleButton.ToolBar}" TargetType="ToggleButton">
                             <Setter Property="Padding" Value="3,0" />
-                            <Setter Property="Margin" Value="3" />
+                            <Setter Property="Margin" Value="10,3" />
                         </Style>
                         <Style BasedOn="{StaticResource Button.StatusBar}" TargetType="Button">
                             <Setter Property="Margin" Value="3" />
@@ -648,7 +647,7 @@
                     <ToggleButton Name="gitRepo">
                         <DockPanel>
                             <iconPacks:PackIconCodicons Kind="Repo" />
-                            <TextBlock Margin="3,0" Text="{Binding CurrentRepo}" />
+                            <TextBlock Margin="3,0" Text="{Binding CurrentRepository.Repositories[0].Name}" />
                             <Path
                                 Width="8"
                                 Height="8"
@@ -664,18 +663,18 @@
                                     BorderBrush="#999"
                                     BorderThickness="1">
                                     <DockPanel>
-                                        <DockPanel DockPanel.Dock="Top">
+                                        <DockPanel Margin="5" DockPanel.Dock="Top">
                                             <Button
                                                 Content="{iconPacks:Material Kind=DotsHorizontal}"
                                                 DockPanel.Dock="Right"
                                                 Foreground="{DynamicResource ThemeBackground}" />
-                                            <TextBox />
+                                            <TextBox Margin="3" mah:TextBoxHelper.Watermark="筛选存储库" />
                                         </DockPanel>
                                         <StackPanel DockPanel.Dock="Top">
-                                            <TreeView ItemsSource="{Binding repo}">
+                                            <TreeView ItemContainerStyle="{StaticResource TreeViewItem.GitRepository}" ItemsSource="{Binding RepositoryActivity}" Background="Transparent">
                                                 <TreeView.ItemTemplate>
                                                     <HierarchicalDataTemplate ItemsSource="{Binding Repositories}">
-                                                        <TextBlock Text="{Binding Kind}" />
+                                                        <TextBlock Text="{Binding Activity}" />
                                                         <HierarchicalDataTemplate.ItemTemplate>
                                                             <DataTemplate>
                                                                 <DockPanel>
@@ -690,21 +689,6 @@
                                                     </HierarchicalDataTemplate>
                                                 </TreeView.ItemTemplate>
                                             </TreeView>
-                                            <Expander Header="活动存储库">
-                                                <ListBox ItemsSource="{Binding ActiveRepos}">
-                                                    <ListBox.ItemTemplate>
-                                                        <DataTemplate>
-                                                            <DockPanel>
-                                                                <iconPacks:PackIconCodicons />
-                                                                <TextBlock Text="{Binding Name}" />
-                                                            </DockPanel>
-                                                        </DataTemplate>
-                                                    </ListBox.ItemTemplate>
-                                                </ListBox>
-                                            </Expander>
-                                            <Expander Header="其他">
-                                                <ListBox ItemsSource="{Binding OtherRepos}" />
-                                            </Expander>
                                         </StackPanel>
                                     </DockPanel>
                                 </Border>

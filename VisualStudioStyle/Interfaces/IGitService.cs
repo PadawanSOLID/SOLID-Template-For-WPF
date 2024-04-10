@@ -13,7 +13,7 @@ namespace VisualStudioStyle.Interfaces
 
         IEnumerable<GitBranch > GetLocalBranches();
 
-        IEnumerable<GitRepository> GetRepositories();
+        IEnumerable<GitRepositoryActivity> GetRepositories();
 
         bool GitBash(string cmd);
         

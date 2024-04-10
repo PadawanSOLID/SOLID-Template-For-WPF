@@ -19,6 +19,7 @@
                 <ResourceDictionary Source="/Styles/DropDownButton.xaml" />
                 <ResourceDictionary Source="/Styles/Button.xaml" />
                 <ResourceDictionary Source="/Styles/TabControl.xaml" />
+                <ResourceDictionary Source="/Styles/TreeView.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

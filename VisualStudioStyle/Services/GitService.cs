@@ -1,4 +1,5 @@
 ﻿using ControlzEx.Standard;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,9 +15,10 @@ namespace VisualStudioStyle.Services
     public class GitService : IGitService
     {
         string workingDirectory;
-       public  bool HasGitRepo { get; private set; }
         string output;
         string error;
+
+        public bool HasGitRepo { get; private set; }
 
         public void SetGitWorkingDirectory(string solutionPath)
         {
@@ -60,7 +62,7 @@ namespace VisualStudioStyle.Services
             if (GitBash("status"))
             {
                 return output;
-            } 
+            }
             return error;
         }
 
@@ -72,11 +74,11 @@ namespace VisualStudioStyle.Services
                 if (!string.IsNullOrEmpty(r))
                 {
                     var branches = r.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-                    var gitBranches = branches.Select(n => new GitBranch 
-                    { 
-                        IsCurrentBranch = n.StartsWith('*'), 
-                        Name = n.StartsWith('*') ? n.Substring(1).Trim() : n.Trim() ,
-                        IsLocal=true
+                    var gitBranches = branches.Select(n => new GitBranch
+                    {
+                        IsCurrentBranch = n.StartsWith('*'),
+                        Name = n.StartsWith('*') ? n.Substring(1).Trim() : n.Trim(),
+                        IsLocal = true
                     });
                     return gitBranches;
                 }
@@ -102,7 +104,7 @@ namespace VisualStudioStyle.Services
                     var gitBranches = branches.Select(n => new GitBranch
                     {
                         Name = n.Trim()
-                    }).ToArray()[1..] ;
+                    }).ToArray()[1..];
                     return gitBranches;
                 }
                 else
@@ -116,14 +118,29 @@ namespace VisualStudioStyle.Services
             }
         }
 
-        public IEnumerable<GitRepository> GetRepositories()
+        public IEnumerable<GitRepositoryActivity> GetRepositories()
         {
-            throw new NotImplementedException();
-        }
+            var repos = JsonConvert.DeserializeObject<IList<GitRepository>>(File.ReadAllText("gitrepo.json"));
+            if (repos != null && repos.Count > 0)
+            {
+                List<GitRepositoryActivity> repositoryActivities = new()
+                {
+                    new(){Activity="活动存储库",Repositories=new()},
+                    new(){Activity="其他"}
+                };
+                var activeRepo = repos.FirstOrDefault();
+                repositoryActivities[0].Repositories.Add(activeRepo);
+                if (repos.Skip(0).Any())
+                {
+                    repositoryActivities[1].Repositories = new(repos.Skip(1));
+                }
+                return repositoryActivities;
+            }
+            else
+            {
+                return null;
+            }
 
-        public string ManualCommand()
-        {
-            throw new NotImplementedException();
         }
     }
 }

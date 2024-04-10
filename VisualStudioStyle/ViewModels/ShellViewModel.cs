@@ -46,7 +46,8 @@ namespace VisualStudioStyle.ViewModels
             Git.LocalBranches =new(_gitService.GetLocalBranches());
             Git.CurrentBranch = Git.LocalBranches.First(n=>n.IsCurrentBranch);
             Git.RemoteBranches =new(_gitService.GetRemoteBranches());
-
+            Git.RepositoryActivity = new(_gitService.GetRepositories());
+            Git.CurrentRepository = Git.RepositoryActivity[0];
         }
 
         [RelayCommand]

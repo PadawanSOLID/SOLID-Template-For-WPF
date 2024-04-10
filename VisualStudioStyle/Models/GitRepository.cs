@@ -15,8 +15,5 @@ namespace VisualStudioStyle.Models
         string path;
         [ObservableProperty]
         string url;
-        [ObservableProperty]
-        bool isDocked;
-
     }
 }

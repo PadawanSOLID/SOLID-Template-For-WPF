@@ -30,9 +30,10 @@ namespace VisualStudioStyle.Models
         ObservableCollection<GitBranch> remoteBranches;
 
         [ObservableProperty]
-        ObservableCollection<string> otherRepos;
+        GitRepositoryActivity currentRepository;
 
         [ObservableProperty]
-        ObservableCollection<string> activeRepos;
+        ObservableCollection<GitRepositoryActivity> repositoryActivity;
+
     }
 }
