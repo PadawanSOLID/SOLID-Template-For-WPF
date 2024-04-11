@@ -17,19 +17,22 @@ namespace VisualStudioStyle.ViewModels
         private GitService _gitService;
 
         [ObservableProperty]
-        string statusText="就绪";
+        string statusText = "就绪";
 
         [ObservableProperty]
-        Git git=new();
+        Git git = new();
 
         [ObservableProperty]
-        ObservableCollection<CommonFileViewModel> files=new();
+        ObservableCollection<CommonFileViewModel> files = new();
 
         [ObservableProperty]
         CommonFileViewModel activeDocument;
 
         [ObservableProperty]
-        List<PaneViewModel> panes=new();
+        IEnumerable<LayoutVMBase> panes = new LayoutVMBase[]
+        {
+            new GitChangeViewModel() ,
+        };
 
         [RelayCommand]
         async Task Loaded()
@@ -42,10 +45,9 @@ namespace VisualStudioStyle.ViewModels
         {
             var projectPath = Environment.CurrentDirectory + @"\..\..\..\..";
             _gitService.SetGitWorkingDirectory(projectPath);
-   
-            Git.LocalBranches =new(_gitService.GetLocalBranches());
-            Git.CurrentBranch = Git.LocalBranches.First(n=>n.IsCurrentBranch);
-            Git.RemoteBranches =new(_gitService.GetRemoteBranches());
+            Git.LocalBranches = new(_gitService.GetLocalBranches());
+            Git.CurrentBranch = Git.LocalBranches.First(n => n.IsCurrentBranch);
+            Git.RemoteBranches = new(_gitService.GetRemoteBranches());
             Git.RepositoryActivity = new(_gitService.GetRepositories());
             Git.CurrentRepository = Git.RepositoryActivity[0];
         }
@@ -58,7 +60,7 @@ namespace VisualStudioStyle.ViewModels
 
         public ShellViewModel()
         {
-            
+
         }
 
         public ShellViewModel(GitService gitService)
@@ -67,9 +69,9 @@ namespace VisualStudioStyle.ViewModels
 
             Files = new()
             {
-                new CSFileViewModel(){Title="test.cs"},
-                new XamlFileViewModel(){Title="test.xaml"},
-                new (){Title="common.txt"},
+                new CSFileViewModel("test.cs"),
+                new XamlFileViewModel("test.xaml"),
+               new ("common.txt"),
             };
         }
     }

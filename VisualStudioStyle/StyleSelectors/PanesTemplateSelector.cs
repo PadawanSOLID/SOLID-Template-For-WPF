@@ -19,6 +19,8 @@ namespace VisualStudioStyle.StyleSelectors
             set;
         }
 
+        public DataTemplate GitChange { get; set; }
+
         public DataTemplate SolutionResource
         {
             get;
@@ -39,6 +41,14 @@ namespace VisualStudioStyle.StyleSelectors
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
+            if (item is ContentPresenter cp)
+            {
+                return cp.Content switch
+                {
+                    GitChangeViewModel => GitChange,
+                    _ => base.SelectTemplate(item, container),
+                };
+            }
             return item switch
             {
                 CSFileViewModel => CSFile,

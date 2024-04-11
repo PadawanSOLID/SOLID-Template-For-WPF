@@ -7,16 +7,14 @@ using System.Threading.Tasks;
 
 namespace VisualStudioStyle.ViewModels
 {
-public partial    class PaneViewModel:ObservableObject
+    public partial class AnchorVMBase : LayoutVMBase
     {
-        [ObservableProperty]
-        string title;
-        [ObservableProperty]
-        string contentId;
         [ObservableProperty]
         bool isSelected;
         [ObservableProperty]
         bool isActive;
-
+        public AnchorVMBase(string name) : base(name)
+        {
+        }
     }
 }

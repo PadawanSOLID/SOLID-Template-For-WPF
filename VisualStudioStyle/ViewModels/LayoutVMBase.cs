@@ -7,10 +7,16 @@ using System.Threading.Tasks;
 
 namespace VisualStudioStyle.ViewModels
 {
-    public partial class SolutionResourceViewModel : LayoutVMBase
+    public partial class LayoutVMBase : ObservableObject
     {
-        public SolutionResourceViewModel(string name) : base("Solution Resources")
+        [ObservableProperty]
+        string title;
+        [ObservableProperty]
+        string contentId;
+
+        public LayoutVMBase(string name)
         {
+            Title = name;
         }
     }
 }

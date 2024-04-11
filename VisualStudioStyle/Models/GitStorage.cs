@@ -5,13 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VisualStudioStyle.ViewModels
+namespace VisualStudioStyle.Models
 {
-    public partial class ToolBoxViewModel : AnchorVMBase
+    public  class GitStorage 
     {
-        public ToolBoxViewModel(string name) : base(name)
-        {
-
-        }
     }
 }

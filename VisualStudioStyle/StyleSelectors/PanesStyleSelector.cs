@@ -6,7 +6,7 @@ namespace VisualStudioStyle.StyleSelectors
 {
     public class PanesStyleSelector : StyleSelector
     {
-        public Style ToolStyle
+        public Style AnchorStyle
         {
             get;
             set;
@@ -22,9 +22,8 @@ namespace VisualStudioStyle.StyleSelectors
         {
             return item switch
             {
-                ToolBoxViewModel => ToolStyle,
-                CommonFileViewModel => FileStyle,
-                _ => base.SelectStyle(item, container),
+                AnchorVMBase => AnchorStyle,
+                _ => FileStyle,
             };
         }
     }

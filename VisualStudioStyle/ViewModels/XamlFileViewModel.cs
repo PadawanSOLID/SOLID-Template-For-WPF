@@ -9,5 +9,8 @@ namespace VisualStudioStyle.ViewModels
 {
     public partial class XamlFileViewModel : CommonFileViewModel
     {
+        public XamlFileViewModel(string name) : base(name)
+        {
+        }
     }
 }

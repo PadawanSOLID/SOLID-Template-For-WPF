@@ -285,16 +285,16 @@
                             <Setter Property="ContentId" Value="{Binding Model.ContentId}" />
                         </Style>
                     </selectors:PanesStyleSelector.FileStyle>
-                    <selectors:PanesStyleSelector.ToolStyle>
-                        <Style TargetType="LayoutAnchorableItem">
+                    <selectors:PanesStyleSelector.AnchorStyle>
+                        <Style TargetType="{x:Type LayoutAnchorableItem}">
                             <Setter Property="Title" Value="{Binding Model.Title}" />
                             <Setter Property="CanHide" Value="True" />
-                            <!--<Setter Property="Visibility" Value="{Binding Model.IsVisible, Mode=TwoWay,  Converter={ }, ConverterParameter={x:Static Visibility.Hidden}}" />-->
+                            <Setter Property="Visibility" Value="Visible" />
                             <Setter Property="ContentId" Value="{Binding Model.ContentId}" />
                             <Setter Property="IsSelected" Value="{Binding Model.IsSelected, Mode=TwoWay}" />
                             <Setter Property="IsActive" Value="{Binding Model.IsActive, Mode=TwoWay}" />
                         </Style>
-                    </selectors:PanesStyleSelector.ToolStyle>
+                    </selectors:PanesStyleSelector.AnchorStyle>
                 </selectors:PanesStyleSelector>
             </DockingManager.LayoutItemContainerStyleSelector>
             <DockingManager.LayoutItemTemplateSelector>
@@ -426,37 +426,70 @@
                     <selectors:PanesTemplateSelector.XamlFile>
                         <DataTemplate />
                     </selectors:PanesTemplateSelector.XamlFile>
+                    <selectors:PanesTemplateSelector.GitChange>
+                        <DataTemplate DataType="vm:GitChangeViewModel">
+                            <StackPanel>
+                                <Grid Background="{DynamicResource MenuAndToolBackground}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox Margin="5" ItemsSource="{Binding Git.LocalBranches}" />
+                                    <UniformGrid
+                                        Grid.Column="1"
+                                        Margin="5"
+                                        Rows="1">
+                                        <UniformGrid.Resources>
+                                            <Style BasedOn="{StaticResource Button.ToolBar}" TargetType="Button" />
+                                        </UniformGrid.Resources>
+                                        <Button Content="{iconPacks:Codicons Kind=ArrowSmallDown}" />
+                                        <Button Content="{iconPacks:Codicons Kind=ArrowDown}" />
+                                        <Button Content="{iconPacks:Codicons Kind=ArrowUp}" />
+                                        <Button Content="{iconPacks:Codicons Kind=Sync}" />
+                                        <Button Content="{iconPacks:Material Kind=DotsHorizontal}" />
+                                    </UniformGrid>
+                                </Grid>
+                                <StackPanel
+                                    Height="26"
+                                    Background="{DynamicResource MenuAndToolBackground}"
+                                    Orientation="Horizontal">
+                                    <iconPacks:PackIconMaterial Margin="3" Kind="Sync" />
+                                    <TextBlock Margin="3">
+                                        <Run Text="{Binding OutCount}" />
+                                        <Run Text=" / " />
+                                        <Run Text="{Binding InCount}" />
+                                    </TextBlock>
+                                    <TextBlock
+                                        Margin="3"
+                                        Cursor="Hand"
+                                        Text="查看所有提交"
+                                        TextDecorations="Underline" />
+                                </StackPanel>
+                                <TextBox TextWrapping="Wrap"
+                                    MinHeight="60"
+                                    Margin="8"
+                                    mah:TextBoxHelper.Watermark="输入消息&lt;必需&gt;"
+                                    AcceptsReturn="True" />
+                                <DockPanel LastChildFill="False">
+                                    <mah:SplitButton >
+
+                                    </mah:SplitButton>
+                                </DockPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </selectors:PanesTemplateSelector.GitChange>
                 </selectors:PanesTemplateSelector>
             </DockingManager.LayoutItemTemplateSelector>
+            <DockingManager.LayoutUpdateStrategy>
+                <selectors:LayoutInitializer />
+            </DockingManager.LayoutUpdateStrategy>
             <LayoutRoot>
-                <LayoutRoot.LeftSide>
-                    <LayoutAnchorSide>
-                        <LayoutAnchorGroup>
-                            <LayoutAnchorable Title="实时可视化树" />
-                        </LayoutAnchorGroup>
-                    </LayoutAnchorSide>
-                </LayoutRoot.LeftSide>
-                <LayoutRoot.RightSide>
-                    <LayoutAnchorSide>
-                        <LayoutAnchorGroup>
-                            <LayoutAnchorable Title="解决方案资源管理器" />
-                            <LayoutAnchorable Title="Git更改" />
-                            <LayoutAnchorable Title="属性" />
-                            <LayoutAnchorable Title="实时属性资源管理器" />
-                            <LayoutAnchorable Title="XAML实时预览" />
-                        </LayoutAnchorGroup>
-                    </LayoutAnchorSide>
-                </LayoutRoot.RightSide>
-                <LayoutRoot.BottomSide>
-                    <LayoutAnchorSide>
-                        <LayoutAnchorGroup>
-                            <LayoutAnchorable Title="输出" />
-                            <LayoutAnchorable Title="错误列表" />
-                        </LayoutAnchorGroup>
-                    </LayoutAnchorSide>
-                </LayoutRoot.BottomSide>
-                <LayoutPanel>
+
+                <LayoutPanel Orientation="Horizontal">
                     <LayoutDocumentPane />
+                    <LayoutAnchorablePaneGroup DockWidth="256">
+                        <LayoutAnchorablePane Name="Git更改" />
+                    </LayoutAnchorablePaneGroup>
                 </LayoutPanel>
             </LayoutRoot>
         </DockingManager>
@@ -470,7 +503,7 @@
                 <Style BasedOn="{StaticResource ToggleButton.ToolBar}" TargetType="ToggleButton" />
             </Border.Resources>
             <DockPanel>
-                <ToggleButton Name="commentBt" >
+                <ToggleButton Name="commentBt">
                     <Grid>
                         <iconPacks:PackIconCodicons Kind="Comment" />
                         <Popup IsOpen="{Binding ElementName=commentBt, Path=IsChecked}" PlacementTarget="{Binding ElementName=commentBt}">
@@ -480,7 +513,11 @@
                         </Popup>
                     </Grid>
                 </ToggleButton>
-                <Button Padding="0" DockPanel.Dock="Right" Margin="10,0" Width="32">
+                <Button
+                    Width="32"
+                    Margin="10,0"
+                    Padding="0"
+                    DockPanel.Dock="Right">
                     <Grid>
                         <iconPacks:PackIconCodicons Margin="3" Kind="Bell" />
                         <Grid
@@ -671,7 +708,10 @@
                                             <TextBox Margin="3" mah:TextBoxHelper.Watermark="筛选存储库" />
                                         </DockPanel>
                                         <StackPanel DockPanel.Dock="Top">
-                                            <TreeView ItemContainerStyle="{StaticResource TreeViewItem.GitRepository}" ItemsSource="{Binding RepositoryActivity}" Background="Transparent">
+                                            <TreeView
+                                                Background="Transparent"
+                                                ItemContainerStyle="{StaticResource TreeViewItem.GitRepository}"
+                                                ItemsSource="{Binding RepositoryActivity}">
                                                 <TreeView.ItemTemplate>
                                                     <HierarchicalDataTemplate ItemsSource="{Binding Repositories}">
                                                         <TextBlock Text="{Binding Activity}" />

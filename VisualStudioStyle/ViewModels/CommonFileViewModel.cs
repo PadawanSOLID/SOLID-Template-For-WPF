@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace VisualStudioStyle.ViewModels
 {
-    public partial class CommonFileViewModel : PaneViewModel
+    public partial class CommonFileViewModel : LayoutVMBase
     {
         [ObservableProperty]
         string filePath;
@@ -23,6 +23,11 @@ namespace VisualStudioStyle.ViewModels
         };
         [ObservableProperty]
         double scalePercent=1;
+
+        public CommonFileViewModel(string name) : base(name)
+        {
+        }
+
         [RelayCommand]
         void Save()
         {

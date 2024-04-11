@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace VisualStudioStyle.ViewModels
 {
-  public partial  class CSFileViewModel:CommonFileViewModel
+    public partial class CSFileViewModel : CommonFileViewModel
     {
+        public CSFileViewModel(string name) : base(name)
+        {
+        }
     }
 }
