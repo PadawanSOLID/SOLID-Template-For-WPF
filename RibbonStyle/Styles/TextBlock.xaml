@@ -1,0 +1,126 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
+    <Style
+        x:Key="tabContentHeader"
+        BasedOn="{StaticResource MahApps.Styles.TextBlock}"
+        TargetType="TextBlock">
+        <Setter Property="FontWeight" Value="Black" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="Margin" Value="40,0,0,10" />
+    </Style>
+    <Style
+        x:Key="operationSearchTextBoxStyle"
+        BasedOn="{StaticResource MahApps.Styles.TextBox}"
+        TargetType="TextBox">
+        <Setter Property="mah:ControlsHelper.FocusBorderBrush" Value="{StaticResource Fluent.Ribbon.Brushes.Gray8}" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.ThemeBackground}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Grid>
+                        <Border
+                            x:Name="Base"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding mah:ControlsHelper.CornerRadius}"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+
+                        <Grid x:Name="PART_InnerGrid" Margin="{TemplateBinding BorderThickness}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition x:Name="ButtonColumn" Width="Auto" />
+                                <ColumnDefinition x:Name="TextColumn" Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <ScrollViewer
+                                x:Name="PART_ContentHost"
+                                Grid.Column="1"
+                                Margin="5,0"
+                                Padding="{TemplateBinding Padding}"
+                                VerticalAlignment="Stretch"
+                                Background="{x:Null}"
+                                BorderThickness="0"
+                                Foreground="{TemplateBinding Foreground}"
+                                IsTabStop="False"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                Style="{DynamicResource MahApps.Styles.ScrollViewer.TextControlContentHost}"
+                                VerticalScrollBarVisibility="Hidden" />
+
+                            <TextBlock
+                                x:Name="PART_Message"
+                                Grid.Column="1"
+                                Margin="5,0"
+                                Padding="{TemplateBinding Padding}"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Foreground="{TemplateBinding Foreground}"
+                                Text="{TemplateBinding mah:TextBoxHelper.Watermark}"
+                                TextAlignment="{TemplateBinding mah:TextBoxHelper.WatermarkAlignment}"
+                                TextTrimming="{TemplateBinding mah:TextBoxHelper.WatermarkTrimming}"
+                                TextWrapping="{TemplateBinding mah:TextBoxHelper.WatermarkWrapping}"
+                                Visibility="Collapsed" />
+
+                            <iconPacks:PackIconUnicons
+                                Name="icon"
+                                Width="16"
+                                Height="16"
+                                Margin="3"
+                                VerticalAlignment="Center"
+                                Foreground="{TemplateBinding Foreground}"
+                                Kind="Lightbulb" />
+                        </Grid>
+
+                        <Border
+                            x:Name="DisabledVisualElement"
+                            Background="{DynamicResource MahApps.Brushes.Control.Disabled}"
+                            BorderBrush="{DynamicResource MahApps.Brushes.Control.Disabled}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding mah:ControlsHelper.CornerRadius}"
+                            IsHitTestVisible="False"
+                            Opacity="0"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                            Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mah:ControlsHelper.DisabledVisualElementVisibility), Mode=OneWay}" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=Text}" Value="" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsFocused}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="PART_Message" Property="Visibility" Value="Visible" />
+                        </MultiDataTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsFocused" Value="True" />
+                                <Condition Property="Text" Value="" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Visibility" Value="Visible" />
+                        </MultiTrigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="Base" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mah:ControlsHelper.MouseOverBorderBrush)}" />
+                            <Setter TargetName="Base" Property="Background" Value="{StaticResource MahApps.Brushes.ThemeBackground}" />
+                            <Setter TargetName="PART_Message" Property="Foreground" Value="{StaticResource MahApps.Brushes.ThemeForeground}" />
+                            <Setter TargetName="icon" Property="Foreground" Value="{StaticResource MahApps.Brushes.ThemeForeground}" />
+                            <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.ThemeForeground}" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Base" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mah:ControlsHelper.MouseOverBorderBrush)}" />
+                            <Setter TargetName="Base" Property="Background" Value="{StaticResource MahApps.Brushes.ThemeBackground}" />
+                            <Setter TargetName="PART_Message" Property="Foreground" Value="{StaticResource MahApps.Brushes.ThemeForeground}" />
+                            <Setter TargetName="icon" Property="Foreground" Value="{StaticResource MahApps.Brushes.ThemeForeground}" />
+                            <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.ThemeForeground}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="DisabledVisualElement" Property="Opacity" Value="0.6" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

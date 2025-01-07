@@ -1,0 +1,78 @@
+﻿<UserControl
+    x:Class="RibbonStyle.Views.NewFileView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Fluent="urn:fluent-ribbon"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:local="clr-namespace:RibbonStyle.Views"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    d:DesignHeight="450"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <DockPanel>
+        <TextBlock
+            Margin="40,5"
+            DockPanel.Dock="Top"
+            FontSize="30"
+            Foreground="Black"
+            Text="新建" />
+        <ScrollViewer Foreground="Black"
+            Margin="38,0"
+            DockPanel.Dock="Top"
+            VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <ListBox />
+                <RibbonSeparator Margin="0,40" BorderBrush="#aaa" />
+                <TextBox
+                    Width="595"
+                    HorizontalAlignment="Left"
+                    mah:TextBoxHelper.AutoWatermark="True"
+                    mah:TextBoxHelper.Watermark="搜索联机模板"
+                    FontSize="18"
+                    Style="{StaticResource MahApps.Styles.TextBox.Search}" />
+                <DockPanel Margin="5,10">
+                    <TextBlock Text="建议的搜索：" FontWeight="Bold" FontSize="12" VerticalAlignment="Center" />
+                    <ListBox ItemsSource="{Binding TemplateAdvices}"  >
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListBoxItem">
+                                            <ContentPresenter/>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" FontWeight="Bold" Margin="10,0" Foreground="#666" >
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock" BasedOn="{StaticResource MahApps.Styles.TextBlock}">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="TextDecorations" Value="Underline"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                    </ListBox>
+                </DockPanel>
+            </StackPanel>
+
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

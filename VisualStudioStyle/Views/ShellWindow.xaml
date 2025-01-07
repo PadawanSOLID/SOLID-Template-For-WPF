@@ -1,0 +1,747 @@
+﻿<mah:MetroWindow
+    x:Class="VisualStudioStyle.Views.ShellWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:attach="clr-namespace:VisualStudioStyle.Attaches"
+    xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:local="clr-namespace:VisualStudioStyle"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:selectors="clr-namespace:VisualStudioStyle.StyleSelectors"
+    xmlns:vm="clr-namespace:VisualStudioStyle.ViewModels"
+    Title="MainWindow"
+    Width="1600"
+    Height="900"
+    d:DataContext="{d:DesignInstance vm:ShellViewModel,
+                                     IsDesignTimeCreatable=True}"
+    mah:ControlsHelper.CornerRadius="10"
+    BorderBrush="#FF525252"
+    BorderThickness="1"
+    NonActiveWindowTitleBrush="{DynamicResource MenuAndToolBackground}"
+    WindowTitleBrush="{DynamicResource MenuAndToolBackground}"
+    mc:Ignorable="d">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <mah:MetroWindow.Icon>
+        <DrawingImage>
+            <DrawingImage.Drawing>
+                <GeometryDrawing Brush="MediumPurple" Geometry="M16.85,2,9.09,9.77,4.19,5.91,2.05,7V17L4.2,18.09l4.93-3.85L16.87,22,22,19.93V4ZM4.37,14.3V9.65l2.44,2.43ZM16.7,15.59,12.05,12,16.7,8.41Z" />
+            </DrawingImage.Drawing>
+        </DrawingImage>
+    </mah:MetroWindow.Icon>
+    <mah:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <Image Margin="8,5" Source="{Binding Icon, RelativeSource={RelativeSource AncestorType=mah:MetroWindow}}" />
+        </DataTemplate>
+    </mah:MetroWindow.IconTemplate>
+    <mah:MetroWindow.LeftWindowCommands>
+        <mah:WindowCommands>
+            <Menu VerticalAlignment="Center" Background="Transparent">
+                <Menu.Resources>
+                    <Style BasedOn="{StaticResource MahApps.Styles.MenuItem}" TargetType="MenuItem">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="FontSize" Value="12" />
+                        <Setter Property="Padding" Value="10,5" />
+                    </Style>
+                </Menu.Resources>
+                <MenuItem Header="文件(F)" />
+                <MenuItem Header="编辑(E)" />
+                <MenuItem Header="视图(V)" />
+                <MenuItem Header="Git(G)" />
+                <MenuItem Header="项目(P)" />
+                <MenuItem Header="生成(B)" />
+                <MenuItem Header="调试(D)" />
+                <MenuItem Header="测试(S)" />
+                <MenuItem Header="分析(N)" />
+                <MenuItem Header="工具(T)" />
+                <MenuItem Header="扩展(X)" />
+                <MenuItem Header="窗口(W)" />
+                <MenuItem Header="帮助(H)" />
+            </Menu>
+            <mah:SplitButton Icon="{iconPacks:Material Kind=Magnify, Flip=Horizontal}" />
+        </mah:WindowCommands>
+    </mah:MetroWindow.LeftWindowCommands>
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands />
+    </mah:MetroWindow.RightWindowCommands>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <ToolBarTray Background="{DynamicResource MenuAndToolBackground}">
+            <ToolBarTray.Resources>
+                <Style
+                    x:Key="{x:Static ToolBar.ComboBoxStyleKey}"
+                    BasedOn="{StaticResource MahApps.Styles.ComboBox}"
+                    TargetType="{x:Type ComboBox}">
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                    <Setter Property="Margin" Value="3,0" />
+                    <Setter Property="Padding" Value="2" />
+                    <Setter Property="MinHeight" Value="0" />
+                    <Setter Property="SelectedIndex" Value="0" />
+                </Style>
+                <Style BasedOn="{StaticResource MahApps.Styles.TextBlock}" TargetType="TextBlock">
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                </Style>
+                <Style
+                    x:Key="{x:Static ToolBar.ButtonStyleKey}"
+                    BasedOn="{StaticResource Button.ToolBar}"
+                    TargetType="{x:Type Button}">
+                    <Setter Property="Width" Value="22" />
+                </Style>
+                <Style TargetType="Path">
+                    <Setter Property="Height" Value="15" />
+                    <Setter Property="Width" Value="15" />
+                    <Setter Property="Stretch" Value="Uniform" />
+                </Style>
+                <Style TargetType="Image">
+                    <Setter Property="Height" Value="15" />
+                    <Setter Property="Width" Value="15" />
+                    <Setter Property="Stretch" Value="Uniform" />
+                </Style>
+            </ToolBarTray.Resources>
+            <ToolBar>
+                <mah:SplitButton Foreground="#FF0053A7" Icon="{iconPacks:FontAwesome Kind=ArrowAltCircleLeftRegular, Height=15, Width=15}" />
+                <mah:SplitButton Foreground="#FF0053A7" Icon="{iconPacks:FontAwesome Kind=ArrowAltCircleRightRegular, Height=15, Width=15}" />
+                <Separator />
+                <mah:SplitButton>
+                    <mah:SplitButton.Icon>
+                        <Image>
+                            <Image.Source>
+                                <DrawingImage>
+                                    <DrawingImage.Drawing>
+                                        <DrawingGroup>
+                                            <GeometryDrawing Brush="#E6C37C">
+                                                <GeometryDrawing.Geometry>
+                                                    <GeometryGroup>
+                                                        <PathGeometry Figures="M728 301.9c0 10.5-5.2 20.3-13.8 26.3L413.9 535.3c-5.5 3.8-11.8 5.7-18.2 5.7-6.4 0-12.7-1.9-18.2-5.7L77.8 328.8c-8.6-6-13.8-15.8-13.8-26.3s5.2-20.3 13.8-26.3L378.1 69.6c10.9-7.5 25.4-7.5 36.3 0l299.7 206c8.7 6 13.9 15.8 13.9 26.3z" />
+                                                        <PathGeometry Figures="M395.7 713.2c-6.4 0-12.7-1.9-18.2-5.7L77.8 501c-14.5-10-18.2-29.9-8.1-44.4 10-14.5 30-18.1 44.5-8.1l281.5 194 282.1-194.6c14.5-10 34.5-6.4 44.5 8.1s6.4 34.4-8.1 44.4L413.9 707.6c-5.5 3.7-11.8 5.6-18.2 5.6z" />
+                                                        <PathGeometry Figures="M576 704.6h104.5l23.5-16.2v-64.2c-8.7-2.2-18.2-0.8-26.2 4.6L395.7 823.4l-281.5-194c-14.5-10-34.5-6.4-44.5 8.1s-6.4 34.4 8.1 44.4l299.7 206.6c5.5 3.8 11.8 5.7 18.2 5.7 6.4 0 12.7-1.9 18.2-5.7L576 776.7v-72.1z" />
+                                                    </GeometryGroup>
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                            <GeometryDrawing Brush="#669E8B">
+                                                <GeometryDrawing.Geometry>
+                                                    <PathGeometry Figures="M832 768.4 V640.7 h-64 v127.7 H640 v63.9 h128 V960 h64 V832.3 h128 v-63.9z" />
+                                                </GeometryDrawing.Geometry>
+                                            </GeometryDrawing>
+                                        </DrawingGroup>
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </Image.Source>
+                        </Image>
+                    </mah:SplitButton.Icon>
+                </mah:SplitButton>
+                <Button>
+                    <Path
+                        Data="M19,20H4C2.89,20 2,19.1 2,18V6C2,4.89 2.89,4 4,4H10L12,6H19A2,2 0 0,1 21,8H21L4,8V18L6.14,10H23.21L20.93,18.5C20.7,19.37 19.92,20 19,20Z"
+                        Fill="#FFAB9B78"
+                        Stroke="#FF8A6200"
+                        StrokeThickness="0.5" />
+                </Button>
+                <Button Content="{iconPacks:MaterialLight Kind=ContentSave, Height=15, Width=15}" Foreground="#FF0053A7" />
+                <Button Content="{iconPacks:MaterialLight Kind=ContentSaveAll, Height=15, Width=15}" Foreground="#FF0053A7" />
+                <Separator />
+                <mah:SplitButton Icon="{iconPacks:Modern Kind=UndoCurve, Height=15, Width=15}" />
+                <mah:SplitButton Icon="{iconPacks:Modern Kind=RedoCurve, Height=15, Width=15}" />
+                <Separator />
+                <ComboBox Width="64">
+                    <TextBlock Text="Debug" />
+                    <TextBlock Text="Release" />
+                    <TextBlock Text="配置管理器..." />
+                </ComboBox>
+                <ComboBox Width="110">
+                    <TextBlock Text="Any CPU" />
+                    <TextBlock Text="配置管理器..." />
+                </ComboBox>
+                <ComboBox Width="200" />
+                <mah:SplitButton>
+                    <mah:SplitButton.Icon>
+                        <iconPacks:PackIconVaadinIcons
+                            Width="15"
+                            Height="15"
+                            Foreground="#FF1B731B"
+                            Kind="CaretRight" />
+                    </mah:SplitButton.Icon>
+                </mah:SplitButton>
+                <Button>
+                    <Path
+                        Data="M320 128v640l448-320z"
+                        Fill="Transparent"
+                        Stroke="#FF1B731B" />
+                </Button>
+                <mah:SplitButton>
+                    <mah:SplitButton.Icon>
+                        <iconPacks:PackIconIonicons
+                            Width="15"
+                            Height="15"
+                            Kind="FlameMD">
+                            <iconPacks:PackIconIonicons.Foreground>
+                                <RadialGradientBrush Center=".6,.9">
+                                    <GradientStop Offset="0" Color="#FFDD9FA9" />
+                                    <GradientStop Offset="0.2" Color="#FFDD9FA9" />
+                                    <GradientStop Offset="0.5" Color="#FFBE6C7F" />
+                                    <GradientStop Offset="1" Color="#FFBE6C7F" />
+                                </RadialGradientBrush>
+                            </iconPacks:PackIconIonicons.Foreground>
+                        </iconPacks:PackIconIonicons>
+                    </mah:SplitButton.Icon>
+                </mah:SplitButton>
+                <Separator Background="{DynamicResource ToolBarSeparatorBackground}" />
+                <Button>
+                    <Image>
+                        <Image.Source>
+                            <DrawingImage>
+                                <DrawingImage.Drawing>
+                                    <DrawingGroup>
+                                        <GeometryDrawing Brush="#FF0154A6" Geometry="M16.5,12C19,12 21,14 21,16.5C21,17.38 20.75,18.21 20.31,18.9L23.39,22L22,23.39L18.88,20.32C18.19,20.75 17.37,21 16.5,21C14,21 12,19 12,16.5C12,14 14,12 16.5,12M16.5,14A2.5,2.5 0 0,0 14,16.5A2.5,2.5 0 0,0 16.5,19A2.5,2.5 0 0,0 19,16.5A2.5,2.5 0 0,0 16.5,14" />
+                                        <GeometryDrawing Brush="#FFAB9B78" Geometry="M9,4L11,6H19A2,2 0 0,1 21,8V11.81C19.83,10.69 18.25,10 16.5,10A6.5,6.5 0 0,0 10,16.5C10,17.79 10.37,19 11,20H3C1.89,20 1,19.1 1,18V6C1,4.89 1.89,4 3,4H9Z">
+                                            <GeometryDrawing.Pen>
+                                                <Pen Brush="#FF906E1A" Thickness="1" />
+                                            </GeometryDrawing.Pen>
+                                        </GeometryDrawing>
+                                    </DrawingGroup>
+                                </DrawingImage.Drawing>
+                            </DrawingImage>
+                        </Image.Source>
+                    </Image>
+                </Button>
+                <Separator Background="{DynamicResource ToolBarSeparatorBackground}" />
+                <Button Content="{iconPacks:Codicons Kind=Window, Height=15, Width=15}" />
+            </ToolBar>
+            <ToolBar>
+                <Button Content="{iconPacks:PicolIcons Kind=ControlsPause, Width=12, Height=12}" />
+                <Button Content="{iconPacks:Modern Kind=DebugStop, Width=10, Height=10}" Foreground="#FFB83C4B" />
+                <Button Content="{iconPacks:Codicons Kind=DebugRestart, RotationAngle=90, Width=15, Height=15}" Foreground="#FF125EAE" />
+                <Separator Background="{DynamicResource ToolBarSeparatorBackground}" />
+                <Button Content="{iconPacks:Microns Kind=RightArrow}" Foreground="#FF125EAE" />
+                <Button Content="{iconPacks:Codicons Kind=DebugStepInto}" Foreground="#FF125EAE" />
+                <Button Content="{iconPacks:Codicons Kind=DebugStepOver}" Foreground="#FF125EAE" />
+                <Button Content="{iconPacks:Codicons Kind=DebugStepOut}" Foreground="#FF125EAE" />
+                <Separator Background="{DynamicResource ToolBarSeparatorBackground}" />
+                <Button>
+                    <Path
+                        Width="16"
+                        Height="16"
+                        Data="M0,22  A10,10 180 0,0 30,22 M0,38 A10,10 180 0,1 30,38 M10,2 A10,10 180 0,0 40,2 M10,18 A10,10 180 0,1 40,18 "
+                        Stretch="Uniform"
+                        Stroke="#FF125EAE" />
+                </Button>
+            </ToolBar>
+            <ToolBar Band="1">
+                <TextBlock Text="进程:" />
+                <ComboBox Width="200" />
+                <mah:SplitButton Width="100" Icon="{iconPacks:Codicons Kind=SymbolEvent}" />
+                <TextBlock Text="线程:" />
+                <ComboBox Width="200" />
+                <Button Content="{iconPacks:Material Kind=Flag}" />
+                <Button>
+                    <Path
+                        Width="16"
+                        Height="16"
+                        Fill="Black"
+                        Stretch="Fill">
+                        <Path.Data>
+                            M9.4,1 L9,-1 H0 V16 H2 V9 H7.6 L8,11 H15 V1 H9.4z
+                            M29.4,-9 L29,-11 H20 V6 H22 V-1 H27.6 L28,1 H35 V-9 H29.4z
+                        </Path.Data>
+                    </Path>
+                </Button>
+                <Button>
+                    <Path
+                        Width="16"
+                        Height="16"
+                        Data="M0,32  A15,15 180 0,1 40,32 M0,8 A15,15 180 0,0 40,8"
+                        Stretch="Uniform"
+                        Stroke="Black" />
+                </Button>
+                <TextBlock Text="堆栈帧:" />
+                <ComboBox Width="200" />
+            </ToolBar>
+            <ToolBar Band="1">
+                <mah:SplitButton />
+            </ToolBar>
+        </ToolBarTray>
+        <DockingManager
+            Grid.Row="1"
+            ActiveContent="{Binding ActiveDocument}"
+            AnchorablesSource="{Binding Panes}"
+            DocumentsSource="{Binding Files}">
+            <DockingManager.LayoutItemContainerStyleSelector>
+                <selectors:PanesStyleSelector>
+                    <selectors:PanesStyleSelector.FileStyle>
+                        <Style TargetType="LayoutItem">
+                            <Setter Property="Title" Value="{Binding Model.Title}" />
+                            <Setter Property="ToolTip" Value="{Binding Model.FilePath}" />
+                            <Setter Property="CloseCommand" Value="{Binding Model.CloseCommand}" />
+                            <Setter Property="ContentId" Value="{Binding Model.ContentId}" />
+                        </Style>
+                    </selectors:PanesStyleSelector.FileStyle>
+                    <selectors:PanesStyleSelector.AnchorStyle>
+                        <Style TargetType="{x:Type LayoutAnchorableItem}">
+                            <Setter Property="Title" Value="{Binding Model.Title}" />
+                            <Setter Property="CanHide" Value="True" />
+                            <Setter Property="Visibility" Value="Visible" />
+                            <Setter Property="ContentId" Value="{Binding Model.ContentId}" />
+                            <Setter Property="IsSelected" Value="{Binding Model.IsSelected, Mode=TwoWay}" />
+                            <Setter Property="IsActive" Value="{Binding Model.IsActive, Mode=TwoWay}" />
+                        </Style>
+                    </selectors:PanesStyleSelector.AnchorStyle>
+                </selectors:PanesStyleSelector>
+            </DockingManager.LayoutItemContainerStyleSelector>
+            <DockingManager.LayoutItemTemplateSelector>
+                <selectors:PanesTemplateSelector>
+                    <selectors:PanesTemplateSelector.CSFile>
+                        <DataTemplate DataType="vm:CSFileViewModel">
+                            <DataTemplate.Resources>
+                                <Style BasedOn="{StaticResource MahApps.Styles.ComboBox}" TargetType="ComboBox">
+                                    <Setter Property="Margin" Value="0,1" />
+                                    <Setter Property="Padding" Value="1" />
+                                    <Setter Property="MinHeight" Value="0" />
+                                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                                </Style>
+                                <Style BasedOn="{StaticResource MahApps.Styles.TextBlock}" TargetType="TextBlock">
+                                    <Setter Property="TextAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                </Style>
+                                <Style BasedOn="{StaticResource Button.StatusBar}" TargetType="Button">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                    <Setter Property="FontSize" Value="12" />
+                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                    <Setter Property="Foreground" Value="{DynamicResource ThemeBackground}" />
+                                </Style>
+                            </DataTemplate.Resources>
+                            <Border>
+                                <Grid Background="{DynamicResource MenuAndToolBackground}">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="20" />
+                                    </Grid.RowDefinitions>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="3" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="3" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <ComboBox />
+                                        <ComboBox Grid.Column="2" />
+                                        <ComboBox Grid.Column="4" />
+                                        <Button
+                                            Grid.Column="5"
+                                            Margin="0"
+                                            Padding="0">
+                                            <iconPacks:PackIconMaterial
+                                                Width="15"
+                                                Height="15"
+                                                Kind="ArrowSplitHorizontal" />
+                                        </Button>
+                                    </Grid>
+                                    <avalonEdit:TextEditor
+                                        Grid.Row="1"
+                                        FontSize="16"
+                                        ShowLineNumbers="True"
+                                        SyntaxHighlighting="C#" />
+                                    <Grid Grid.Row="2" Background="{DynamicResource ScrollBar.Background}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="62" />
+                                            <ColumnDefinition Width="195" />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="260" />
+                                        </Grid.ColumnDefinitions>
+                                        <ComboBox
+                                            Padding="0"
+                                            ItemsSource="{Binding ScalePercents}"
+                                            SelectedItem="{Binding ScalePercent}">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Padding="1" Text="{Binding ., StringFormat=\{0:P0\}}" />
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                        <UniformGrid Grid.Column="1" Rows="1">
+                                            <Button HorizontalAlignment="Left">
+                                                <iconPacks:PackIconRemixIcon Kind="LightbulbFlashLine" />
+                                            </Button>
+                                            <Button>
+                                                <DockPanel Width="50">
+                                                    <iconPacks:PackIconMicrons
+                                                        Width="10"
+                                                        Foreground="#FFBB0A16"
+                                                        Kind="Fail" />
+                                                    <TextBlock Text="{Binding ErrorCount}" TextAlignment="Center" />
+                                                </DockPanel>
+                                            </Button>
+                                            <Button>
+                                                <DockPanel Width="50">
+                                                    <iconPacks:PackIconFontAwesome
+                                                        Width="8"
+                                                        Foreground="#FF916800"
+                                                        Kind="ExclamationTriangleSolid" />
+                                                    <TextBlock Text="{Binding WarningCount}" TextAlignment="Center" />
+                                                </DockPanel>
+                                            </Button>
+                                            <Button HorizontalAlignment="Center">
+                                                <iconPacks:PackIconEvaIcons Width="10" Kind="ArrowUpwardOutline" />
+                                            </Button>
+                                            <Button HorizontalAlignment="Center">
+                                                <iconPacks:PackIconEvaIcons Width="10" Kind="ArrowDownwardOutline" />
+                                            </Button>
+                                            <Separator Width="1" Height="20" />
+                                        </UniformGrid>
+                                        <ScrollBar Grid.Column="2" Orientation="Horizontal" />
+                                        <UniformGrid Grid.Column="3" Rows="1">
+                                            <TextBlock>
+                                                行:<Run Text="{Binding CLine}" />
+                                            </TextBlock>
+                                            <TextBlock>
+                                                字符:<Run Text="{Binding CChar}" />
+                                            </TextBlock>
+                                            <TextBlock>
+                                                列:<Run Text="{Binding CCol}" />
+                                            </TextBlock>
+                                            <Button Content="空格" />
+                                            <Button Content="CRLF" />
+                                        </UniformGrid>
+                                    </Grid>
+
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </selectors:PanesTemplateSelector.CSFile>
+                    <selectors:PanesTemplateSelector.CommomFile>
+                        <DataTemplate />
+                    </selectors:PanesTemplateSelector.CommomFile>
+                    <selectors:PanesTemplateSelector.XamlFile>
+                        <DataTemplate />
+                    </selectors:PanesTemplateSelector.XamlFile>
+                    <selectors:PanesTemplateSelector.GitChange>
+                        <DataTemplate DataType="vm:GitChangeViewModel">
+                            <StackPanel>
+                                <Grid Background="{DynamicResource MenuAndToolBackground}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox Margin="5" ItemsSource="{Binding Git.LocalBranches}" />
+                                    <UniformGrid
+                                        Grid.Column="1"
+                                        Margin="5"
+                                        Rows="1">
+                                        <UniformGrid.Resources>
+                                            <Style BasedOn="{StaticResource Button.ToolBar}" TargetType="Button" />
+                                        </UniformGrid.Resources>
+                                        <Button Content="{iconPacks:Codicons Kind=ArrowSmallDown}" />
+                                        <Button Content="{iconPacks:Codicons Kind=ArrowDown}" />
+                                        <Button Content="{iconPacks:Codicons Kind=ArrowUp}" />
+                                        <Button Content="{iconPacks:Codicons Kind=Sync}" />
+                                        <Button Content="{iconPacks:Material Kind=DotsHorizontal}" />
+                                    </UniformGrid>
+                                </Grid>
+                                <StackPanel
+                                    Height="26"
+                                    Background="{DynamicResource MenuAndToolBackground}"
+                                    Orientation="Horizontal">
+                                    <iconPacks:PackIconMaterial Margin="3" Kind="Sync" />
+                                    <TextBlock Margin="3">
+                                        <Run Text="{Binding OutCount}" />
+                                        <Run Text=" / " />
+                                        <Run Text="{Binding InCount}" />
+                                    </TextBlock>
+                                    <TextBlock
+                                        Margin="3"
+                                        Cursor="Hand"
+                                        Text="查看所有提交"
+                                        TextDecorations="Underline" />
+                                </StackPanel>
+                                <TextBox TextWrapping="Wrap"
+                                    MinHeight="60"
+                                    Margin="8"
+                                    mah:TextBoxHelper.Watermark="输入消息&lt;必需&gt;"
+                                    AcceptsReturn="True" />
+                                <DockPanel LastChildFill="False">
+                                    <mah:SplitButton >
+
+                                    </mah:SplitButton>
+                                </DockPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </selectors:PanesTemplateSelector.GitChange>
+                </selectors:PanesTemplateSelector>
+            </DockingManager.LayoutItemTemplateSelector>
+            <DockingManager.LayoutUpdateStrategy>
+                <selectors:LayoutInitializer />
+            </DockingManager.LayoutUpdateStrategy>
+            <LayoutRoot>
+
+                <LayoutPanel Orientation="Horizontal">
+                    <LayoutDocumentPane />
+                    <LayoutAnchorablePaneGroup DockWidth="256">
+                        <LayoutAnchorablePane Name="Git更改" />
+                    </LayoutAnchorablePaneGroup>
+                </LayoutPanel>
+            </LayoutRoot>
+        </DockingManager>
+        <Border
+            Grid.Row="2"
+            Height="25"
+            Background="#FF40508D"
+            TextElement.Foreground="{StaticResource ThemeForeground}">
+            <Border.Resources>
+                <Style BasedOn="{StaticResource Button.StatusBar}" TargetType="Button" />
+                <Style BasedOn="{StaticResource ToggleButton.ToolBar}" TargetType="ToggleButton" />
+            </Border.Resources>
+            <DockPanel>
+                <ToggleButton Name="commentBt">
+                    <Grid>
+                        <iconPacks:PackIconCodicons Kind="Comment" />
+                        <Popup IsOpen="{Binding ElementName=commentBt, Path=IsChecked}" PlacementTarget="{Binding ElementName=commentBt}">
+                            <Border Padding="15" Background="{DynamicResource ThemeForeground}">
+                                <TextBlock Foreground="Black" Text="没有任务正在运行。" />
+                            </Border>
+                        </Popup>
+                    </Grid>
+                </ToggleButton>
+                <Button
+                    Width="32"
+                    Margin="10,0"
+                    Padding="0"
+                    DockPanel.Dock="Right">
+                    <Grid>
+                        <iconPacks:PackIconCodicons Margin="3" Kind="Bell" />
+                        <Grid
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Visibility="{Binding HasNotification, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Ellipse
+                                Width="15"
+                                Height="15"
+                                Fill="Red" />
+                            <TextBlock Text="{Binding NotificationCount}" />
+                        </Grid>
+                    </Grid>
+                </Button>
+
+                <DockPanel DataContext="{Binding Git}" DockPanel.Dock="Right">
+                    <DockPanel.Resources>
+                        <Style BasedOn="{StaticResource ToggleButton.ToolBar}" TargetType="ToggleButton">
+                            <Setter Property="Padding" Value="3,0" />
+                            <Setter Property="Margin" Value="10,3" />
+                        </Style>
+                        <Style BasedOn="{StaticResource Button.StatusBar}" TargetType="Button">
+                            <Setter Property="Margin" Value="3" />
+                            <Setter Property="Padding" Value="3,0" />
+                        </Style>
+                    </DockPanel.Resources>
+                    <ToggleButton Name="gitOperation">
+                        <DockPanel>
+                            <iconPacks:PackIconMaterial Margin="3,0" Kind="Sync" />
+                            <TextBlock Margin="3,0" Foreground="White">
+                                <Run Text="{Binding OutCount}" />
+                                <Run Text=" / " />
+                                <Run Text="{Binding InCount}" />
+                            </TextBlock>
+                            <Path
+                                Width="8"
+                                Height="8"
+                                Margin="3,0"
+                                Data="M9,5 L5,1 L1,5z"
+                                Fill="{DynamicResource ThemeForeground}"
+                                Stretch="Uniform" />
+                            <Popup IsOpen="{Binding IsChecked, ElementName=gitOperation}" PlacementTarget="{Binding ElementName=gitOperation}">
+                                <Border
+                                    Width="300"
+                                    Padding="3"
+                                    Background="#FFE9EEFF"
+                                    BorderBrush="#999"
+                                    BorderThickness="1">
+                                    <Border.Resources>
+                                        <Style BasedOn="{StaticResource menuItemButton}" TargetType="Button" />
+                                    </Border.Resources>
+                                    <StackPanel>
+                                        <Button attach:ButtonAttach.KeyGesture="Ctrl+0, Ctrl+Y" Content="查看所有提交" />
+                                        <Separator Margin="25,3,0,3" Background="{DynamicResource ToolBarSeparatorBackground}" />
+                                        <Button attach:ButtonAttach.Icon="ArrowSmallDown" Content="提取(F)" />
+                                        <Button attach:ButtonAttach.Icon="ArrowDown" Content="拉取(U)" />
+                                        <Button attach:ButtonAttach.Icon="ArrowUp" Content="推送(P)" />
+                                        <Button attach:ButtonAttach.Icon="Sync" Content="同步(拉取然后推送)(S)" />
+                                    </StackPanel>
+                                </Border>
+                            </Popup>
+                        </DockPanel>
+                    </ToggleButton>
+                    <Button>
+                        <UniformGrid Rows="1">
+                            <iconPacks:PackIconFeatherIcons Margin="3,0" Kind="Edit2" />
+                            <TextBlock Margin="3,0" Text="{Binding ChangeCount}" />
+                        </UniformGrid>
+                    </Button>
+                    <ToggleButton Name="gitBranch">
+                        <DockPanel>
+                            <iconPacks:PackIconIonicons Margin="3,0" Kind="GitBranchiOS" />
+                            <TextBlock Margin="3,0" Text="{Binding CurrentBranch.Name}" />
+                            <Path
+                                Width="8"
+                                Height="8"
+                                Margin="3,0"
+                                Data="M9,5 L5,1 L1,5z"
+                                Fill="{DynamicResource ThemeForeground}"
+                                Stretch="Uniform" />
+                            <Popup IsOpen="{Binding IsChecked, ElementName=gitBranch}">
+                                <Border
+                                    Width="360"
+                                    Height="300"
+                                    Background="{DynamicResource Pane.Background}"
+                                    BorderBrush="#999"
+                                    BorderThickness="1">
+                                    <DockPanel>
+                                        <DockPanel DockPanel.Dock="Top">
+                                            <Button
+                                                Content="{iconPacks:Material Kind=DotsHorizontal}"
+                                                DockPanel.Dock="Right"
+                                                Foreground="{DynamicResource ThemeBackground}" />
+                                            <Button
+                                                Margin="3"
+                                                Padding="5,1"
+                                                mah:ControlsHelper.CornerRadius="0"
+                                                Background="{DynamicResource Button.Common.Background}"
+                                                Content="新建分支(N)"
+                                                DockPanel.Dock="Right"
+                                                FontSize="12"
+                                                FontWeight="Normal"
+                                                Style="{StaticResource MahApps.Styles.Button}" />
+                                            <TextBox
+                                                Margin="3"
+                                                mah:TextBoxHelper.AutoWatermark="True"
+                                                mah:TextBoxHelper.Watermark="筛选分支" />
+                                        </DockPanel>
+                                        <TabControl
+                                            mah:HeaderedControlHelper.HeaderFontSize="12"
+                                            mah:TabControlHelper.UnderlineBrush="Transparent"
+                                            mah:TabControlHelper.UnderlineMouseOverBrush="Transparent"
+                                            mah:TabControlHelper.UnderlineMouseOverSelectedBrush="{DynamicResource TabItem.UnderlineBrush}"
+                                            mah:TabControlHelper.UnderlineSelectedBrush="{DynamicResource TabItem.UnderlineBrush}"
+                                            mah:TabControlHelper.Underlined="SelectedTabItem"
+                                            Background="Transparent"
+                                            BorderBrush="{DynamicResource ToolBarSeparatorBackground}"
+                                            BorderThickness="0,1,0,0"
+                                            DockPanel.Dock="Top"
+                                            TabStripPlacement="Top">
+                                            <TabItem Header="本地">
+                                                <ListBox
+                                                    Background="Transparent"
+                                                    ItemContainerStyle="{StaticResource ListBoxItem.GitBranch}"
+                                                    ItemsSource="{Binding LocalBranches}"
+                                                    SelectedItem="{Binding CurrentBranch}">
+                                                    <ListBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <DockPanel>
+                                                                <iconPacks:PackIconIonicons
+                                                                    Margin="3"
+                                                                    Foreground="ForestGreen"
+                                                                    Kind="GitBranchiOS" />
+                                                                <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+                                                            </DockPanel>
+                                                        </DataTemplate>
+                                                    </ListBox.ItemTemplate>
+                                                </ListBox>
+                                            </TabItem>
+                                            <TabItem Header="远程">
+                                                <ListBox
+                                                    Background="Transparent"
+                                                    ItemContainerStyle="{StaticResource ListBoxItem.GitBranch}"
+                                                    ItemsSource="{Binding RemoteBranches}">
+                                                    <ListBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <DockPanel>
+                                                                <iconPacks:PackIconIonicons
+                                                                    Margin="3"
+                                                                    Foreground="CornflowerBlue"
+                                                                    Kind="GitBranchiOS" />
+                                                                <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+                                                            </DockPanel>
+                                                        </DataTemplate>
+                                                    </ListBox.ItemTemplate>
+                                                </ListBox>
+                                            </TabItem>
+                                        </TabControl>
+                                    </DockPanel>
+                                </Border>
+                            </Popup>
+                        </DockPanel>
+                    </ToggleButton>
+                    <ToggleButton Name="gitRepo">
+                        <DockPanel>
+                            <iconPacks:PackIconCodicons Kind="Repo" />
+                            <TextBlock Margin="3,0" Text="{Binding CurrentRepository.Repositories[0].Name}" />
+                            <Path
+                                Width="8"
+                                Height="8"
+                                Margin="3,0"
+                                Data="M9,5 L5,1 L1,5z"
+                                Fill="{DynamicResource ThemeForeground}"
+                                Stretch="Uniform" />
+                            <Popup IsOpen="{Binding IsChecked, ElementName=gitRepo}">
+                                <Border
+                                    Width="360"
+                                    Height="300"
+                                    Background="{DynamicResource Pane.Background}"
+                                    BorderBrush="#999"
+                                    BorderThickness="1">
+                                    <DockPanel>
+                                        <DockPanel Margin="5" DockPanel.Dock="Top">
+                                            <Button
+                                                Content="{iconPacks:Material Kind=DotsHorizontal}"
+                                                DockPanel.Dock="Right"
+                                                Foreground="{DynamicResource ThemeBackground}" />
+                                            <TextBox Margin="3" mah:TextBoxHelper.Watermark="筛选存储库" />
+                                        </DockPanel>
+                                        <StackPanel DockPanel.Dock="Top">
+                                            <TreeView
+                                                Background="Transparent"
+                                                ItemContainerStyle="{StaticResource TreeViewItem.GitRepository}"
+                                                ItemsSource="{Binding RepositoryActivity}">
+                                                <TreeView.ItemTemplate>
+                                                    <HierarchicalDataTemplate ItemsSource="{Binding Repositories}">
+                                                        <TextBlock Text="{Binding Activity}" />
+                                                        <HierarchicalDataTemplate.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <DockPanel>
+                                                                    <iconPacks:PackIconIonicons
+                                                                        Margin="3"
+                                                                        Foreground="ForestGreen"
+                                                                        Kind="GitBranchiOS" />
+                                                                    <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+                                                                </DockPanel>
+                                                            </DataTemplate>
+                                                        </HierarchicalDataTemplate.ItemTemplate>
+                                                    </HierarchicalDataTemplate>
+                                                </TreeView.ItemTemplate>
+                                            </TreeView>
+                                        </StackPanel>
+                                    </DockPanel>
+                                </Border>
+                            </Popup>
+                        </DockPanel>
+                    </ToggleButton>
+                </DockPanel>
+
+                <TextBlock
+                    Margin="5"
+                    VerticalAlignment="Center"
+                    Text="{Binding StatusText}" />
+            </DockPanel>
+        </Border>
+    </Grid>
+</mah:MetroWindow>

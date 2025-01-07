@@ -1,0 +1,22 @@
+﻿[
+  {
+    "Name": "Repo1",
+    "Path": "test1",
+    "Url": "test1"
+  },
+  {
+    "Name": "Repo2",
+    "Path": "test1",
+    "Url": "test1"
+  },
+  {
+    "Name": "Repo3",
+    "Path": "test1",
+    "Url": "test1"
+  },
+  {
+    "Name": "Repo4",
+    "Path": "test1",
+    "Url": "test1"
+  }
+]
